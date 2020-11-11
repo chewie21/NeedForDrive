@@ -9,7 +9,7 @@ import InstHover from '../../img/Instagram_hover.svg';
 import FbHover from '../../img/Facebook_hover.svg';
 import TgHover from '../../img/Telegram_hover.svg';
 
-import {IconImage} from "../IconImage/IconImage";
+import {IconImageHover} from "../IconImage/IconImageHover";
 import {TextLink} from "../Text/TextLink";
 import {Left, Middle, ModalMenuContainer, Right, RightMainPage, SocialContainer, TextContainer} from "./Menu.styled";
 
@@ -17,7 +17,7 @@ export const ModalMenu = (props) =>
     <ModalMenuContainer>
         <Left>
             <div onClick={() => props.toggle()}>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='32px 0 0 0'
@@ -29,7 +29,7 @@ export const ModalMenu = (props) =>
         <Middle>
             <TextContainer>
                 <TextLink
-                    text='Парковка'
+                    text='ПАРКОВКА'
                     weight='500'
                     margin='0 0 15px 0'
                     size='32px'
@@ -62,19 +62,19 @@ export const ModalMenu = (props) =>
                 />
             </TextContainer>
             <SocialContainer>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'
                     img={Tg}
                     imgHover={TgHover}/>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'
                     img={Fb}
                     imgHover={FbHover}/>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'

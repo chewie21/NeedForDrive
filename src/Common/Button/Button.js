@@ -23,6 +23,8 @@ export const Button = (props) => {
         &:active {
             background: ${props.clickColor};
         }
+        
+        ${props.style};
     `;
 
     return <Btn>{props.text}</Btn>

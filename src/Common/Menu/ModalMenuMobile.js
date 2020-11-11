@@ -9,7 +9,7 @@ import FbHover from "../../img/Facebook_hover.svg";
 import Inst from "../../img/Instagram_white.svg";
 import InstHover from "../../img/Instagram_hover.svg";
 
-import {IconImage} from "../IconImage/IconImage";
+import {IconImageHover} from "../IconImage/IconImageHover";
 import {TextLink} from "../Text/TextLink";
 import {Text} from "../Text/Text";
 import {MobileContainer, SocialContainer, TextContainer} from "./Menu.styled";
@@ -19,7 +19,7 @@ export const ModalMenuMobile = ({toggle}) =>
     <MobileContainer>
         <header>
             <div onClick={() => toggle()}>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 0 0 0'
@@ -64,19 +64,19 @@ export const ModalMenuMobile = ({toggle}) =>
                 />
             </TextContainer>
             <SocialContainer>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'
                     img={Tg}
                     imgHover={TgHover}/>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'
                     img={Fb}
                     imgHover={FbHover}/>
-                <IconImage
+                <IconImageHover
                     height='32px'
                     width='32px'
                     margin='0 24px 0 0'

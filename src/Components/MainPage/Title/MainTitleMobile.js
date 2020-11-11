@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 import {Text} from "../../../Common/Text/Text";
 import {Button} from "../../../Common/Button/Button";
-import {IconImage} from "../../../Common/IconImage/IconImage";
+import {IconImageHover} from "../../../Common/IconImage/IconImageHover";
 import Img from "../../../img/map_point.svg";
 import ImgHover from "../../../img/map_point_hover.svg";
 import BurgerImg from "../../../img/menu_btn_mobile.svg";
@@ -15,7 +15,7 @@ export const MainTitleMobile = ({toggle}) =>
         <MainTitleHeader>
             <FirstHeaderRow>
                 <div onClick={() => toggle()}>
-                    <IconImage
+                    <IconImageHover
                         height='32px'
                         width='32px'
                         margin='0 0 0 0'
@@ -30,7 +30,7 @@ export const MainTitleMobile = ({toggle}) =>
                       size='30px'/>
             </FirstHeaderRow>
             <SecondHeaderRow>
-                <IconImage
+                <IconImageHover
                     height='20px'
                     width='20px'
                     margin='0 8px 0 0'

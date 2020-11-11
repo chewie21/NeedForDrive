@@ -4,7 +4,7 @@ import React from "react";
 export const TextLink = (props) => {
     const Text = styled.a`
         cursor: pointer;
-        text-decoration: none;
+        text-decoration: none !important;
         line-height: 1;
         font-weight: ${props.weight};
         margin: ${props.margin};

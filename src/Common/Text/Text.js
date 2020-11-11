@@ -8,6 +8,7 @@ export const Text = (props) => {
         margin: ${props.margin};
         font-size: ${props.size};
         color: ${props.color};
+        ${props.style};
     `;
     return <Text>{props.text}</Text>
 };

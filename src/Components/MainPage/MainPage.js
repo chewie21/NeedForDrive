@@ -10,7 +10,7 @@ import {ModalMenuMobile} from "../../Common/Menu/ModalMenuMobile";
 import {useModalMenu} from "../../Hooks/useModalMenu";
 import {Container, ContainerMobile, MainMenuContainer, MainSliderContainer, MainTitleContainer} from "./MainPage.styled";
 
-export const MainPage = () => {
+export const MainPage = ({userLocation}) => {
 
     const modalMenu = useModalMenu();
 
@@ -22,7 +22,7 @@ export const MainPage = () => {
                     <Menu {...modalMenu}/>
                 </MainMenuContainer>
                 <MainTitleContainer>
-                    <MainTitle/>
+                    <MainTitle userLocation={userLocation}/>
                 </MainTitleContainer>
                 <MainSliderContainer>
                     <MainSlider/>
