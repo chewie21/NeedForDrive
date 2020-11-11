@@ -31,14 +31,15 @@ export const SelectPoint = ({changeCity, setOrder}) => {
     return (
         <React.Fragment>
             <PointRow>
-                <Text
-                    weight='300'
+                <Text weight='300'
                     size='14px'
                     color='#121212'
                     margin='0 16px 0 0'
-                    text='Пункт выдачи'
-                    style='width: 84px; text-align: end'
-                />
+                    width='84px'
+                    textAlign='end'
+                >
+                    Пункт выдачи
+                </Text>
                 <Select
                     value={changeCity !== thisChangeCity ? null : value ? value : null}
                     styles={customStyles}

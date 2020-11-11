@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 
 export const Style = createGlobalStyle`
     .carousel-inner {
@@ -26,3 +26,22 @@ export const Style = createGlobalStyle`
         background-color: #0EC261;
     } 
 `;
+
+export const Slide = styled.div`
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: url(${props => props.img}) no-repeat center;
+        background-size: cover;
+    `;
+
+export const SlideContent = styled.div`
+        padding: 20%;
+        @media(max-width: 1024px) {
+            padding: 10%; 
+            p:first-child {
+                font-size: 30px !important;
+            }
+        }    
+    `;

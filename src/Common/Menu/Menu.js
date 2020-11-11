@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import BurgerImg from '../../img/menu_btn.svg';
 import BurgerImgHover from '../../img/menu_btn_hover.svg';
@@ -9,7 +9,7 @@ import {MenuContainer, MenuLangContainer} from "./Menu.styled";
 
 export const Menu = ({toggle}) =>
     <MenuContainer>
-        <div onClick={() => toggle()}>
+        <div onClick={toggle}>
             <IconImageHover
                 height='32px'
                 width='32px'
@@ -24,8 +24,9 @@ export const Menu = ({toggle}) =>
                 margin='0'
                 size='13px'
                 color='#0EC261'
-                text='Eng'
-            />
+            >
+                Eng
+            </Text>
         </MenuLangContainer>
     </MenuContainer>
 ;

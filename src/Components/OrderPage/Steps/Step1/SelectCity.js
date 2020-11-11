@@ -40,9 +40,11 @@ export const SelectCity = ({setChangeCity, userLocation, setOrder}) => {
                 size='14px'
                 color='#121212'
                 margin='0 16px 0 0'
-                text='Город'
-                style='width: 84px; text-align: end'
-            />
+                width='84px'
+                textAlign='end'
+            >
+                Город
+            </Text>
             <Select
                 styles={customStyles}
                 options={options}

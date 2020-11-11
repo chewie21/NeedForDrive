@@ -14,11 +14,10 @@ import {TextLink} from "../Text/TextLink";
 import {Text} from "../Text/Text";
 import {MobileContainer, SocialContainer, TextContainer} from "./Menu.styled";
 
-
 export const ModalMenuMobile = ({toggle}) =>
     <MobileContainer>
         <header>
-            <div onClick={() => toggle()}>
+            <div onClick={toggle}>
                 <IconImageHover
                     height='32px'
                     width='32px'
@@ -31,37 +30,41 @@ export const ModalMenuMobile = ({toggle}) =>
         <main>
             <TextContainer>
                 <TextLink
-                    text='ПАРКОВКА'
                     weight='500'
                     margin='0 0 15px 0'
                     size='22px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >
+                    ПАРКОВКА
+                </TextLink>
                 <TextLink
-                    text='СТРАХОВКА'
                     weight='500'
                     margin='0 0 15px 0'
                     size='22px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >
+                    СТРАХОВКА
+                </TextLink>
                 <TextLink
-                    text='БЕНЗИН'
                     weight='500'
                     margin='0 0 15px 0'
                     size='22px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >
+                    БЕНЗИН
+                </TextLink>
                 <TextLink
-                    text='ОБСЛУЖИВАНИЕ'
                     weight='500'
                     margin='0 0 15px 0'
                     size='22px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >
+                    ОБСЛУЖИВАНИЕ
+                </TextLink>
             </TextContainer>
             <SocialContainer>
                 <IconImageHover
@@ -86,12 +89,13 @@ export const ModalMenuMobile = ({toggle}) =>
         </main>
         <footer>
             <Text
-                text='Eng'
                 weight='bold'
                 margin='0'
                 size='13px'
                 color='#0EC261'
-            />
+            >
+                Eng
+            </Text>
         </footer>
     </MobileContainer>
 ;

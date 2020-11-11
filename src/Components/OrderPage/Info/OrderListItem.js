@@ -11,8 +11,9 @@ export const OrderListItem = ({order, item, index}) =>
                 margin='0'
                 size='14px'
                 color='#121212'
-                text={item}
-            />
+            >
+                {item}
+            </Text>
         </LeftSection>
         <MiddleSection/>
         <RightSection>
@@ -21,8 +22,8 @@ export const OrderListItem = ({order, item, index}) =>
                 margin='0'
                 size='14px'
                 color='#999999'
-                text={order[item]}
-            />
+            >
+                {order[item]}
+            </Text>
         </RightSection>
     </Row>
-
