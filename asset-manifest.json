@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.cc572edf.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.cc572edf.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.2784c073.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.2784c073.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/NeedForDrive/static/css/2.20aa2d7b.chunk.css",
@@ -25,8 +25,8 @@
     "static/media/menu_btn.33a03786.svg": "/NeedForDrive/static/media/menu_btn.33a03786.svg",
     "static/media/menu_btn_hover.68fcd2c2.svg": "/NeedForDrive/static/media/menu_btn_hover.68fcd2c2.svg",
     "static/media/menu_btn_mobile.3491ae9b.svg": "/NeedForDrive/static/media/menu_btn_mobile.3491ae9b.svg",
-    "static/media/order_arrow.b7686d4a.svg": "/NeedForDrive/static/media/order_arrow.b7686d4a.svg",
-    "static/media/order_arrow_active.68e33831.svg": "/NeedForDrive/static/media/order_arrow_active.68e33831.svg",
+    "static/media/order_arrow.429b5a6c.svg": "/NeedForDrive/static/media/order_arrow.429b5a6c.svg",
+    "static/media/order_arrow_active.1e09a2d1.svg": "/NeedForDrive/static/media/order_arrow_active.1e09a2d1.svg",
     "static/media/slider1.81af2a05.png": "/NeedForDrive/static/media/slider1.81af2a05.png",
     "static/media/slider2.cffabb09.png": "/NeedForDrive/static/media/slider2.cffabb09.png",
     "static/media/slider3.720360f1.png": "/NeedForDrive/static/media/slider3.720360f1.png",
@@ -37,6 +37,6 @@
     "static/css/2.20aa2d7b.chunk.css",
     "static/js/2.60fa650c.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.cc572edf.chunk.js"
+    "static/js/main.2784c073.chunk.js"
   ]
 }
