@@ -6,10 +6,10 @@ import {Text} from "../../../Common/Text/Text";
 import {Button} from "../../../Common/Button/Button";
 import {MainContainer, MainTitleContainer} from "./Title.styled";
 
-export const MainTitle = () => {
+export const MainTitle = ({userLocation}) => {
     return (
         <MainTitleContainer>
-            <Header/>
+            <Header userLocation={userLocation}/>
             <main>
                 <MainContainer>
                     <Text color='#121212' text='Каршеринг' size='70px' margin='0'  weight='bold'/>
