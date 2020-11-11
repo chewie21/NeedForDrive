@@ -48,7 +48,7 @@ export const OrderPage = ({userLocation}) => {
                         <LinkContainer className='container'>
                             {navs.map((nav) => (
                                 !nav.lock ?
-                                <Link to={nav.to}>
+                                <Link to={nav.to} key={nav.id}>
                                     <NavItem
                                         key={nav.id}
                                         text={nav.text}

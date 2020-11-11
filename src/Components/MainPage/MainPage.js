@@ -30,7 +30,7 @@ export const MainPage = ({userLocation}) => {
             </Container>
             <ContainerMobile>
                 <MainTitleMobile {...modalMenu}/>
-                { modalMenu.active ? <ModalMenuMobile {...modalMenu}/> : ''}
+                { modalMenu.active ? <ModalMenuMobile {...modalMenu} userLocation={userLocation}/> : ''}
             </ContainerMobile>
         </React.Fragment>
     );

@@ -1,17 +1,19 @@
 import React from "react";
 
-import {Text} from "../Text/Text";
-
 import Img from '../../img/map_point.svg';
+
+import {Text} from "../Text/Text";
 import {IconImage} from "../IconImage/IconImage";
 
 export const Header = ({userLocation}) => (
     <header className='d-flex justify-content-between'>
         <Text color='#0EC261'
-              text='Need for drive'
               size='30px'
               margin='0'
-              weight='bold'/>
+              weight='bold'
+        >
+            Need for drive
+        </Text>
         {userLocation &&
         <div className='d-flex align-items-center'>
             <IconImage
@@ -21,10 +23,12 @@ export const Header = ({userLocation}) => (
                 img={Img}
             />
             <Text color='#999999'
-                  text={userLocation.name}
                   margin='0'
                   size='14px'
-                  weight='normal'/>
+                  weight='normal'
+            >
+                {userLocation.name}
+            </Text>
         </div>}
     </header>
 );

@@ -10,8 +10,9 @@ export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue})
             size='14px'
             color='#121212'
             margin='0 0 16px 0'
-            text='Выбрать на карте:'
-        />
+        >
+            Выбрать на карте:
+        </Text>
         <YMaps>
             <Map
                 modules={['geocode']}
