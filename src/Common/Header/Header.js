@@ -6,13 +6,15 @@ import { IconImage } from "../IconImage/IconImage";
 import Img from '../../img/map_point.svg';
 import ImgHover from '../../img/map_point_hover.svg'
 
-export const Header = () => (
+export const Header = () =>
     <header className='d-flex justify-content-between'>
         <Text color='#0EC261'
-              text='Need for drive'
               size='30px'
               margin='0'
-              weight='bold'/>
+              weight='bold'
+        >
+            Need for drive
+        </Text>
         <div className='d-flex align-items-center'>
             <IconImage
                 height='20px'
@@ -22,12 +24,13 @@ export const Header = () => (
                 imgHover={ImgHover}
             />
             <Text color='#999999'
-                  text='Ульяновск'
                   margin='0'
                   size='14px'
-                  weight='normal'/>
+                  weight='normal'>
+                Ульяновск
+            </Text>
         </div>
     </header>
-);
+
 
 

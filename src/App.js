@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Route, Switch, Redirect, withRouter, BrowserRouter} from "react-router-dom";
 
 import { MainPage } from "./Components/MainPage/MainPage";
-import {OrderPage} from "./Components/OrderPage/OrderPage";
+
 
 class App extends Component {
   render() {
@@ -10,7 +10,6 @@ class App extends Component {
     return (
         <BrowserRouter>
           <Switch>
-            <Route history={history} path='/order' component={ OrderPage }/>
             <Route history={history} path='/main' component={ MainPage }/>
             <Redirect from='/' to='/main'/>
           </Switch>

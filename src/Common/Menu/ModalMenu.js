@@ -16,7 +16,7 @@ import {Left, Middle, ModalMenuContainer, Right, RightMainPage, SocialContainer,
 export const ModalMenu = (props) =>
     <ModalMenuContainer>
         <Left>
-            <div onClick={() => props.toggle()}>
+            <div onClick={props.toggle}>
                 <IconImage
                     height='32px'
                     width='32px'
@@ -29,37 +29,33 @@ export const ModalMenu = (props) =>
         <Middle>
             <TextContainer>
                 <TextLink
-                    text='Парковка'
                     weight='500'
                     margin='0 0 15px 0'
                     size='32px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >ПАРКОВКА</TextLink>
                 <TextLink
-                    text='СТРАХОВКА'
                     weight='500'
                     margin='0 0 15px 0'
                     size='32px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >СТРАХОВКА</TextLink>
                 <TextLink
-                    text='БЕНЗИН'
                     weight='500'
                     margin='0 0 15px 0'
                     size='32px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >БЕНЗИН</TextLink>
                 <TextLink
-                    text='ОБСЛУЖИВАНИЕ'
                     weight='500'
                     margin='0 0 15px 0'
                     size='32px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
-                />
+                >ОБСЛУЖИВАНИЕ</TextLink>
             </TextContainer>
             <SocialContainer>
                 <IconImage
