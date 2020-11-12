@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
@@ -7,6 +7,7 @@ import {OrderPage} from "./Components/OrderPage/OrderPage";
 const App = () => {
 
     const [userLocation, setUserLocation] = useState(null);
+    const [confirmUserLocation, setConfirm] = useState(true);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -18,6 +19,7 @@ const App = () => {
                     .then(res => res.json())
                     .then(result => {
                         setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
+                        setConfirm(false);
                     }, error => console.error(error));
             }
         );
@@ -26,7 +28,12 @@ const App = () => {
     return (
         <Switch>
             <Route path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
-            <Route path='/main' render={() => <MainPage userLocation={userLocation}/>}/>
+            <Route path='/main' render={() => <MainPage userLocation={userLocation}
+                                                        setUserLocation={setUserLocation}
+                                                        confirmUserLocation={confirmUserLocation}
+                                                        setConfirm={setConfirm}
+                                                />}
+            />
             <Redirect from='/' to='/main'/>
         </Switch>
     );

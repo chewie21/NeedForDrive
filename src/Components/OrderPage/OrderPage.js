@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch} from "react-router-dom";
 
 import {Menu} from "../../Common/Menu/Menu";
 import {Header} from "../../Common/Header/Header";
