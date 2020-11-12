@@ -8,7 +8,7 @@ import Select from "react-select";
 
 export const SelectPoint = ({changeCity, setOrder}) => {
 
-    const points = useGetRequest(`http://api-factory.simbirsoft1.com/api/db/point`);
+    const points = useGetRequest(`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point`);
 
     const [pointsOfCity, setPointsOfCity] = useState(null);
     const [center, setCenter] = useState(null);

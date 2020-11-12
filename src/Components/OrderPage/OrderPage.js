@@ -27,7 +27,7 @@ export const OrderPage = ({userLocation}) => {
     const [order, setOrder] = useState(null);
 
     const [navs, setNavs] = useState([
-        {id: 1, to: '/step1', text: 'Местоположение', active: true, lock: false, img: false},
+        {id: 1, to: '/order/step1', text: 'Местоположение', active: true, lock: false, img: false},
         {id: 2, to: '/step2', text: 'Модель', active: false, lock: true, img: true},
         {id: 3, to: '/step3', text: 'Дополнительно', active: false, lock: true, img: true},
         {id: 4, to: '/step4', text: 'Итого', active: false, lock: true, img: false}
@@ -43,7 +43,6 @@ export const OrderPage = ({userLocation}) => {
                 <HeaderContainer className='container'>
                     <Header userLocation={userLocation}/>
                 </HeaderContainer>
-                <Router>
                     <NavContainer className='container-fluid'>
                         <LinkContainer className='container'>
                             {navs.map((nav) => (
@@ -69,21 +68,18 @@ export const OrderPage = ({userLocation}) => {
                         </LinkContainer>
                     </NavContainer>
                     <MainContainer className='container'>
-                        <Switch>
-                            <Redirect from='/order' to='/step1'/>
-                            <StepContainer>
-                                <Route path='/step1'>
-                                    <Step1 userLocation={userLocation} setOrder={setOrder} setNavs={setNavs}/>
-                                </Route>
-                                <Route path='/step2'>
-                                </Route>
-                            </StepContainer>
-                        </Switch>
+                        <StepContainer>
+                            <Switch>
+                                <Route path='/order/step1'
+                                       render={() => <Step1 userLocation={userLocation} setOrder={setOrder} setNavs={setNavs}/>}
+                                />
+                                <Redirect from='/order' to='/order/step1'/>
+                            </Switch>
+                        </StepContainer>
                         {order && <InfoContainer>
                             <OrderInfo order={order}/>
                         </InfoContainer>}
                     </MainContainer>
-                </Router>
             </OrderContent>
         </Container>
     );
