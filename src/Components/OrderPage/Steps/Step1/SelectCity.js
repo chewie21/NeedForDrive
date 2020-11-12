@@ -6,7 +6,7 @@ import Select from "react-select";
 
 export const SelectCity = ({setChangeCity, userLocation, setOrder}) => {
 
-    const cities = useGetRequest(`http://api-factory.simbirsoft1.com/api/db/city`);
+    const cities = useGetRequest(`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/city`);
 
     const [options, setOptions] = useState(null);
     const [defaultCity, setDefaultCity] = useState(null);

@@ -4,9 +4,7 @@ import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-d
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
 
-const App = (props) => {
-
-    const {history} = props.history;
+const App = () => {
 
     const [userLocation, setUserLocation] = useState(null);
 
@@ -26,13 +24,11 @@ const App = (props) => {
     }, [])
 
     return (
-        <BrowserRouter>
-          <Switch>
-            <Route history={history} path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
-            <Route history={history} path='/main' render={() => <MainPage userLocation={userLocation}/>}/>
+        <Switch>
+            <Route path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
+            <Route path='/main' render={() => <MainPage userLocation={userLocation}/>}/>
             <Redirect from='/' to='/main'/>
-          </Switch>
-        </BrowserRouter>
+        </Switch>
     );
 
 }
