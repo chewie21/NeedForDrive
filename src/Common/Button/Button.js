@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React from "react";
 
 export const Button = styled.button`
     color: #FFFFFF;
@@ -22,5 +21,6 @@ export const Button = styled.button`
         background: ${props => props.clickColor};
     }
     
-    width: ${props => props.width}
+    width: ${props => props.width};
+    margin: ${props => props.margin};
 `;
