@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 
+
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
+
 
 const App = () => {
 
@@ -26,6 +28,7 @@ const App = () => {
     }, [])
 
     return (
+
         <Switch>
             <Route path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
             <Route path='/main' render={() => <MainPage userLocation={userLocation}

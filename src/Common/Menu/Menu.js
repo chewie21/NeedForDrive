@@ -11,6 +11,7 @@ export const Menu = ({toggle}) =>
     <MenuContainer>
         <div onClick={toggle}>
             <IconImageHover
+
                 height='32px'
                 width='32px'
                 margin='32px 0 0 0'
