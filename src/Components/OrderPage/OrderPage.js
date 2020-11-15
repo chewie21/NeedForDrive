@@ -24,7 +24,14 @@ import {
     StepContainer
 } from "./OrderPage.styled";
 import {useGetRequest} from "../../Hooks/useGetRequest";
-import {carsUrl, categoriesUrl, citiesUrl, pointsUrl} from "../../Environments/ApiFactoryUrls";
+import {
+    carsUrl, carsUrlPages,
+    categoriesUrl, categoriesUrlPages,
+    citiesUrl,
+    citiesUrlPages,
+    pointsUrl,
+    pointsUrlPages
+} from "../../Environments/ApiFactoryUrls";
 import {UserLocation} from "../../Common/UserLocation/UserLocation";
 
 export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
@@ -34,10 +41,10 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
 
     const [order, setOrder] = useState(null);
 
-    const cities = useGetRequest(citiesUrl);
-    const points = useGetRequest(pointsUrl);
-    const cars = useGetRequest(carsUrl);
-    const categories = useGetRequest(categoriesUrl);
+    const cities = useGetRequest(citiesUrlPages);
+    const points = useGetRequest(pointsUrlPages);
+    const cars = useGetRequest(carsUrlPages);
+    const categories = useGetRequest(categoriesUrlPages);
 
     return (
         <Container>
