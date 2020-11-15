@@ -35,6 +35,7 @@ export const ModalMenuMobile = ({toggle}) =>
                     size='22px'
                     color='#FFFFFF'
                     colorHover='#0EC261'
+
                 >
                     ПАРКОВКА
                 </TextLink>

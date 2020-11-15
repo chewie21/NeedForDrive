@@ -31,3 +31,5 @@ export const MainTitle = ({userLocation}) =>
             <Text color='#121212' size='13px' margin='0' weight='normal'>8 (495) 234-22-44</Text>
         </footer>
     </MainTitleContainer>
+
+
