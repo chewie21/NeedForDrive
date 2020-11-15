@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getRequest} from "../Functions/RequestsToFactory";
+import {getRequest} from "../Functions/RequestsToApiFactory";
 
 export const useGetRequest = (url) => {
 

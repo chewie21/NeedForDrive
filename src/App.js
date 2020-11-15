@@ -1,43 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
+import {useUserLocation} from "./Hooks/useUserLocation";
 
 const App = () => {
 
-    const [userLocation, setUserLocation] = useState(null);
-    const [confirmUserLocation, setConfirm] = useState(true);
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const str =  position.coords.longitude + ', ' + position.coords.latitude;
-                const key = `941d25b3-c4cd-4c8d-a363-67789eb0ff5e`;
-                const api =`https://geocode-maps.yandex.ru/1.x/?apikey=${key}&format=json&geocode=${str}&kind=locality&lang=ru_RU`;
-                fetch(api)
-                    .then(res => res.json())
-                    .then(result => {
-                        setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
-                        setConfirm(false);
-                    }, error => console.error(error));
-            }
-        );
-    }, [])
+    const userLocation = useUserLocation();
 
     return (
         <Switch>
-            <Route path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
-            <Route path='/main' render={() => <MainPage userLocation={userLocation}
-                                                        setUserLocation={setUserLocation}
-                                                        confirmUserLocation={confirmUserLocation}
-                                                        setConfirm={setConfirm}
-                                                />}
-            />
+            <Route path='/order' render={() => <OrderPage {...userLocation}/>}/>
+            <Route path='/main' render={() => <MainPage {...userLocation}/>}/>
             <Redirect from='/' to='/main'/>
         </Switch>
     );
-
 }
 
 export default withRouter(App);

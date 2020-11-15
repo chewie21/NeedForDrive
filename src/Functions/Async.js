@@ -1,13 +1,13 @@
+import {yandexGetMapsInfo} from "../Environments/YMapsUrls";
+
 async function getPoints(changeCityPoints) {
     try {
         let newArr = [];
         for (const item of changeCityPoints) {
 
             const str = item.cityId.name + ` ` + item.address;
-            const key = `941d25b3-c4cd-4c8d-a363-67789eb0ff5e`;
-            const api =`https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${str}&apikey=${key}`;
 
-            let response = await fetch(api);
+            let response = await fetch(yandexGetMapsInfo(str));
             let coordinate = await response.json().then(result => result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ', 2).reverse());
 
             newArr.push(coordinate);
@@ -19,23 +19,27 @@ async function getPoints(changeCityPoints) {
     }
 }
 
-async function getCenter(changeCityPoints) {
+async function getCenter(center) {
     try {
-        const key = `941d25b3-c4cd-4c8d-a363-67789eb0ff5e`;
-        const api =`https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${changeCityPoints[0].cityId.name}&apikey=${key}`;
-
-        let response = await fetch(api);
+        let response = await fetch(yandexGetMapsInfo(center));
         return await response.json().then(result => result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ', 2).reverse());
     } catch (error) {
         console.log(error);
     }
 }
 
-export async function setPoints(points, changeCity, setPointsOfCity, setCenter) {
-    const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.name);
+export async function setPoints(points, changeCity, setPointsOfCity, setCenter, order, setValue) {
+    const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.city);
 
     const pointsCoordinates = await getPoints(pointsOfThisCity);
-    const centerOfMap = await getCenter(pointsOfThisCity);
+
+    let centerOfMap;
+
+    if(order) {
+        centerOfMap = await getCenter(`${order.point.city} + ${order.point.label}`);
+    } else {
+        if(pointsOfThisCity.length) centerOfMap = await getCenter(pointsOfThisCity[0].cityId.name);
+    }
 
     const arr = []
     pointsOfThisCity.forEach((item, index) => {
@@ -45,6 +49,7 @@ export async function setPoints(points, changeCity, setPointsOfCity, setCenter) 
             city: item.cityId.name,
             coordinates: pointsCoordinates[index]
         }
+        if(order && order.point.label === item.address) setValue(obj);
         arr.push(obj);
     });
 

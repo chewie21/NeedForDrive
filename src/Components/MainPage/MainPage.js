@@ -17,7 +17,7 @@ import {
 } from "./MainPage.styled";
 import {UserLocation} from "../../Common/UserLocation/UserLocation";
 
-export const MainPage = ({userLocation, setUserLocation, confirmUserLocation, setConfirm}) => {
+export const MainPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
 
     const modalMenu = useModalMenu();
 
@@ -25,10 +25,8 @@ export const MainPage = ({userLocation, setUserLocation, confirmUserLocation, se
         <React.Fragment>
             <Container>
                 { modalMenu.active && <ModalMenu mainPage={true} { ...modalMenu }/>}
-                { userLocation && !confirmUserLocation && <UserLocation userLocation={userLocation}
-                                                                        setUserLocation={setUserLocation}
-                                                                        setConfirm={setConfirm}
-                                                            />}
+                { userLocation && !confirmedUserLocation &&
+                    <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
                 <MainMenuContainer>
                     <Menu {...modalMenu}/>
                 </MainMenuContainer>
@@ -42,7 +40,8 @@ export const MainPage = ({userLocation, setUserLocation, confirmUserLocation, se
             <ContainerMobile>
                 <MainTitleMobile {...modalMenu}/>
                 { modalMenu.active && <ModalMenuMobile {...modalMenu} userLocation={userLocation}/> }
-                { userLocation && <UserLocation userLocation={userLocation} setUserLocation={setUserLocation}/> }
+                { userLocation && !confirmedUserLocation &&
+                <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
             </ContainerMobile>
         </React.Fragment>
     );
