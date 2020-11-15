@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Card, CardImg} from "./Step2.styled";
 import {Text} from "../../../../Common/Text/Text";
 import DefaultImg from '../../../../img/defaulImg.png';
+import {mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
 
 export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) => {
 
@@ -59,7 +60,7 @@ export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) 
                     src={
                         item.thumbnail.path ?
                         item.thumbnail.path.charAt(0) === '/' ?
-                        `http://api-factory.simbirsoft1.com${item.thumbnail.path}` :
+                        `${mainUrlPages}${item.thumbnail.path}` :
                         item.thumbnail.path :
                         DefaultImg
                     }

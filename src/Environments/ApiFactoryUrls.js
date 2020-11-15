@@ -1,3 +1,9 @@
+//Основной
+//dev
+export const mainUrl = `http://api-factory.simbirsoft1.com`;
+//prod
+export const mainUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com`
+
 //Города
 //dev
 export const citiesUrl = `http://api-factory.simbirsoft1.com/api/db/city`;
