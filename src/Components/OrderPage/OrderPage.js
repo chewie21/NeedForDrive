@@ -72,6 +72,7 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                                    render={() =>
                                        <Step1
                                            userLocation={userLocation}
+                                           confirmedUserLocation={confirmedUserLocation}
                                            order={order}
                                            setOrder={setOrder}
                                            {...nav}

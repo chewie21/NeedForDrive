@@ -5,7 +5,7 @@ import Select from "react-select";
 
 export const SelectCity = ({
        setChangeCity,
-       userLocation,
+       userLocation, confirmedUserLocation,
        setOrder, order,
        response, loading, error,
        removeUnlockSteps
@@ -16,7 +16,7 @@ export const SelectCity = ({
     const [value, setValue] = useState(null);
 
     useEffect(() => {
-        if (response && !options) {
+        if (response && !options && confirmedUserLocation) {
             let arr = [];
             response.data.forEach(item => {
                 let obj = {

@@ -2,14 +2,13 @@ import React, {useEffect, useState} from "react";
 import {Card, CardImg} from "./Step2.styled";
 import {Text} from "../../../../Common/Text/Text";
 import DefaultImg from '../../../../img/defaulImg.png';
-import {mainUrl, mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
+import {mainUrl} from "../../../../Environments/ApiFactoryUrls";
 
 export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) => {
 
     const [options, setOptions] = useState(null);
     const [carFilter, setCarFilter] = useState(null);
     const [activeCard, setActiveCard] = useState(null);
-
 
     useEffect(() => {
         if (order.car && activeCard !== order.car.id) setActiveCard(order.car.id);
