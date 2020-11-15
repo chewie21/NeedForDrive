@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const TextLink = styled.a`
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none !important;
     line-height: 1;
     font-weight: ${props => props.weight};
     margin: ${props => props.margin};
@@ -15,5 +15,4 @@ export const TextLink = styled.a`
         text-decoration: none
     }
 `;
-
 

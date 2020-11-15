@@ -1,10 +1,12 @@
 import React from "react";
 
-import { Text } from "../Text/Text";
-import { IconImage } from "../IconImage/IconImage";
-
 import Img from '../../img/map_point.svg';
-import ImgHover from '../../img/map_point_hover.svg'
+
+
+import {Text} from "../Text/Text";
+import {IconImage} from "../IconImage/IconImage";
+
+export const Header = ({userLocation}) => (
 
 export const Header = () =>
     <header className='d-flex justify-content-between'>
@@ -15,21 +17,30 @@ export const Header = () =>
         >
             Need for drive
         </Text>
+        {userLocation &&
+
         <div className='d-flex align-items-center'>
             <IconImage
                 height='20px'
                 width='20px'
                 margin='0 8px 0 0'
                 img={Img}
-                imgHover={ImgHover}
             />
             <Text color='#999999'
                   margin='0'
                   size='14px'
+
+                  weight='normal'
+            >
+                {userLocation.name}
+            </Text>
+        </div>}
+
                   weight='normal'>
                 Ульяновск
             </Text>
         </div>
+
     </header>
 
 

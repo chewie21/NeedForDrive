@@ -10,6 +10,7 @@ import { Slider } from "./Slide";
 import {Style} from "./Slider.styled";
 
 export const MainSlider = () =>
+
     <React.Fragment>
         <Style/>
         <Carousel className="h-100">
@@ -51,4 +52,3 @@ export const MainSlider = () =>
             </Carousel.Item>
         </Carousel>
     </React.Fragment>
-;

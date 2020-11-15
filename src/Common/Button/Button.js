@@ -20,7 +20,8 @@ export const Button = styled.button`
     &:active {
         background: ${props => props.clickColor};
     }
+
+    width: ${props => props.width};
+    margin: ${props => props.margin};
 `;
-
-
 

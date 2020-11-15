@@ -3,14 +3,15 @@ import React from 'react';
 import BurgerImg from '../../img/menu_btn.svg';
 import BurgerImgHover from '../../img/menu_btn_hover.svg';
 
-import {IconImage} from "../IconImage/IconImage";
+import {IconImageHover} from "../IconImage/IconImageHover";
 import {Text} from "../Text/Text";
 import {MenuContainer, MenuLangContainer} from "./Menu.styled";
 
 export const Menu = ({toggle}) =>
     <MenuContainer>
         <div onClick={toggle}>
-            <IconImage
+            <IconImageHover
+
                 height='32px'
                 width='32px'
                 margin='32px 0 0 0'

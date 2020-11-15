@@ -6,10 +6,10 @@ import {Text} from "../../../Common/Text/Text";
 import {Button} from "../../../Common/Button/Button";
 import {MainContainer, MainTitleContainer} from "./Title.styled";
 
-export const MainTitle = () =>
+export const MainTitle = ({userLocation}) =>
 
     <MainTitleContainer>
-        <Header/>
+        <Header userLocation={userLocation}/>
         <main>
             <MainContainer>
                 <Text color='#121212' size='70px' margin='0'  weight='bold'>Каршеринг</Text>
@@ -17,8 +17,7 @@ export const MainTitle = () =>
                 <Text color='#999999' size='26px' margin='0' weight='300'>Поминутная аренда авто твоего города</Text>
             </MainContainer>
             <Link to='/order'>
-                <Button
-                        size='18px'
+                <Button size='18px'
                         color='linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%)'
                         hoverColor='linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%)'
                         clickColor='linear-gradient(90deg, #076432 2.61%, #013C27 112.6%)'

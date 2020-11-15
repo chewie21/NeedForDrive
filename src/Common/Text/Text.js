@@ -6,4 +6,6 @@ export const Text = styled.p`
     margin: ${props => props.margin};
     font-size: ${props => props.size};
     color: ${props => props.color};
+    width: ${props => props.width};
+    text-align: ${props => props.textAlign}
 `;
