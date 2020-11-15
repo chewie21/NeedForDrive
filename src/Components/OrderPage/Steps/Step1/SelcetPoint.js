@@ -19,6 +19,7 @@ export const SelectPoint = ({
     const [value, setValue] = useState(null);
 
     useEffect(() => {
+        if (!changeCity && thisChangeCity) setThisChangeCity(changeCity);
         if(response && changeCity) {
             if(changeCity !== thisChangeCity || (order && value === null))
                 setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue)
