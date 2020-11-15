@@ -3,7 +3,7 @@ import {SelectCity} from "./SelectCity";
 import {SelectPoint} from "./SelcetPoint";
 
 export const Step1 = ({
-      userLocation,
+      userLocation, confirmedUserLocation,
       order, setOrder,
       removeUnlockSteps, changeUnlockSteps,
       cities, points
@@ -16,6 +16,7 @@ export const Step1 = ({
             <SelectCity
                 setChangeCity={setChangeCity}
                 userLocation={userLocation}
+                confirmedUserLocation={confirmedUserLocation}
                 setOrder={setOrder}
                 order={order}
                 removeUnlockSteps={removeUnlockSteps}

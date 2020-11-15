@@ -4,7 +4,7 @@ import {yandexGetUserLocation} from "../Environments/YMapsUrls";
 export const useUserLocation = () => {
 
     const [userLocation, setUserLocation] = useState(null);
-    const [confirmedUserLocation, setConfirmed] = useState(true);
+    const [confirmedUserLocation, setConfirmed] = useState(false);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -16,6 +16,8 @@ export const useUserLocation = () => {
                         setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
                         setConfirmed(false);
                     }, error => console.error(error));
+            }, function () {
+                setConfirmed(true);
             }
         );
     }, []);
