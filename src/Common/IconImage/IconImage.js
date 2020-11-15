@@ -5,4 +5,5 @@ export const IconImage = styled.div`
     width: ${props => props.width};
     margin: ${props => props.margin};
     background: url(${props => props.img}) no-repeat center;
+    float: ${props => props.float};
 `;

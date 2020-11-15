@@ -1,41 +1,49 @@
 import React, {useState} from 'react';
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 import {Menu} from "../../Common/Menu/Menu";
 import {Header} from "../../Common/Header/Header";
-import {useModalMenu} from "../../Hooks/useModalMenu";
 import {ModalMenu} from "../../Common/Menu/ModalMenu";
+
+import {useNav} from "../../Hooks/useNav";
+import {useModalMenu} from "../../Hooks/useModalMenu";
+
+import {OrderInfo} from "./Order/OrderInfo";
+import {Step1} from "./Steps/Step1/Step1";
+import {Step2} from "./Steps/Step2/Step2";
+import {Nav} from "./Nav/Nav";
+
 import {
     Container,
     HeaderContainer,
-    InfoContainer,
-    LinkContainer,
+    InfoContainer, LinkContainer,
     MainContainer,
     NavContainer,
     OrderContent,
     OrderMenu,
     StepContainer
 } from "./OrderPage.styled";
-import {OrderInfo} from "./Info/OrderInfo";
-import {NavItem} from "./Nav/NavItem";
-import {Step1} from "./Steps/Step1/Step1";
+import {useGetRequest} from "../../Hooks/useGetRequest";
+import {carsUrl, categoriesUrl, citiesUrl, pointsUrl} from "../../Environments/ApiFactoryUrls";
+import {UserLocation} from "../../Common/UserLocation/UserLocation";
 
-export const OrderPage = ({userLocation}) => {
+export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
 
     const modalMenu = useModalMenu();
+    const nav = useNav();
 
     const [order, setOrder] = useState(null);
 
-    const [navs, setNavs] = useState([
-        {id: 1, to: '/order/step1', text: 'Местоположение', active: true, lock: false, img: false},
-        {id: 2, to: '/step2', text: 'Модель', active: false, lock: true, img: true},
-        {id: 3, to: '/step3', text: 'Дополнительно', active: false, lock: true, img: true},
-        {id: 4, to: '/step4', text: 'Итого', active: false, lock: true, img: false}
-    ]);
+    const cities = useGetRequest(citiesUrl);
+    const points = useGetRequest(pointsUrl);
+    const cars = useGetRequest(carsUrl);
+    const categories = useGetRequest(categoriesUrl);
 
     return (
         <Container>
             { modalMenu.active && <ModalMenu mainPage={false} { ...modalMenu}/> }
+            { userLocation && !confirmedUserLocation &&
+            <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
             <OrderMenu>
                 <Menu {...modalMenu}/>
             </OrderMenu>
@@ -43,43 +51,45 @@ export const OrderPage = ({userLocation}) => {
                 <HeaderContainer className='container'>
                     <Header userLocation={userLocation}/>
                 </HeaderContainer>
-                    <NavContainer className='container-fluid'>
-                        <LinkContainer className='container'>
-                            {navs.map((nav) => (
-                                !nav.lock ?
-                                <Link to={nav.to} key={nav.id}>
-                                    <NavItem
-                                        key={nav.id}
-                                        text={nav.text}
-                                        active={nav.active}
-                                        lock={nav.lock}
-                                        img={nav.img}
-                                    />
-                                </Link> :
-                                    <NavItem
-                                        to={nav.to}
-                                        key={nav.id}
-                                        text={nav.text}
-                                        active={nav.active}
-                                        lock={nav.lock}
-                                        img={nav.img}
-                                    />
-                            ))}
-                        </LinkContainer>
-                    </NavContainer>
-                    <MainContainer className='container'>
-                        <StepContainer>
-                            <Switch>
-                                <Route path='/order/step1'
-                                       render={() => <Step1 userLocation={userLocation} setOrder={setOrder} setNavs={setNavs}/>}
-                                />
-                                <Redirect from='/order' to='/order/step1'/>
-                            </Switch>
-                        </StepContainer>
-                        {order && <InfoContainer>
-                            <OrderInfo order={order}/>
-                        </InfoContainer>}
-                    </MainContainer>
+                <NavContainer className='container-fluid'>
+                    <LinkContainer className='container'>
+                        <Nav {...nav}/>
+                    </LinkContainer>
+                </NavContainer>
+                <MainContainer className='container'>
+                    <StepContainer>
+                        <Switch>
+                            {!order && <Redirect exact from='/order/step2' to='/order/step1'/>}
+                            {!order && <Redirect exact from='/order/step3' to='/order/step1'/>}
+                            <Route exact path='/order/step1'
+                                   render={() =>
+                                       <Step1
+                                           userLocation={userLocation}
+                                           order={order}
+                                           setOrder={setOrder}
+                                           {...nav}
+                                           cities={cities}
+                                           points={points}
+                                       />
+                                   }
+                            />
+                            <Route exact path='/order/step2'
+                                   render={() =>
+                                       <Step2 order={order}
+                                              setOrder={setOrder}
+                                              cars={cars}
+                                              categories={categories}
+                                              {...nav}
+                                       />
+                                   }
+                            />
+                            <Redirect exact from='/order' to='/order/step1'/>
+                        </Switch>
+                    </StepContainer>
+                    {order && <InfoContainer>
+                        <OrderInfo order={order} {...nav}/>
+                    </InfoContainer>}
+                </MainContainer>
             </OrderContent>
         </Container>
     );

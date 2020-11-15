@@ -12,7 +12,10 @@ export const OrderListItem = ({order, item, index}) =>
                 size='14px'
                 color='#121212'
             >
-                {item}
+                {
+                    item === 'point' ? 'Пункт выдачи' :
+                    item === 'car' ? 'Модель' : ''
+                }
             </Text>
         </LeftSection>
         <MiddleSection/>
@@ -23,7 +26,10 @@ export const OrderListItem = ({order, item, index}) =>
                 size='14px'
                 color='#999999'
             >
-                {order[item]}
+                {
+                    item === 'point' ? `${order[item].city}, ${order[item].label}` :
+                    item === 'car' ? `${order[item].name}` : ''
+                }
             </Text>
         </RightSection>
     </Row>

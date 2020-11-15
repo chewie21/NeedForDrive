@@ -32,5 +32,3 @@ export const Header = ({userLocation}) => (
         </div>}
     </header>
 );
-
-

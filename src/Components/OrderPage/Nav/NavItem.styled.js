@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 
-export const LockContainer = styled.div`
-    display: flex;
-    align-items: center;
-    margin: 0 30px 0 0;
+export const Style = createGlobalStyle`
+    a {
+        text-decoration: none !important;
+    }
 `;
 
-export const ActiveContainer = styled.div`
-    cursor: pointer;
+export const Container = styled.div`
     display: flex;
     align-items: center;
     margin: 0 30px 0 0;
+    cursor: ${props => props.cursor}
 `;

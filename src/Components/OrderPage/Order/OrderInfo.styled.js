@@ -20,7 +20,7 @@ export const LeftSection = styled.div`
     height: 100%;
     margin-right: 5px;
     text-align: left;
-    min-width: 100px;
+    min-width: 50px;
 `;
 
 export const MiddleSection = styled.div`
