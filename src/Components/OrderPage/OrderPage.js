@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 
 import {Menu} from "../../Common/Menu/Menu";
@@ -33,6 +33,7 @@ import {
     pointsUrlPages
 } from "../../Environments/ApiFactoryUrls";
 import {UserLocation} from "../../Common/UserLocation/UserLocation";
+import {Step3} from "./Steps/Step3/Step3";
 
 export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
 
@@ -87,6 +88,14 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                                               setOrder={setOrder}
                                               cars={cars}
                                               categories={categories}
+                                              {...nav}
+                                       />
+                                   }
+                            />
+                            <Route exact path='/order/step3'
+                                   render={() =>
+                                       <Step3 order={order}
+                                              setOrder={setOrder}
                                               {...nav}
                                        />
                                    }

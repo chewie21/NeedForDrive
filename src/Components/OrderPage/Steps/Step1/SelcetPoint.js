@@ -4,6 +4,7 @@ import {customStyles, MapContainer, PointRow} from "./Step1.styled";
 import {YandexMap} from "../../../../Common/Map/Map";
 import {setPoints} from "../../../../Functions/Async";
 import Select from "react-select";
+import {addPointToOrder} from "../../../../Functions/AddToOrder";
 
 export const SelectPoint = ({
         changeCity,
@@ -14,20 +15,23 @@ export const SelectPoint = ({
 
     const [pointsOfCity, setPointsOfCity] = useState(null);
     const [center, setCenter] = useState(null);
-    const [thisChangeCity, setThisChangeCity] = useState(null);
 
+    const [thisChangeCity, setThisChangeCity] = useState(null);
     const [value, setValue] = useState(null);
 
     useEffect(() => {
-        if (!changeCity && thisChangeCity) setThisChangeCity(changeCity);
-        if(response && changeCity) {
-            if(changeCity !== thisChangeCity || (order && value === null))
-                setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue)
-                    .then(() => {
-                        setThisChangeCity(changeCity);
-                    });
+        console.log(pointsOfCity);
+        if (!changeCity && thisChangeCity) {
+            setThisChangeCity(null);
+            setPointsOfCity(null);
         }
-        if (!changeCity) setPointsOfCity(null);
+        if (response && changeCity) {
+            if(changeCity !== thisChangeCity) {
+                setThisChangeCity(changeCity);
+                setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue)
+                    .then();
+            }
+        }
     });
 
     return (
@@ -50,16 +54,14 @@ export const SelectPoint = ({
                     isClearable={true}
                     isLoading={loading || changeCity ? changeCity !== thisChangeCity : false}
                     isDisabled={error || loading
-                                 || !changeCity || changeCity !== thisChangeCity || !pointsOfCity.length}
+                                 || !changeCity || changeCity !== thisChangeCity}
                     onChange={
                         (e) => {
                             if (e) {
                                 changeUnlockSteps(0);
                                 setValue(e);
                                 setCenter(e.coordinates);
-                                setOrder({
-                                    point: e
-                                });
+                                setOrder(addPointToOrder(e));
                             }
                             else {
                                 setValue(e);
@@ -70,7 +72,7 @@ export const SelectPoint = ({
                     }
                 />
             </PointRow>
-            {pointsOfCity && Boolean(pointsOfCity.length) &&
+            {pointsOfCity && Boolean(pointsOfCity.length) ?
                 <MapContainer>
                     <YandexMap
                         pointsOfCity={pointsOfCity}
@@ -80,7 +82,15 @@ export const SelectPoint = ({
                         setValue={setValue}
                         changeUnlockSteps={changeUnlockSteps}
                     />
-                </MapContainer>
+                </MapContainer> :
+                <Text
+                    weight='500'
+                    size='16px'
+                    margin='0'
+                    color='#121212'
+                >
+                    В этом городе нет доступных пунктов выдачи...
+                </Text>
             }
         </React.Fragment>
     )

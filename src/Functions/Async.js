@@ -15,7 +15,6 @@ async function getPoints(changeCityPoints) {
         return newArr;
     } catch (error) {
         console.log(error);
-        return [];
     }
 }
 
@@ -29,30 +28,34 @@ async function getCenter(center) {
 }
 
 export async function setPoints(points, changeCity, setPointsOfCity, setCenter, order, setValue) {
+
+    const arr = [];
+    let valueObj;
     const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.city);
 
-    const pointsCoordinates = await getPoints(pointsOfThisCity);
+    if(pointsOfThisCity.length) {
+        const pointsCoordinates = await getPoints(pointsOfThisCity);
+        pointsOfThisCity.forEach((item, index) => {
+            const obj = {
+                label: item.address,
+                value: item.address,
+                city: item.cityId.name,
+                coordinates: pointsCoordinates ? pointsCoordinates[index] : null
+            }
+            if(order && order.point.address === item.address) valueObj = obj;
+            arr.push(obj);
+        });
+    }
 
     let centerOfMap;
 
     if(order) {
-        centerOfMap = await getCenter(`${order.point.city} + ${order.point.label}`);
+        centerOfMap = order.point.coordinates;
     } else {
         if(pointsOfThisCity.length) centerOfMap = await getCenter(pointsOfThisCity[0].cityId.name);
     }
 
-    const arr = []
-    pointsOfThisCity.forEach((item, index) => {
-        const obj = {
-            label: item.address,
-            value: item.address,
-            city: item.cityId.name,
-            coordinates: pointsCoordinates[index]
-        }
-        if(order && order.point.label === item.address) setValue(obj);
-        arr.push(obj);
-    });
-
+    setValue(valueObj);
     setPointsOfCity(arr);
     setCenter(centerOfMap);
 }

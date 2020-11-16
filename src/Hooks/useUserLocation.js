@@ -4,22 +4,21 @@ import {yandexGetUserLocation} from "../Environments/YMapsUrls";
 export const useUserLocation = () => {
 
     const [userLocation, setUserLocation] = useState(null);
-    const [confirmedUserLocation, setConfirmed] = useState(false);
+    const [confirmedUserLocation, setConfirmed] = useState(true);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const str =  position.coords.longitude + ', ' + position.coords.latitude;
-                fetch(yandexGetUserLocation(str))
-                    .then(res => res.json())
-                    .then(result => {
-                        setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
-                        setConfirmed(false);
-                    }, error => console.error(error));
-            }, function () {
-                setConfirmed(true);
-            }
-        );
+        // navigator.geolocation.getCurrentPosition(
+        //     function(position) {
+        //         const str =  position.coords.longitude + ', ' + position.coords.latitude;
+        //         fetch(yandexGetUserLocation(str))
+        //             .then(res => res.json())
+        //             .then(result => {
+        //                 setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
+        //             }, error => console.error(error));
+        //     }, function () {
+        //         setConfirmed(true);
+        //     }
+        // );
     }, []);
 
     const confirmUserLocation = (param) => {

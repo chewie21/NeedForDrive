@@ -1,6 +1,7 @@
 import {Map, Placemark, YMaps} from "react-yandex-maps";
 import React from "react";
 import {Text} from "../Text/Text";
+import {addPointToOrder} from "../../Functions/AddToOrder";
 
 export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue, changeUnlockSteps}) =>
 
@@ -25,7 +26,7 @@ export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue, 
                             () => {
                                 setCenter(item.coordinates);
                                 setValue({label: item.label, value: item.value});
-                                setOrder({point: item});
+                                setOrder(addPointToOrder(item));
                                 changeUnlockSteps(0);
                             }
                         }

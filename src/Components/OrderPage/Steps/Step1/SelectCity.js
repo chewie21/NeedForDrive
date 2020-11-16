@@ -24,7 +24,12 @@ export const SelectCity = ({
                     value: item.id,
                     city: item.name
                 }
-                if(userLocation) {
+                if(order) {
+                    if(item.name === order.point.city) {
+                        setValue(obj);
+                        setChangeCity(obj);
+                    }
+                } else if (userLocation) {
                     if(item.name === userLocation.name) {
                         setDefaultCity(obj);
                         setChangeCity(obj);
@@ -33,15 +38,6 @@ export const SelectCity = ({
                 arr.push(obj);
             });
             setOptions(arr);
-        }
-        if (order && !value) {
-            let obj = {
-                label: order.point.city,
-                value: order.point.city,
-                city: order.point.city
-            }
-            setValue(obj);
-            setChangeCity(obj);
         }
     });
 
@@ -63,7 +59,7 @@ export const SelectCity = ({
                 placeholder='Выбрать...'
                 isClearable={true}
                 isLoading={loading}
-                isDisabled={error || loading}
+                isDisabled={error || loading || !options}
                 value={value ? value : defaultCity ? defaultCity : null}
                 onChange={
                     (e) => {

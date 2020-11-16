@@ -14,6 +14,7 @@ export const Step1 = ({
     return (
         <React.Fragment>
             <SelectCity
+                changeCity={changeCity}
                 setChangeCity={setChangeCity}
                 userLocation={userLocation}
                 confirmedUserLocation={confirmedUserLocation}
