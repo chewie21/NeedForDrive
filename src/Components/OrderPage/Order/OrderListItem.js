@@ -1,6 +1,6 @@
 import {LeftSection, MiddleSection, RightSection, Row} from "./OrderInfo.styled";
 import {Text} from "../../../Common/Text/Text";
-import React from "react";
+import React, {useEffect} from "react";
 
 export const OrderListItem = ({order, item, index}) =>
 
@@ -8,28 +8,22 @@ export const OrderListItem = ({order, item, index}) =>
         <LeftSection>
             <Text
                 weight='300'
-                margin='0'
+                margin='0 5px 0 0'
                 size='14px'
                 color='#121212'
             >
-                {
-                    item === 'point' ? 'Пункт выдачи' :
-                    item === 'car' ? 'Модель' : ''
-                }
+                {order[item].name}
             </Text>
         </LeftSection>
         <MiddleSection/>
         <RightSection>
             <Text
                 weight='300'
-                margin='0'
+                margin='0 0 0 5px'
                 size='14px'
                 color='#999999'
             >
-                {
-                    item === 'point' ? `${order[item].city}, ${order[item].label}` :
-                    item === 'car' ? `${order[item].name}` : ''
-                }
+                {order[item].value}
             </Text>
         </RightSection>
     </Row>

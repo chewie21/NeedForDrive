@@ -24,7 +24,10 @@ export const Card = styled.div`
     }
 `;
 
-export const CardImg = styled.img`
+export const CardImg = styled.img.attrs(props => ({
+    crossOrigin: 'anonymous',
+    referrerPolicy: 'origin'
+}))`
     height: ${props => props.height};
     width: ${props => props.width};
     float: ${props => props.float};

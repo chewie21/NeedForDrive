@@ -20,7 +20,6 @@ export const SelectPoint = ({
     const [value, setValue] = useState(null);
 
     useEffect(() => {
-        console.log(pointsOfCity);
         if (!changeCity && thisChangeCity) {
             setThisChangeCity(null);
             setPointsOfCity(null);
@@ -28,8 +27,7 @@ export const SelectPoint = ({
         if (response && changeCity) {
             if(changeCity !== thisChangeCity) {
                 setThisChangeCity(changeCity);
-                setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue)
-                    .then();
+                setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue).then();
             }
         }
     });
@@ -54,7 +52,8 @@ export const SelectPoint = ({
                     isClearable={true}
                     isLoading={loading || changeCity ? changeCity !== thisChangeCity : false}
                     isDisabled={error || loading
-                                 || !changeCity || changeCity !== thisChangeCity}
+                                || !changeCity || changeCity !== thisChangeCity
+                                || !pointsOfCity}
                     onChange={
                         (e) => {
                             if (e) {
@@ -72,7 +71,7 @@ export const SelectPoint = ({
                     }
                 />
             </PointRow>
-            {pointsOfCity && Boolean(pointsOfCity.length) ?
+            {pointsOfCity ? Boolean(pointsOfCity.length) ?
                 <MapContainer>
                     <YandexMap
                         pointsOfCity={pointsOfCity}
@@ -86,11 +85,10 @@ export const SelectPoint = ({
                 <Text
                     weight='500'
                     size='16px'
-                    margin='0'
                     color='#121212'
                 >
                     В этом городе нет доступных пунктов выдачи...
-                </Text>
+                </Text> : ''
             }
         </React.Fragment>
     )

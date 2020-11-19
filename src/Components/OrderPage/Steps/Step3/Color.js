@@ -1,26 +1,29 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Text} from "../../../../Common/Text/Text";
 import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import {addColorToOrder, addParamsToOrder} from "../../../../Functions/AddToOrder";
+import {Container} from "./Step3.styled";
 
-export const Color = ({order}) => {
+export const Color = ({order, setOrder}) => {
+
+    const [filter, setFilter] = useState('Любой')
 
     useEffect(() => {
-        if(order) {
-            let obj = {...order}
-            obj.dop = 1;
-            console.log(obj);
-            console.log(order);
+        if(order.color) {
+            setFilter(order.color.value);
+        } else  {
+            setOrder(addColorToOrder(order, filter));
         }
-
     }, [])
 
-    const changeColor = () => {
-
+    const changeColor = (e) => {
+        setFilter(e.target.value);
+        setOrder(addColorToOrder(order, e.target.value));
     }
 
     return (
-        <React.Fragment>
+        <Container>
             <Text
                 weight='300'
                 size='14px'
@@ -29,13 +32,13 @@ export const Color = ({order}) => {
             >
                 Цвет
             </Text>
-            <RadioGroup row defaultValue='Любой' onChange={changeColor}>
+            <RadioGroup row value={filter} onChange={changeColor}>
                 <GreenLabel
                     value='Любой'
                     control={<GreenRadio/>}
                     label='Любой'
                 />
-                {order.car.colors.map((item, index) =>
+                {order.car && order.car.colors.map((item, index) =>
                     <GreenLabel
                         key={index}
                         value={item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
@@ -44,6 +47,7 @@ export const Color = ({order}) => {
                     />
                 )}
             </RadioGroup>
-        </React.Fragment>
+        </Container>
+
     )
 }

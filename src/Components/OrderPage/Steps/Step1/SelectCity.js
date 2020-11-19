@@ -29,7 +29,8 @@ export const SelectCity = ({
                         setValue(obj);
                         setChangeCity(obj);
                     }
-                } else if (userLocation) {
+                }
+                if(userLocation) {
                     if(item.name === userLocation.name) {
                         setDefaultCity(obj);
                         setChangeCity(obj);

@@ -27,3 +27,9 @@ export const carsUrlPages = `https://cors-anywhere.herokuapp.com/http://api-fact
 export const categoriesUrl = `http://api-factory.simbirsoft1.com/api/db/category`;
 //prod
 export const categoriesUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category`;
+
+//Цена аренды
+//dev
+export const rateUrl = `http://api-factory.simbirsoft1.com/api/db/rate`;
+//prod
+export const rateUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rate`;

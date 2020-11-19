@@ -10,6 +10,7 @@ export const Button = styled.button`
     
     border: none;
     border-radius: 8px;
+    transition: all 100ms;
     
     background: ${props => props.color};
     
