@@ -38,10 +38,9 @@ export const Step2 = ({
                     </React.Fragment> :
                     <Text
                         weight='500'
-                        size='18px'
+                        size='16px'
                         color='#121212'
                     >Что-то пошло не так... Перезагрузите страницу или
                         обратитесь в службу поддержки</Text>
-
     )
 }

@@ -8,22 +8,29 @@ export const RowContainer = styled.div`
     margin-bottom: 32px;
 `;
 
+export const PriceContainer = styled.div`
+    display: flex;
+    margin-bottom: 32px;
+`;
+
 export const Row = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin-bottom: 16px;
     align-items: flex-end;
+    position: relative;
 `;
 
 export const LeftSection = styled.div`
     height: 100%;
-    margin-right: 5px;
     text-align: left;
-    min-width: 50px;
+    max-width: 50%;
+    background: white;
 `;
 
 export const MiddleSection = styled.div`
+    position: absolute;
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     border-bottom-color: #999999;
@@ -32,8 +39,8 @@ export const MiddleSection = styled.div`
 `;
 
 export const RightSection = styled.div`
-    margin-left: 5px;
+    background: white;
     text-align: right;
     align-self: end;
-    min-width: 100px;
+    max-width: 40%;
 `;

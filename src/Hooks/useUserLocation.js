@@ -14,7 +14,6 @@ export const useUserLocation = () => {
                     .then(res => res.json())
                     .then(result => {
                         setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
-                        setConfirmed(false);
                     }, error => console.error(error));
             }, function () {
                 setConfirmed(true);

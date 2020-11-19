@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 
 import {Menu} from "../../Common/Menu/Menu";
@@ -30,9 +30,11 @@ import {
     citiesUrl,
     citiesUrlPages,
     pointsUrl,
-    pointsUrlPages
+    pointsUrlPages, rateUrl
 } from "../../Environments/ApiFactoryUrls";
 import {UserLocation} from "../../Common/UserLocation/UserLocation";
+import {Step3} from "./Steps/Step3/Step3";
+import {Step4} from "./Steps/Step4/Step4";
 
 export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
 
@@ -41,10 +43,11 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
 
     const [order, setOrder] = useState(null);
 
-    const cities = useGetRequest(citiesUrlPages);
-    const points = useGetRequest(pointsUrlPages);
-    const cars = useGetRequest(carsUrlPages);
-    const categories = useGetRequest(categoriesUrlPages);
+    const cities = useGetRequest(citiesUrl);
+    const points = useGetRequest(pointsUrl);
+    const cars = useGetRequest(carsUrl);
+    const categories = useGetRequest(categoriesUrl);
+    const rate = useGetRequest(rateUrl);
 
     return (
         <Container>
@@ -68,6 +71,7 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                         <Switch>
                             {!order && <Redirect exact from='/order/step2' to='/order/step1'/>}
                             {!order && <Redirect exact from='/order/step3' to='/order/step1'/>}
+                            {!order && <Redirect exact from='/order/step4' to='/order/step1'/>}
                             <Route exact path='/order/step1'
                                    render={() =>
                                        <Step1
@@ -89,6 +93,20 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                                               categories={categories}
                                               {...nav}
                                        />
+                                   }
+                            />
+                            <Route exact path='/order/step3'
+                                   render={() =>
+                                       <Step3 order={order}
+                                              setOrder={setOrder}
+                                              {...nav}
+                                              rate={rate}
+                                       />
+                                   }
+                            />
+                            <Route exact path='/order/step5'
+                                   render={() =>
+                                       <Step4/>
                                    }
                             />
                             <Redirect exact from='/order' to='/order/step1'/>

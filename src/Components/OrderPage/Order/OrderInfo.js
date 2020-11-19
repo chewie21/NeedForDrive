@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Container, RowContainer} from "./OrderInfo.styled";
+import {Container, PriceContainer, RowContainer} from "./OrderInfo.styled";
 import {Text} from "../../../Common/Text/Text";
 import {Button} from "../../../Common/Button/Button";
 import {OrderListItem} from "./OrderListItem";
@@ -19,19 +19,32 @@ export const OrderInfo = ({order, navs, setActiveStep}) =>
         </Text>
         <RowContainer>
             {Object.keys(order).map((item, index) =>
-                <OrderListItem key={index} order={order} item={item} index={index}/>
+                item !== `price` && item !== `meanPrice`
+                && <OrderListItem key={index} order={order} item={item} index={index}/>
             )}
         </RowContainer>
-        {order.totalPrice && <Text
-            weight='500'
-            margin='0 0 32px 0'
-            size='16px'
-            color='#121212'
-        >
-            Цена: ${order.totalPrice}
-        </Text>}
+        {(order.price || order.meanPrice) &&
+            <PriceContainer>
+                <Text
+                    weight='500'
+                    margin='0'
+                    size='16px'
+                    color='#121212'
+                >
+                    {`Цена:`}
+                </Text>
+                <Text
+                    weight='normal'
+                    margin='0 0 0 5px'
+                    size='16px'
+                    color='#121212'
+                >
+                    {order.price ? order.price : order.meanPrice} ₽
+                </Text>
+            </PriceContainer>
+        }
         {navs.map((item, index) => (
-            item.active && !navs[index + 1].lock &&
+            item.active && navs[index + 1] &&!navs[index + 1].lock &&
                 <Link key={index} to={navs[index +1].to} onClick={() => setActiveStep(index + 1)}>
                     <Button size='18px'
                             color='linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%)'
