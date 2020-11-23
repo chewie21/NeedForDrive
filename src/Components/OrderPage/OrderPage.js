@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 
 import {Menu} from "../../Common/Menu/Menu";
@@ -6,17 +6,17 @@ import {Header} from "../../Common/Header/Header";
 import {ModalMenu} from "../../Common/Menu/ModalMenu";
 
 import {useNav} from "../../Hooks/useNav";
-import {useModalMenu} from "../../Hooks/useModalMenu";
+import {useModal} from "../../Hooks/useModal";
 
-import {OrderInfo} from "./Order/OrderInfo";
+import {OrderInfoList} from "../../Common/OrderInfo/OrderInfoList";
 import {Step1} from "./Steps/Step1/Step1";
-import {Step2} from "./Steps/Step2/Step2";
 import {Nav} from "./Nav/Nav";
 
 import {
     Container,
     HeaderContainer,
-    InfoContainer, LinkContainer,
+    InfoContainer,
+    LinkContainer,
     MainContainer,
     NavContainer,
     OrderContent,
@@ -25,35 +25,57 @@ import {
 } from "./OrderPage.styled";
 import {useGetRequest} from "../../Hooks/useGetRequest";
 import {
-    carsUrl, carsUrlPages,
-    categoriesUrl, categoriesUrlPages,
-    citiesUrl,
+    carsUrlPages,
+    categoriesUrlPages,
     citiesUrlPages,
-    pointsUrl,
-    pointsUrlPages, rateUrl
+    orderStatusUrlPages,
+    orderUrlPages,
+    pointsUrlPages,
+    rateUrlPages
 } from "../../Environments/ApiFactoryUrls";
 import {UserLocation} from "../../Common/UserLocation/UserLocation";
+import {Step2} from "./Steps/Step2/Step2";
 import {Step3} from "./Steps/Step3/Step3";
 import {Step4} from "./Steps/Step4/Step4";
+import {OrderEdit} from "../../Common/OrderEdit/OrderEdit";
+import {postRequest} from "../../Functions/RequestsToApiFactory";
 
-export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
+export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocation, history}) => {
 
-    const modalMenu = useModalMenu();
     const nav = useNav();
+    const modalMenu = useModal();
+    const confirmOrder = useModal();
+    const cities = useGetRequest(citiesUrlPages);
+    const points = useGetRequest(pointsUrlPages);
+    const cars = useGetRequest(carsUrlPages);
+    const categories = useGetRequest(categoriesUrlPages);
+    const rate = useGetRequest(rateUrlPages);
+    const orderStatus = useGetRequest(orderStatusUrlPages);
 
     const [order, setOrder] = useState(null);
 
-    const cities = useGetRequest(citiesUrl);
-    const points = useGetRequest(pointsUrl);
-    const cars = useGetRequest(carsUrl);
-    const categories = useGetRequest(categoriesUrl);
-    const rate = useGetRequest(rateUrl);
+    const newOrder = (order, status, history, setError) => {
+        postRequest(orderUrlPages, order)
+            .then((response) => {
+                localStorage.setItem(`orderId`, response.data.id);
+                history.push('/placedOrder')
+            }).catch(() => setError(true));
+    }
 
     return (
         <Container>
             { modalMenu.active && <ModalMenu mainPage={false} { ...modalMenu}/> }
             { userLocation && !confirmedUserLocation &&
             <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
+            { confirmOrder.active &&
+            <OrderEdit
+                toggle={confirmOrder.toggle}
+                order={order}
+                orderStatus={orderStatus.response.data[0]}
+                title='Подтвердить заказ'
+                successFunc={newOrder}
+                history={history}
+            />}
             <OrderMenu>
                 <Menu {...modalMenu}/>
             </OrderMenu>
@@ -104,16 +126,16 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                                        />
                                    }
                             />
-                            <Route exact path='/order/step5'
+                            <Route exact path='/order/step4'
                                    render={() =>
-                                       <Step4/>
+                                       <Step4 order={order}/>
                                    }
                             />
                             <Redirect exact from='/order' to='/order/step1'/>
                         </Switch>
                     </StepContainer>
                     {order && <InfoContainer>
-                        <OrderInfo order={order} {...nav}/>
+                        <OrderInfoList order={order} {...nav} toggle={confirmOrder.toggle}/>
                     </InfoContainer>}
                 </MainContainer>
             </OrderContent>

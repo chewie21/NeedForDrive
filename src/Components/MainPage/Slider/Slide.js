@@ -11,6 +11,7 @@ export const Slider = (props) =>
             <Text weight='500' margin='0 0 8px 0' size='40px' color='#FFFFFF'>{props.title}</Text>
             <Text weight='300' margin='0 0 32px 0' size='24px' color='#FFFFFF'>{props.second}</Text>
             <Button
+                padding='15px 20% 15px 20%'
                 color={`linear-gradient(${props.gradient})`}
                 clickColor={`linear-gradient(${props.clickGradient})`}
                 hoverColor={`linear-gradient(${props.hoverGradient})`}

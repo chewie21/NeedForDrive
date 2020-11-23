@@ -25,6 +25,7 @@ export const SelectPoint = ({
             setPointsOfCity(null);
         }
         if (response && changeCity) {
+            console.log(thisChangeCity);
             if(changeCity !== thisChangeCity) {
                 setThisChangeCity(changeCity);
                 setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue).then();
@@ -50,7 +51,7 @@ export const SelectPoint = ({
                     options={pointsOfCity}
                     placeholder='Выбрать...'
                     isClearable={true}
-                    isLoading={loading || changeCity ? changeCity !== thisChangeCity : false}
+                    isLoading={loading || !pointsOfCity || changeCity ? changeCity !== thisChangeCity : false}
                     isDisabled={error || loading
                                 || !changeCity || changeCity !== thisChangeCity
                                 || !pointsOfCity}
@@ -60,7 +61,7 @@ export const SelectPoint = ({
                                 changeUnlockSteps(0);
                                 setValue(e);
                                 setCenter(e.coordinates);
-                                setOrder(addPointToOrder(e));
+                                setOrder(addPointToOrder(e.pointId, e.cityId, e.coordinates));
                             }
                             else {
                                 setValue(e);

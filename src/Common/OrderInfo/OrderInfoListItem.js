@@ -1,10 +1,10 @@
-import {LeftSection, MiddleSection, RightSection, Row} from "./OrderInfo.styled";
-import {Text} from "../../../Common/Text/Text";
-import React, {useEffect} from "react";
+import React from "react";
 
-export const OrderListItem = ({order, item, index}) =>
+import {LeftSection, ListRow, MiddleSection, RightSection} from "./OrderInfo.styled";
+import {Text} from "../Text/Text";
 
-    <Row key={index}>
+export const OrderInfoListItem = ({label, value}) =>
+    <ListRow>
         <LeftSection>
             <Text
                 weight='300'
@@ -12,7 +12,7 @@ export const OrderListItem = ({order, item, index}) =>
                 size='14px'
                 color='#121212'
             >
-                {order[item].name}
+                {label}
             </Text>
         </LeftSection>
         <MiddleSection/>
@@ -23,7 +23,8 @@ export const OrderListItem = ({order, item, index}) =>
                 size='14px'
                 color='#999999'
             >
-                {order[item].value}
+                {value}
             </Text>
         </RightSection>
-    </Row>
+    </ListRow>
+;

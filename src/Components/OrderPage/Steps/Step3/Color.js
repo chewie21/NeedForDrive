@@ -2,24 +2,25 @@ import React, {useEffect, useState} from "react";
 import {Text} from "../../../../Common/Text/Text";
 import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import {addColorToOrder, addParamsToOrder} from "../../../../Functions/AddToOrder";
+import {addParamToOrder} from "../../../../Functions/AddToOrder";
 import {Container} from "./Step3.styled";
 
 export const Color = ({order, setOrder}) => {
 
-    const [filter, setFilter] = useState('Любой')
+    const [filter, setFilter] = useState(null);
 
     useEffect(() => {
-        if(order.color) {
-            setFilter(order.color.value);
-        } else  {
-            setOrder(addColorToOrder(order, filter));
-        }
-    }, [])
+       if(order.color) {
+           setFilter(order.color);
+       } else  {
+           setFilter(`Любой`);
+           setOrder(addParamToOrder(order, `color`, `Любой`));
+       }
+    }, [order, setOrder]);
 
     const changeColor = (e) => {
         setFilter(e.target.value);
-        setOrder(addColorToOrder(order, e.target.value));
+        setOrder(addParamToOrder(order, `color`, e.target.value));
     }
 
     return (
@@ -32,14 +33,15 @@ export const Color = ({order, setOrder}) => {
             >
                 Цвет
             </Text>
-            <RadioGroup row value={filter} onChange={changeColor}>
+            <RadioGroup row value={filter}>
                 <GreenLabel
                     value='Любой'
                     control={<GreenRadio/>}
                     label='Любой'
                 />
-                {order.car && order.car.colors.map((item, index) =>
+                {order.carId && order.carId.colors.map((item, index) =>
                     <GreenLabel
+                        onChange={(e) => changeColor(e)}
                         key={index}
                         value={item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
                         control={<GreenRadio/>}
@@ -48,6 +50,5 @@ export const Color = ({order, setOrder}) => {
                 )}
             </RadioGroup>
         </Container>
-
     )
 }

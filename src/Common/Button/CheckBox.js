@@ -1,8 +1,10 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 import {Checkbox} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useButtonStyles = makeStyles({
     root: {
@@ -62,7 +64,6 @@ export const CustomLabelChek = (props) => {
                 label: props.checked ? classes.checkLabel : classes.label,
             }}
             {...props}
-            disabled={props.disabled}
         />
     )
 };

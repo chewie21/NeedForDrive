@@ -5,7 +5,6 @@ import {Text} from "../Text/Text";
 import {Button} from "../Button/Button";
 
 export const UserLocation = ({userLocation, confirmUserLocation}) =>
-
     <Container>
         <Content>
             <Text
@@ -21,6 +20,7 @@ export const UserLocation = ({userLocation, confirmUserLocation}) =>
                 color='#FFFFFF'
             >{userLocation.name}?</Text>
             <Button
+                padding='15px 20% 15px 20%'
                 size='16px'
                 width='100%'
                 color='linear-gradient(90deg, #13493F 0%, #0C7B1B 100%)'
@@ -30,6 +30,7 @@ export const UserLocation = ({userLocation, confirmUserLocation}) =>
                 onClick={() => confirmUserLocation(true)}
             >Да</Button>
             <Button
+                padding='15px 20% 15px 20%'
                 size='16px'
                 width='100%'
                 color='linear-gradient(90deg, #493013 0%, #7B0C3B 100%)'
@@ -41,4 +42,4 @@ export const UserLocation = ({userLocation, confirmUserLocation}) =>
             >Нет</Button>
         </Content>
     </Container>
-
+;
