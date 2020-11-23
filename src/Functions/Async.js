@@ -29,9 +29,11 @@ async function getCenter(center) {
 
 export async function setPoints(points, changeCity, setPointsOfCity, setCenter, order, setValue) {
 
+    console.log(order);
+
     const arr = [];
     let valueObj;
-    const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.city);
+    const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.label);
 
     if(pointsOfThisCity.length) {
         const pointsCoordinates = await getPoints(pointsOfThisCity);
@@ -39,10 +41,11 @@ export async function setPoints(points, changeCity, setPointsOfCity, setCenter, 
             const obj = {
                 label: item.address,
                 value: item.address,
-                city: item.cityId.name,
+                pointId: item,
+                cityId: item.cityId,
                 coordinates: pointsCoordinates ? pointsCoordinates[index] : null
             }
-            if(order && order.point.address === item.address) valueObj = obj;
+            if(order && order.pointId.address === item.address) valueObj = obj;
             arr.push(obj);
         });
     }
@@ -50,7 +53,7 @@ export async function setPoints(points, changeCity, setPointsOfCity, setCenter, 
     let centerOfMap;
 
     if(order) {
-        centerOfMap = order.point.coordinates;
+        centerOfMap = order.coordinates;
     } else {
         if(pointsOfThisCity.length) centerOfMap = await getCenter(pointsOfThisCity[0].cityId.name);
     }

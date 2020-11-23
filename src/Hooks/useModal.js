@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-export const useModalMenu = () => {
+export const useModal = () => {
+
     const [active, setActive] = useState(false);
 
-    const toggle = () => {
-        setActive(!active);
-    }
+    const toggle = () => setActive(!active);
 
     return {active, toggle};
 }

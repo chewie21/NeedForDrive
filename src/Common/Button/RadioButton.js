@@ -1,7 +1,8 @@
 import React from "react";
+import clsx from "clsx";
+
 import {makeStyles} from "@material-ui/core/styles";
 import Radio from "@material-ui/core/Radio";
-import clsx from "clsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useButtonStyles = makeStyles({

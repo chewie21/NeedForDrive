@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import {Container, Row, Style} from "./Step3.styled";
 import {Text} from "../../../../Common/Text/Text";
-import {addRentTimeToOrder, deleteRentTimeFromOrder} from "../../../../Functions/AddToOrder";
+import {addDateFromToOrder, addParamToOrder, deleteParamFromOrder} from "../../../../Functions/AddToOrder";
 
 export const SelectDate = ({order, setOrder}) => {
 
@@ -14,27 +14,10 @@ export const SelectDate = ({order, setOrder}) => {
 
     useEffect(() => {
         if(order) {
-            if(order.rentTime) setStartDate(order.rentTime.startDate);
-            if(order.rentTime) setEndDate(order.rentTime.endDate);
+            if(order.dateFrom) setStartDate(new Date(order.dateFrom));
+            if(order.dateTo) setEndDate(new Date(order.dateTo));
         }
-    }, []);
-
-    const setRentTime = (setOrder, addToOrder, startDate, endDate) => {
-
-        const minutes = Math.round((endDate - startDate) / 60 / 1000);
-        const finalMinutes = minutes % 60;
-
-        const hours = Math.floor(minutes / 60);
-        const finalHours = hours % 24;
-
-        const days = Math.round(hours / 24);
-
-        const daysStr = days !== 0 ? `${days} д` : '';
-        const hoursStr = finalHours !== 0 ? `${finalHours} ч` : '';
-        const minutesStr = finalMinutes !== 0 ? `${finalMinutes} м` : '';
-
-        setOrder(addToOrder(order, `${daysStr} ${hoursStr} ${minutesStr}`, minutes, days + 1, startDate, endDate));
-    }
+    }, [order]);
 
     const nowDate = new Date();
     const startMinTime = new Date();
@@ -67,12 +50,14 @@ export const SelectDate = ({order, setOrder}) => {
                     placeholderText='Выберите дату и время'
                     selected={startDate}
                     onChange={date => {
-                        if(date && date.getDate() === nowDate.getDate() && date.getHours() === 0) {
-                            date.setHours(nowDate.getHours(), nowDate.getMinutes());
+                        if (date) {
+                            if (date.getDate() === nowDate.getDate() && date.getHours() === 0) {
+                                date.setHours(nowDate.getHours(), Math.ceil(nowDate.getMinutes()/5)*5);
+                            }
                         }
+                        setOrder(addDateFromToOrder(order, date ? date.getTime() : null));
                         setStartDate(date);
                         setEndDate(null);
-                        setOrder(deleteRentTimeFromOrder(order, `rentTime`));
                     }}
                     showTimeSelect
                     timeFormat="HH:mm"
@@ -84,8 +69,8 @@ export const SelectDate = ({order, setOrder}) => {
                     minDate={nowDate}
                     minTime={startDate ?
                         startDate.getDate() === nowDate.getDate() ?
-                            startMinTime.setHours(startMinTime.getHours(), startMinTime.getMinutes()) : startMinTime.setHours(0, 0) :
-                        startMinTime.setHours(startMinTime.getHours(), startMinTime.getMinutes())
+                            startMinTime : startMinTime.setHours(0, 0) :
+                        startMinTime
                     }
                     maxTime={maxTime.setHours(23, 59)}
                 />
@@ -106,18 +91,20 @@ export const SelectDate = ({order, setOrder}) => {
                     placeholderText='Выберите дату и время'
                     selected={endDate}
                     onChange={date => {
+                        setEndDate(date);
                         if(date) {
-                            if(date.getDate() === startDate.getDate() && date.getHours() === 0) {
-                                if(startDate) {
+                            if(date.getMonth() === startDate.getMonth() &&
+                                date.getDate() <= startDate.getDate()) {
+                                date.setDate(startDate.getDate());
+                                if (date.getHours() === 0) {
                                     date.setHours(startDate.getHours(), startDate.getMinutes() + 5);
-                                } else {
-                                    date.setHours(nowDate.getHours(), nowDate.getMinutes() + 5);
                                 }
                             }
-                            setRentTime(setOrder, addRentTimeToOrder, startDate, date);
+                            setOrder(addParamToOrder(order, `dateTo`, date.getTime()));
+                        } else {
+                            setOrder(deleteParamFromOrder(order, `dateTo`));
                         }
-                        setEndDate(date);
-                        if(!date) setOrder(deleteRentTimeFromOrder(order, `rentTime`));
+
                     }}
                     showTimeSelect
                     timeFormat="HH:mm"
@@ -127,12 +114,14 @@ export const SelectDate = ({order, setOrder}) => {
                     className={startDate ? 'date-pick-active' : 'date-pick-disabled'}
                     isClearable
                     minDate={startDate ? startDate : nowDate}
-                    minTime={endDate ?
-                        endDate.getDate() === startDate.getDate() ?
-                            endMinTime.setHours(startDate.getHours(), startDate.getMinutes() + 5) :
-                            endMinTime.setHours(0, 0) :
-                        endMinTime.setHours(nowDate.getHours(), nowDate.getMinutes() + 5)
-                    }
+                    minTime={startDate ?
+                                endDate ?
+                                    (endDate.getMonth() === startDate.getMonth() && endDate.getDate() === startDate.getDate()) ?
+                                        endMinTime.setHours(startDate.getHours(), startDate.getMinutes() + 5) :
+                                        endMinTime.setHours(0, 0)
+                                    :
+                                    endMinTime.setHours(startDate.getHours(), startDate.getMinutes() + 5) :
+                            endMinTime.setHours(nowDate.getHours(), nowDate.getMinutes() + 5)}
                     maxTime={maxTime.setHours(23, 59)}
                 />
             </Row>

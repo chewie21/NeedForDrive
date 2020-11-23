@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Card, CardImg} from "./Step2.styled";
 import {Text} from "../../../../Common/Text/Text";
 import DefaultImg from '../../../../img/defaulImg.png';
-import {mainUrl, mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
+import {mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
 import {addCarToOrder} from "../../../../Functions/AddToOrder";
+import {formatImgPath} from "../../../../Functions/Format";
 
 export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) => {
 
@@ -12,11 +13,11 @@ export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) 
     const [activeCard, setActiveCard] = useState(null);
 
     useEffect(() => {
-        if (order.car && activeCard !== order.car.model) setActiveCard(order.car.model);
+        if (order.carId && activeCard !== order.carId.name) setActiveCard(order.carId.name);
         if (response && filter !== carFilter) {
             let arr = []
             if(filter === 'Все модели') {
-                arr = response.data
+                arr = response.data;
             } else {
                 arr = response.data.filter(item => item.categoryId.name === filter);
             }
@@ -51,13 +52,7 @@ export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) 
                 <CardImg
                     float='right'
                     height='116px'
-                    src={
-                        item.thumbnail.path ?
-                        item.thumbnail.path.charAt(0) === '/' ?
-                        `${mainUrlPages}${item.thumbnail.path}` :
-                        item.thumbnail.path :
-                        DefaultImg
-                    }
+                    src={formatImgPath(item)}
                 />
             </Card>
         ))

@@ -33,3 +33,15 @@ export const categoriesUrlPages = `https://cors-anywhere.herokuapp.com/http://ap
 export const rateUrl = `http://api-factory.simbirsoft1.com/api/db/rate`;
 //prod
 export const rateUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rate`;
+
+//Получение заказа
+//dev
+export const orderUrl = `http://api-factory.simbirsoft1.com/api/db/order`
+//prod
+export const orderUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order`;
+
+//Статус заказа
+//dev
+export const orderStatusUrl = `http://api-factory.simbirsoft1.com/api/db/orderStatus`;
+//prod
+export const orderStatusUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/orderStatus`

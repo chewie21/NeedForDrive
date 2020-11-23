@@ -1,28 +1,28 @@
 import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Container} from "./Step3.styled";
 import {Text} from "../../../../Common/Text/Text";
-import {addRateTypeToOrder} from "../../../../Functions/AddToOrder";
+import {addParamToOrder} from "../../../../Functions/AddToOrder";
 
 export const SelectRate = ({response, order, setOrder}) => {
 
-    const [selection, setSelection] = React.useState(null);
+    const [selection, setSelection] = useState(null);
 
     useEffect(() => {
-        if(response && !selection) {
-            if (order.rate) {
-                setSelection(order.rate.price);
+        if(response && !selection && order.color) {
+            if (order.rateId) {
+                setSelection(order.rateId.price);
             } else {
                 setSelection(response.data[0].price);
-                setOrder(addRateTypeToOrder(order, response.data[0].rateTypeId.name, response.data[0].price))
+                setOrder(addParamToOrder(order, `rateId`, response.data[0]))
             }
         }
     });
 
-    const updateSelection = (event, item) => {
-        setOrder(addRateTypeToOrder(order, item.rateTypeId.name, item.price));
-        setSelection(+item.price);
+    const changeRate = (item) => {
+        setOrder(addParamToOrder(order, `rateId`, item));
+        setSelection(item.price);
     };
 
     return (
@@ -38,7 +38,7 @@ export const SelectRate = ({response, order, setOrder}) => {
             {response && <RadioGroup value={selection}>
                 {response.data.map((item, index) =>
                         <GreenLabel
-                            onChange={(e) => updateSelection(e, item)}
+                            onChange={() => changeRate(item)}
                             key={index}
                             value={item.price}
                             control={<GreenRadio/>}

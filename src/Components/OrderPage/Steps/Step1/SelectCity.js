@@ -22,15 +22,18 @@ export const SelectCity = ({
                 let obj = {
                     label: item.name,
                     value: item.id,
-                    city: item.name
                 }
                 if(order) {
-                    if(item.name === order.point.city) {
+                    if(item.name === order.cityId.name) {
                         setValue(obj);
                         setChangeCity(obj);
                     }
-                }
-                if(userLocation) {
+                    if(userLocation) {
+                        if(item.name === userLocation.name) {
+                            setDefaultCity(obj);
+                        }
+                    }
+                } else if(userLocation) {
                     if(item.name === userLocation.name) {
                         setDefaultCity(obj);
                         setChangeCity(obj);

@@ -7,7 +7,7 @@ import {MainTitleMobile} from "./Title/MainTitleMobile";
 import {ModalMenu} from "../../Common/Menu/ModalMenu";
 import {ModalMenuMobile} from "../../Common/Menu/ModalMenuMobile";
 
-import {useModalMenu} from "../../Hooks/useModalMenu";
+import {useModal} from "../../Hooks/useModal";
 import {
     Container,
     ContainerMobile,
@@ -19,7 +19,7 @@ import {UserLocation} from "../../Common/UserLocation/UserLocation";
 
 export const MainPage = ({userLocation, confirmedUserLocation, confirmUserLocation}) => {
 
-    const modalMenu = useModalMenu();
+    const modalMenu = useModal();
 
     return (
         <React.Fragment>

@@ -5,13 +5,13 @@ export const Container = styled.div`
     display: flex;
 `;
 
-export const OrderMenu = styled.section`
+export const PlacedOrderMenuContainer = styled.section`
     background: #151B1F;
     width: 4%;
     height: 100%;
 `;
 
-export const OrderContent = styled.section`
+export const PlacedOrderContentContainer = styled.section`
     width: 96%;
     height: 100%;
     display: flex;
@@ -22,7 +22,7 @@ export const HeaderContainer = styled.div`
     padding: 32px;
 `;
 
-export const NavContainer = styled.div`
+export const InfoContainer = styled.div`
     border-top: 1px solid #EEEEEE;
     border-bottom: 1px solid #EEEEEE;
     padding: 0;
@@ -34,20 +34,20 @@ export const MainContainer = styled.div`
     flex-grow 1;
 `;
 
-export const StepContainer = styled.div`
+export const OrderInfoMainContainer = styled.div`
     width: 70%;
     height: 100%;
     padding: 32px;
 `;
 
-export const InfoContainer = styled.div`
+export const OrderInfoListContainer = styled.div`
     width: 30%;
     height: 100%;
-    border-left: 1px solid #EEEEEE;
     padding: 32px;
+    border-left: 1px solid #EEEEEE;
 `;
 
-export const LinkContainer = styled.div`
+export const Info = styled.div`
     display: flex;
     padding: 8px 32px 8px 32px;
 `;

@@ -44,6 +44,7 @@ export const MainTitleMobile = ({toggle, userLocation}) =>
             <Text margin='0 0 32px 0' color='#999999' size='18px' weight='300'>Поминутная аренда авто твоего города</Text>
             <Link to='/order'>
                 <Button size='18px'
+                        padding='15px 20% 15px 20%'
                         color='linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%)'
                         hoverColor='linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%)'
                         clickColor='linear-gradient(90deg, #076432 2.61%, #013C27 112.6%)'
