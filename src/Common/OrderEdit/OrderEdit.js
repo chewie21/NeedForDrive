@@ -22,7 +22,7 @@ export const OrderEdit = ({toggle, order, orderStatus, title, successFunc, histo
                 </Text>
                 <Row>
                     <Button
-                        padding='5%'
+                        padding='15px 20% 15px 20%'
                         size='18px'
                         width='45%'
                         color='linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%)'
@@ -33,10 +33,10 @@ export const OrderEdit = ({toggle, order, orderStatus, title, successFunc, histo
                             }
                         }
                     >
-                        Ок
+                        Да
                     </Button>
                     <Button
-                        padding='5%'
+                        padding='15px 20% 15px 20%'
                         size='18px'
                         width='45%'
                         color='linear-gradient(90deg, #493013 0%, #7B0C3B 100%)'
@@ -44,7 +44,7 @@ export const OrderEdit = ({toggle, order, orderStatus, title, successFunc, histo
                         clickColor='linear-gradient(90deg, #181006 0%, #460722 100%)'
                         onClick={toggle}
                     >
-                        Отмена
+                        Нет
                     </Button>
                 </Row>
                 {error &&
