@@ -141,7 +141,7 @@ export const PlacedOrderPage = ({userLocation, orderId, history, confirmedUserLo
                     </FixedHeaderMobile>
 
                     <MainMobile>
-                        <OrderInfoMain order={order.response.data}/>
+                        <OrderInfoMain order={order.response.data} toggle={orderEdit.toggle}/>
                     </MainMobile>
 
                 </MobileContainer>
