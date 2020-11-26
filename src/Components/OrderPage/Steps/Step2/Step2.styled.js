@@ -7,16 +7,14 @@ export const CategoryContainer = styled.div`
 export const CarListContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    width: 753px;
-    height: 672px;
-    overflow-Y: scroll;
+    width: 100%;
 `;
 
 export const Card = styled.div`
     padding: 16px;
     cursor: pointer;
-    width: 368px;
-    height: 224px;
+    width: 50%;
+    height: auto;
     border: ${props => props.border};
     
     &:hover {

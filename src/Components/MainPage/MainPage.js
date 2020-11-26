@@ -23,10 +23,10 @@ export const MainPage = ({userLocation, confirmedUserLocation, confirmUserLocati
 
     return (
         <React.Fragment>
+            { userLocation && !confirmedUserLocation &&
+            <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
             <Container>
                 { modalMenu.active && <ModalMenu mainPage={true} { ...modalMenu }/>}
-                { userLocation && !confirmedUserLocation &&
-                    <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
                 <MainMenuContainer>
                     <Menu {...modalMenu}/>
                 </MainMenuContainer>
@@ -40,8 +40,6 @@ export const MainPage = ({userLocation, confirmedUserLocation, confirmUserLocati
             <ContainerMobile>
                 <MainTitleMobile {...modalMenu}/>
                 { modalMenu.active && <ModalMenuMobile {...modalMenu} userLocation={userLocation}/> }
-                { userLocation && !confirmedUserLocation &&
-                <UserLocation userLocation={userLocation} confirmUserLocation={confirmUserLocation}/>}
             </ContainerMobile>
         </React.Fragment>
     );

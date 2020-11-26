@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Alert} from "react-bootstrap";
 
 import {Color} from "./Color";
 import {AdditionalServices} from "./AdditionalServices";
@@ -9,6 +10,7 @@ import {addParamToOrder, deleteParamFromOrder} from "../../../../Functions/AddTo
 export const Step3 = ({order, setOrder, rate, changeUnlockSteps, removeUnlockSteps}) => {
 
     const [thisPrice, setThisPrice] = useState(null);
+    const [errorPrice, setErrorPrice] = useState(null);
 
     useEffect(() => {
         if(order.rateId && order.dateFrom && order.dateTo) {
@@ -27,8 +29,14 @@ export const Step3 = ({order, setOrder, rate, changeUnlockSteps, removeUnlockSte
             if(order.isRightWheel) price = price + 1600;
             if(price !== thisPrice) {
                 setThisPrice(price);
-                setOrder(addParamToOrder(order, `price`, price));
-                changeUnlockSteps(2);
+                if(price < order.carId.priceMin) {
+                    setErrorPrice(price);
+                } else {
+                    setErrorPrice(null);
+                    setThisPrice(price);
+                    setOrder(addParamToOrder(order, `price`, price));
+                    changeUnlockSteps(2);
+                }
             }
         } else if ((!order.dateFrom || !order.dateTo) && thisPrice) {
             setThisPrice(null);
@@ -39,6 +47,11 @@ export const Step3 = ({order, setOrder, rate, changeUnlockSteps, removeUnlockSte
 
     return (
         <React.Fragment>
+            {errorPrice &&
+                <Alert variant={"danger"}>
+                    Стоимость аренды ниже минимальной! Минимальная - {order.carId.priceMin} ₽. Стоимость аренды - {errorPrice} ₽.
+                </Alert>
+            }
             <Color order={order} setOrder={setOrder}/>
             <SelectDate order={order} setOrder={setOrder}/>
             <SelectRate {...rate} order={order} setOrder={setOrder}/>
