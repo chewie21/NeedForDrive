@@ -14,7 +14,7 @@ import {TextLink} from "../Text/TextLink";
 import {Text} from "../Text/Text";
 import {MobileContainer, SocialContainer, TextContainer} from "./Menu.styled";
 
-export const ModalMenuMobile = ({toggle}) =>
+export const ModalMenuMobile = ({toggle, userLocation}) =>
     <MobileContainer>
         <header>
             <div onClick={toggle}>
@@ -88,7 +88,7 @@ export const ModalMenuMobile = ({toggle}) =>
                     imgHover={InstHover}/>
             </SocialContainer>
         </main>
-        <footer>
+        <footer className='d-flex justify-content-between'>
             <Text
                 weight='bold'
                 margin='0'
@@ -97,6 +97,14 @@ export const ModalMenuMobile = ({toggle}) =>
             >
                 Eng
             </Text>
+            {userLocation && <Text
+                weight='bold'
+                margin='0'
+                size='13px'
+                color='#0EC261'
+            >
+                {userLocation.name}
+            </Text>}
         </footer>
     </MobileContainer>
 ;

@@ -1,9 +1,11 @@
+import React, {useEffect, useState} from "react";
+
 import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import React, {useEffect, useState} from "react";
+import {addParamToOrder} from "../../../../Functions/AddToOrder";
+
 import {Container} from "./Step3.styled";
 import {Text} from "../../../../Common/Text/Text";
-import {addParamToOrder} from "../../../../Functions/AddToOrder";
 
 export const SelectRate = ({response, order, setOrder}) => {
 

@@ -47,7 +47,7 @@ export const MenuLangContainer = styled.div`
 export const ModalMenuContainer = styled.div`
     display: flex;
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
 `;
@@ -60,7 +60,7 @@ export const Left = styled.div`
     justify-content: space-between;
     align-items: center;
     
-    @media(max-width: 819px) {
+    @media(max-width: 720px) {
         width: 6%; 
     }
 `;
@@ -75,7 +75,7 @@ export const Middle = styled.div`
     @media(max-width: 1084px) {
         width: 58%; 
     }
-     @media(max-width: 819px) {
+     @media(max-width: 720px) {
         width: 94%; 
     }
 `;
@@ -87,7 +87,7 @@ export const RightMainPage = styled.div`
     @media(max-width: 1084px) {
         width: 38%; 
     }
-     @media(max-width: 819px) {
+     @media(max-width: 720px) {
         display: none;
     }
 `;
@@ -98,7 +98,7 @@ export const Right = styled.div`
     @media(max-width: 1084px) {
         width: 38%; 
     }
-     @media(max-width: 819px) {
+     @media(max-width: 720px) {
         display: none;
     }
 `;
@@ -112,7 +112,7 @@ export const SocialContainer = styled.div`
 `;
 export const MobileContainer = styled.div`
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     background: #111518;

@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Card, CardImg} from "./Step2.styled";
 import {Text} from "../../../../Common/Text/Text";
-import DefaultImg from '../../../../img/defaulImg.png';
-import {mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
 import {addCarToOrder} from "../../../../Functions/AddToOrder";
 import {formatImgPath} from "../../../../Functions/Format";
 
@@ -51,7 +49,7 @@ export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) 
                 >{item.priceMin} - {item.priceMax} ₽</Text>
                 <CardImg
                     float='right'
-                    height='116px'
+                    width='80%'
                     src={formatImgPath(item)}
                 />
             </Card>

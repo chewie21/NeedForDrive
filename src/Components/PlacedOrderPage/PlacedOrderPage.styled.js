@@ -1,14 +1,40 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const PlacedOrderContainer = styled.div`
     height: 100vh;
-    display: flex;
+    width: 100vw;
 `;
 
-export const PlacedOrderMenuContainer = styled.section`
+export const Container = styled.div`
+    display: flex;
+    height: 100%;
+    width: 100%;
+`;
+
+export const MobileContainer = styled.div``;
+
+export const PlacedOrderMenu = styled.section`
+    position: fixed;
     background: #151B1F;
     width: 4%;
     height: 100%;
+    
+    @media(max-width: 720px) {
+        width: 6%;
+    }
+`;
+
+export const PlacedOrderContent = styled.div`
+    width: 96%;
+    margin-left: 4%;
+    height: 100%;
+    display: flex;
+    flex-direction column;
+    
+    @media(max-width: 720px) {
+        width: 94%;
+        margin-left: 6%;
+    }
 `;
 
 export const PlacedOrderContentContainer = styled.section`
