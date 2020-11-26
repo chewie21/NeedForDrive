@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.5821ad7a.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.5821ad7a.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.71a8f256.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.71a8f256.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.046848f9.chunk.css": "/NeedForDrive/static/css/2.046848f9.chunk.css",
-    "static/js/2.b1880e84.chunk.js": "/NeedForDrive/static/js/2.b1880e84.chunk.js",
-    "static/js/2.b1880e84.chunk.js.map": "/NeedForDrive/static/js/2.b1880e84.chunk.js.map",
+    "static/js/2.9ab30de8.chunk.js": "/NeedForDrive/static/js/2.9ab30de8.chunk.js",
+    "static/js/2.9ab30de8.chunk.js.map": "/NeedForDrive/static/js/2.9ab30de8.chunk.js.map",
     "index.html": "/NeedForDrive/index.html",
     "static/css/2.046848f9.chunk.css.map": "/NeedForDrive/static/css/2.046848f9.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.b1880e84.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.b1880e84.chunk.js.LICENSE.txt",
+    "static/js/2.9ab30de8.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.9ab30de8.chunk.js.LICENSE.txt",
     "static/media/Facebook_hover.6895d2b0.svg": "/NeedForDrive/static/media/Facebook_hover.6895d2b0.svg",
     "static/media/Facebook_white.f7e2cc5e.svg": "/NeedForDrive/static/media/Facebook_white.f7e2cc5e.svg",
     "static/media/Instagram_hover.5713b4e3.svg": "/NeedForDrive/static/media/Instagram_hover.5713b4e3.svg",
@@ -22,22 +22,26 @@
     "static/media/close_btn_hover.cbdbd562.svg": "/NeedForDrive/static/media/close_btn_hover.cbdbd562.svg",
     "static/media/defaulImg.dfbd37fe.png": "/NeedForDrive/static/media/defaulImg.dfbd37fe.png",
     "static/media/map_point.480be180.svg": "/NeedForDrive/static/media/map_point.480be180.svg",
-    "static/media/map_point_hover.bc4b6dc0.svg": "/NeedForDrive/static/media/map_point_hover.bc4b6dc0.svg",
     "static/media/menu_btn.33a03786.svg": "/NeedForDrive/static/media/menu_btn.33a03786.svg",
     "static/media/menu_btn_hover.68fcd2c2.svg": "/NeedForDrive/static/media/menu_btn_hover.68fcd2c2.svg",
     "static/media/menu_btn_mobile.3491ae9b.svg": "/NeedForDrive/static/media/menu_btn_mobile.3491ae9b.svg",
+    "static/media/orderArrowLeft.a227994e.svg": "/NeedForDrive/static/media/orderArrowLeft.a227994e.svg",
+    "static/media/orderArrowRight.11e3d247.svg": "/NeedForDrive/static/media/orderArrowRight.11e3d247.svg",
+    "static/media/orderMobile.e301c2c1.svg": "/NeedForDrive/static/media/orderMobile.e301c2c1.svg",
     "static/media/order_arrow.429b5a6c.svg": "/NeedForDrive/static/media/order_arrow.429b5a6c.svg",
     "static/media/order_arrow_active.1e09a2d1.svg": "/NeedForDrive/static/media/order_arrow_active.1e09a2d1.svg",
     "static/media/slider1.81af2a05.png": "/NeedForDrive/static/media/slider1.81af2a05.png",
     "static/media/slider2.cffabb09.png": "/NeedForDrive/static/media/slider2.cffabb09.png",
     "static/media/slider3.720360f1.png": "/NeedForDrive/static/media/slider3.720360f1.png",
-    "static/media/slider4.7a3bfa51.png": "/NeedForDrive/static/media/slider4.7a3bfa51.png"
+    "static/media/slider4.7a3bfa51.png": "/NeedForDrive/static/media/slider4.7a3bfa51.png",
+    "static/media/tabletOrder.aac74db3.svg": "/NeedForDrive/static/media/tabletOrder.aac74db3.svg",
+    "static/media/tabletOrderHover.8718c94a.svg": "/NeedForDrive/static/media/tabletOrderHover.8718c94a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.533bc2a0.js",
     "static/css/2.046848f9.chunk.css",
-    "static/js/2.b1880e84.chunk.js",
+    "static/js/2.9ab30de8.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.5821ad7a.chunk.js"
+    "static/js/main.71a8f256.chunk.js"
   ]
 }
