@@ -1,23 +1,25 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.718d708e.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.718d708e.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.a6ca0b92.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.a6ca0b92.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.046848f9.chunk.css": "/NeedForDrive/static/css/2.046848f9.chunk.css",
-    "static/js/2.9ab30de8.chunk.js": "/NeedForDrive/static/js/2.9ab30de8.chunk.js",
-    "static/js/2.9ab30de8.chunk.js.map": "/NeedForDrive/static/js/2.9ab30de8.chunk.js.map",
+    "static/js/2.1a2fcc5a.chunk.js": "/NeedForDrive/static/js/2.1a2fcc5a.chunk.js",
+    "static/js/2.1a2fcc5a.chunk.js.map": "/NeedForDrive/static/js/2.1a2fcc5a.chunk.js.map",
     "index.html": "/NeedForDrive/index.html",
     "static/css/2.046848f9.chunk.css.map": "/NeedForDrive/static/css/2.046848f9.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.9ab30de8.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.9ab30de8.chunk.js.LICENSE.txt",
+    "static/js/2.1a2fcc5a.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.1a2fcc5a.chunk.js.LICENSE.txt",
     "static/media/Facebook_hover.6895d2b0.svg": "/NeedForDrive/static/media/Facebook_hover.6895d2b0.svg",
     "static/media/Facebook_white.f7e2cc5e.svg": "/NeedForDrive/static/media/Facebook_white.f7e2cc5e.svg",
     "static/media/Instagram_hover.5713b4e3.svg": "/NeedForDrive/static/media/Instagram_hover.5713b4e3.svg",
     "static/media/Instagram_white.83905bcf.svg": "/NeedForDrive/static/media/Instagram_white.83905bcf.svg",
     "static/media/Telegram_hover.1b499e9d.svg": "/NeedForDrive/static/media/Telegram_hover.1b499e9d.svg",
     "static/media/Telegram_white.ccc181a2.svg": "/NeedForDrive/static/media/Telegram_white.ccc181a2.svg",
+    "static/media/adminLoginIcon.bc4f3ee8.svg": "/NeedForDrive/static/media/adminLoginIcon.bc4f3ee8.svg",
+    "static/media/adminMenuIcon.554e71f6.svg": "/NeedForDrive/static/media/adminMenuIcon.554e71f6.svg",
     "static/media/close_btn.1d4598cc.svg": "/NeedForDrive/static/media/close_btn.1d4598cc.svg",
     "static/media/close_btn_hover.cbdbd562.svg": "/NeedForDrive/static/media/close_btn_hover.cbdbd562.svg",
     "static/media/defaulImg.dfbd37fe.png": "/NeedForDrive/static/media/defaulImg.dfbd37fe.png",
@@ -40,8 +42,8 @@
   "entrypoints": [
     "static/js/runtime-main.533bc2a0.js",
     "static/css/2.046848f9.chunk.css",
-    "static/js/2.9ab30de8.chunk.js",
+    "static/js/2.1a2fcc5a.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.718d708e.chunk.js"
+    "static/js/main.a6ca0b92.chunk.js"
   ]
 }
