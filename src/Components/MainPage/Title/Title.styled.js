@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ImgHover from "../../../img/map_point_hover.svg";
 
 export const MainTitleContainer = styled.div`
     display: flex;
@@ -9,7 +8,22 @@ export const MainTitleContainer = styled.div`
     height: 100%;
     padding: 32px 64px 32px 64px;
     
+    @media(max-width: 1084px) {
+        padding: 32px; 
+    }
+    @media(max-width: 720px) {
+        padding: 32px 64px 32px 64px; 
+    }
+    
     box-sizing: border-box;
+`;
+
+export const MainTitleMobileContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 export const MainContainer = styled.div`
@@ -17,7 +31,7 @@ export const MainContainer = styled.div`
 `;
 
 export const MainTitleHeader = styled.header`
-    margin: 16px 16px 0 16px;
+    padding: 16px;
 `;
 
 export const MainTitleMain = styled.main`
@@ -28,23 +42,4 @@ export const MainTitleFooter = styled.footer`
     background: #151B1F;
     text-align: right;
     padding: 16px;
-`;
-
-export const FirstHeaderRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-`;
-export const SecondHeaderRow = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    
-    &:hover p {
-        transition: color .5s ease;
-        color: #0EC261;
-    }
-    &:hover div {
-        background: url(${ImgHover}) no-repeat center;
-    }
 `;

@@ -55,4 +55,23 @@ export const customStyles = {
             margin: 0,
         }
     ),
+    dropdownIndicator: (styles) => (
+        {
+            display: `none`
+        }
+    ),
+    indicatorSeparator: (styles) => (
+        {
+            display: `none`
+        }
+    ),
+    clearIndicator: (styles) => (
+        {
+            color: `#EEEEEE`,
+            transition: `all 100ms`,
+            ':hover': {
+                color: `#121212`
+            },
+        }
+    )
 }

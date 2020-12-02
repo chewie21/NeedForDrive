@@ -6,10 +6,11 @@ export const Button = styled.button`
     font-weight: 500;
     font-size: ${props => props.size};
     
-    padding: 15px 20% 15px 20%;
+    padding: ${props => props.padding};
     
     border: none;
     border-radius: 8px;
+    transition: all 100ms;
     
     background: ${props => props.color};
     
@@ -24,4 +25,3 @@ export const Button = styled.button`
     width: ${props => props.width};
     margin: ${props => props.margin};
 `;
-

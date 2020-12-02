@@ -1,31 +1,36 @@
 import {Text} from "../../../../Common/Text/Text";
 import React, {useEffect, useState} from "react";
-import {useGetRequest} from "../../../../Hooks/useGetRequest";
 import {customStyles, MapContainer, PointRow} from "./Step1.styled";
 import {YandexMap} from "../../../../Common/Map/Map";
 import {setPoints} from "../../../../Functions/Async";
 import Select from "react-select";
+import {addPointToOrder} from "../../../../Functions/AddToOrder";
 
-export const SelectPoint = ({changeCity, setOrder}) => {
-
-    const points = useGetRequest(`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point`);
+export const SelectPoint = ({
+        changeCity,
+        setOrder, order,
+        response, loading, error,
+        changeUnlockSteps, removeUnlockSteps
+    }) => {
 
     const [pointsOfCity, setPointsOfCity] = useState(null);
     const [center, setCenter] = useState(null);
-    const [thisChangeCity, setThisChangeCity] = useState(null);
 
+    const [thisChangeCity, setThisChangeCity] = useState(null);
     const [value, setValue] = useState(null);
 
     useEffect(() => {
-        if(points.response && changeCity) {
-            if(changeCity !== thisChangeCity)
-                setPoints(points.response, changeCity, setPointsOfCity, setCenter)
-                    .then(() => {
-                        setThisChangeCity(changeCity);
-                        setValue(null);
-                    });
+        if (!changeCity && thisChangeCity) {
+            setThisChangeCity(null);
+            setPointsOfCity(null);
         }
-        if (!changeCity) setPointsOfCity(null);
+        if (response && changeCity) {
+            console.log(thisChangeCity);
+            if(changeCity !== thisChangeCity) {
+                setThisChangeCity(changeCity);
+                setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue).then();
+            }
+        }
     });
 
     return (
@@ -41,32 +46,33 @@ export const SelectPoint = ({changeCity, setOrder}) => {
                     Пункт выдачи
                 </Text>
                 <Select
-                    value={changeCity !== thisChangeCity ? null : value ? value : null}
+                    value={changeCity !== thisChangeCity ? null : order ? value : null}
                     styles={customStyles}
                     options={pointsOfCity}
                     placeholder='Выбрать...'
                     isClearable={true}
-                    isLoading={points.loading || changeCity ? changeCity !== thisChangeCity : false}
-                    isDisabled={points.error || points.loading
-                                 || !changeCity || changeCity !== thisChangeCity || !pointsOfCity.length}
+                    isLoading={loading || !pointsOfCity || changeCity ? changeCity !== thisChangeCity : false}
+                    isDisabled={error || loading
+                                || !changeCity || changeCity !== thisChangeCity
+                                || !pointsOfCity}
                     onChange={
                         (e) => {
                             if (e) {
+                                changeUnlockSteps(0);
                                 setValue(e);
                                 setCenter(e.coordinates);
-                                setOrder({
-                                    'Пункт выдачи': e.city + `, ` + e.value
-                                });
+                                setOrder(addPointToOrder(e.pointId, e.cityId, e.coordinates));
                             }
                             else {
                                 setValue(e);
                                 setOrder(null);
+                                removeUnlockSteps(0);
                             }
                         }
                     }
                 />
             </PointRow>
-            {pointsOfCity && Boolean(pointsOfCity.length) &&
+            {pointsOfCity ? Boolean(pointsOfCity.length) ?
                 <MapContainer>
                     <YandexMap
                         pointsOfCity={pointsOfCity}
@@ -74,8 +80,16 @@ export const SelectPoint = ({changeCity, setOrder}) => {
                         setCenter={setCenter}
                         setOrder={setOrder}
                         setValue={setValue}
+                        changeUnlockSteps={changeUnlockSteps}
                     />
-                </MapContainer>
+                </MapContainer> :
+                <Text
+                    weight='500'
+                    size='16px'
+                    color='#121212'
+                >
+                    В этом городе нет доступных пунктов выдачи...
+                </Text> : ''
             }
         </React.Fragment>
     )

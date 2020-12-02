@@ -1,46 +1,27 @@
-import React, {useEffect, useState} from "react";
-import {Redirect, Route, Switch, withRouter} from "react-router-dom";
-
+import React from "react";
+import {Redirect, Route, Switch, withRouter, useHistory} from "react-router-dom";
 
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
+import {useUserLocation} from "./Hooks/useUserLocation";
+import {PlacedOrderPage} from "./Components/PlacedOrderPage/PlacedOrderPage";
 
 
 const App = () => {
 
-    const [userLocation, setUserLocation] = useState(null);
-    const [confirmUserLocation, setConfirm] = useState(true);
+    const userLocation = useUserLocation();
+    const history = useHistory();
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const str =  position.coords.longitude + ', ' + position.coords.latitude;
-                const key = `941d25b3-c4cd-4c8d-a363-67789eb0ff5e`;
-                const api =`https://geocode-maps.yandex.ru/1.x/?apikey=${key}&format=json&geocode=${str}&kind=locality&lang=ru_RU`;
-                fetch(api)
-                    .then(res => res.json())
-                    .then(result => {
-                        setUserLocation(result.response.GeoObjectCollection.featureMember[0].GeoObject);
-                        setConfirm(false);
-                    }, error => console.error(error));
-            }
-        );
-    }, [])
+    const orderId = localStorage.getItem(`orderId`);
 
     return (
-
         <Switch>
-            <Route path='/order' render={() => <OrderPage userLocation={userLocation}/>}/>
-            <Route path='/main' render={() => <MainPage userLocation={userLocation}
-                                                        setUserLocation={setUserLocation}
-                                                        confirmUserLocation={confirmUserLocation}
-                                                        setConfirm={setConfirm}
-                                                />}
-            />
-            <Redirect from='/' to='/main'/>
+            <Route path='/order' render={() => <OrderPage history={history} {...userLocation}/>}/>
+            <Route path='/main' render={() => <MainPage {...userLocation}/>}/>
+            {orderId && <Route path='/placedOrder' render={() => <PlacedOrderPage history={history} {...userLocation} orderId={orderId}/>}/>}
+            {orderId ? <Redirect from='/' to='/placedOrder'/> : <Redirect from='/' to='/main'/>}
         </Switch>
     );
-
 }
 
 export default withRouter(App);

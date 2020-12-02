@@ -1,8 +1,10 @@
 import {Map, Placemark, YMaps} from "react-yandex-maps";
 import React from "react";
-import {Text} from "../Text/Text";
 
-export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue}) =>
+import {Text} from "../Text/Text";
+import {addPointToOrder} from "../../Functions/AddToOrder";
+
+export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue, changeUnlockSteps}) =>
 
     <React.Fragment>
         <Text
@@ -25,7 +27,8 @@ export const YandexMap = ({pointsOfCity, center, setCenter, setOrder, setValue})
                             () => {
                                 setCenter(item.coordinates);
                                 setValue({label: item.label, value: item.value});
-                                setOrder({'Пункт выдачи': item.city + `, ` + item.label})
+                                setOrder(addPointToOrder(item.pointId, item.cityId, item.coordinates));
+                                changeUnlockSteps(0);
                             }
                         }
                         key={index}
