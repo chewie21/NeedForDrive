@@ -19,6 +19,7 @@ export const SwitchSteps = (
         {!order && <Redirect exact from='/order/step2' to='/order/step1'/>}
         {!order && <Redirect exact from='/order/step3' to='/order/step1'/>}
         {!order && <Redirect exact from='/order/step4' to='/order/step1'/>}
+        <Redirect exact from='/order' to='/order/step1'/>
         <Route exact path='/order/step1'
                render={() =>
                    <Step1
@@ -56,5 +57,4 @@ export const SwitchSteps = (
                    <Step4 order={order} confirmOrder={confirmOrder}/>
                }
         />
-        <Redirect exact from='/order' to='/order/step1'/>
     </Switch>

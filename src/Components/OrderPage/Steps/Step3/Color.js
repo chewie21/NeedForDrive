@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Text} from "../../../../Common/Text/Text";
-import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
+import {CustomRadio, CustomRadioLabel} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {addParamToOrder} from "../../../../Functions/AddToOrder";
 import {Container} from "./Step3.styled";
@@ -34,17 +34,18 @@ export const Color = ({order, setOrder}) => {
                 Цвет
             </Text>
             <RadioGroup row value={filter}>
-                <GreenLabel
+                <CustomRadioLabel
                     value='Любой'
-                    control={<GreenRadio/>}
+                    control={<CustomRadio/>}
                     label='Любой'
+                    onChange={(e) => changeColor(e)}
                 />
                 {order.carId && order.carId.colors.map((item, index) =>
-                    <GreenLabel
+                    <CustomRadioLabel
                         onChange={(e) => changeColor(e)}
                         key={index}
                         value={item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
-                        control={<GreenRadio/>}
+                        control={<CustomRadio/>}
                         label={item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
                     />
                 )}

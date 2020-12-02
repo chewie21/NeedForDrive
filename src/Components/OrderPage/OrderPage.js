@@ -17,7 +17,7 @@ import {
     orderStatusUrlPages,
     orderUrlPages,
     pointsUrlPages,
-    rateUrlPages
+    rateUrlPages, secret
 } from "../../Environments/ApiFactoryUrls";
 
 import {
@@ -67,7 +67,7 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
     const [order, setOrder] = useState(null);
 
     const newOrder = (order, status, history, setError) => {
-        postRequest(orderUrlPages, order)
+        postRequest(orderUrlPages, order, secret)
             .then((response) => {
                 localStorage.setItem(`orderId`, response.data.id);
                 history.push('/placedOrder')

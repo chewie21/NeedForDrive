@@ -1,4 +1,3 @@
-import {mainUrlPages} from "../Environments/ApiFactoryUrls";
 import DefaultImg from "../img/defaulImg.png";
 
 export const formatNumber = (number) =>
@@ -32,9 +31,29 @@ export const formatDateToOrderList = (milliseconds) => {
     return `${daysStr} ${hoursStr} ${minutesStr}`
 };
 
-export const formatImgPath = (item) =>
+export const formatImgPath = (item, url) =>
     item.thumbnail.path ?
         item.thumbnail.path.charAt(0) === '/' ?
-            `${mainUrlPages}${item.thumbnail.path}` :
+            `${url}${item.thumbnail.path}` :
             item.thumbnail.path :
         DefaultImg;
+
+export const formatToken = (token) => {
+    let range = (start, end) => [...Array(end - start).keys(), end - start].map(n => start + n);
+    let A = range(65, 90);
+    let a = range(97, 122);
+    let dig = range(48, 57);
+    let all = A.concat(a).concat(dig);
+
+    function generateString(length = 10){
+        let str = '';
+        for(let i = 0; i < length; i++){
+            str += String.fromCharCode(all[Math.floor(Math.random() * all.length)]);
+        }
+        return str;
+    }
+
+    let string = `${generateString(10)}:${token}`;
+
+    return btoa(string);
+}
