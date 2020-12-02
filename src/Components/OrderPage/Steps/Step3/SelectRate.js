@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
+import {CustomRadio, CustomRadioLabel} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {addParamToOrder} from "../../../../Functions/AddToOrder";
 
@@ -39,11 +39,11 @@ export const SelectRate = ({response, order, setOrder}) => {
             </Text>
             {response && <RadioGroup value={selection}>
                 {response.data.map((item, index) =>
-                        <GreenLabel
+                        <CustomRadioLabel
                             onChange={() => changeRate(item)}
                             key={index}
                             value={item.price}
-                            control={<GreenRadio/>}
+                            control={<CustomRadio/>}
                             label={`${item.rateTypeId.name}, ${item.price} ₽/${item.rateTypeId.unit}`}
                         />
                     )}

@@ -3,6 +3,7 @@ import {Card, CardImg} from "./Step2.styled";
 import {Text} from "../../../../Common/Text/Text";
 import {addCarToOrder} from "../../../../Functions/AddToOrder";
 import {formatImgPath} from "../../../../Functions/Format";
+import {mainUrlPages} from "../../../../Environments/ApiFactoryUrls";
 
 export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) => {
 
@@ -50,7 +51,7 @@ export const CarList = ({filter, changeUnlockSteps, order, setOrder, response}) 
                 <CardImg
                     float='right'
                     width='80%'
-                    src={formatImgPath(item)}
+                    src={formatImgPath(item, mainUrlPages)}
                 />
             </Card>
         ))

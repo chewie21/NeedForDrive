@@ -12,6 +12,7 @@ import {
     SuccessContainer
 } from "./OrderInfo.styled";
 import {Button} from "../Button/Button";
+import {mainUrlPages} from "../../Environments/ApiFactoryUrls";
 
 export const OrderInfoMain = ({order, toggle}) =>
     <Container>
@@ -78,7 +79,7 @@ export const OrderInfoMain = ({order, toggle}) =>
                 </MainRow>
             </div>
             <ContentImg
-                src={formatImgPath(order.carId)}
+                src={formatImgPath(order.carId, mainUrlPages)}
             />
             <ButtonContainer>
                 {order.id ?

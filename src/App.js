@@ -1,11 +1,11 @@
 import React from "react";
-import {Redirect, Route, Switch, withRouter, useHistory} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, withRouter} from "react-router-dom";
 
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
 import {useUserLocation} from "./Hooks/useUserLocation";
 import {PlacedOrderPage} from "./Components/PlacedOrderPage/PlacedOrderPage";
-
+import {Admin} from "./Components/Admin/Admin";
 
 const App = () => {
 
@@ -16,9 +16,30 @@ const App = () => {
 
     return (
         <Switch>
-            <Route path='/order' render={() => <OrderPage history={history} {...userLocation}/>}/>
-            <Route path='/main' render={() => <MainPage {...userLocation}/>}/>
-            {orderId && <Route path='/placedOrder' render={() => <PlacedOrderPage history={history} {...userLocation} orderId={orderId}/>}/>}
+            <Route path='/order' render={() =>
+                <OrderPage
+                    history={history}
+                    userLocation={userLocation.userLocation}
+                    confirmUserLocation={userLocation.confirmUserLocation}
+                    confirmedUserLocation={userLocation.confirmedUserLocation}
+                />}
+            />
+            <Route path='/main' render={() =>
+                <MainPage
+                    userLocation={userLocation.userLocation}
+                    confirmUserLocation={userLocation.confirmUserLocation}
+                    confirmedUserLocation={userLocation.confirmedUserLocation}
+                />}
+            />
+            <Route path='/admin' render={() => <Admin/>}/>
+            <Route path='/placedOrder' render={() =>
+                <PlacedOrderPage
+                    history={history}
+                    userLocation={userLocation.userLocation}
+                    confirmUserLocation={userLocation.confirmUserLocation}
+                    confirmedUserLocation={userLocation.confirmedUserLocation}
+                    orderId={orderId}/>}
+            />
             {orderId ? <Redirect from='/' to='/placedOrder'/> : <Redirect from='/' to='/main'/>}
         </Switch>
     );
