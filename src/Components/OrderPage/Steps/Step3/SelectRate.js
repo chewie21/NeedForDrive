@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 
-import {CustomRadio, CustomRadioLabel} from "../../../../Common/Button/RadioButton";
+import {CustomRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {addParamToOrder} from "../../../../Functions/AddToOrder";
 
 import {Container} from "./Step3.styled";
 import {Text} from "../../../../Common/Text/Text";
+import {CustomRadioLabel} from "../../../../Common/Button/RadioButtonLabel";
 
 export const SelectRate = ({response, order, setOrder}) => {
 

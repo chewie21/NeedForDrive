@@ -4,15 +4,14 @@ import {Text} from "../../../Common/Text/Text";
 
 import {TextLink} from "../../../Common/Text/TextLink";
 import {AdminButton} from "../../../Common/Button/AdminButton";
-import {oauthUrl, oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
+import {oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
 
 import {postRequest} from "../../../Functions/RequestsToApiFactory";
-import {formatToken} from "../../../Functions/Format";
+import {formatDateToToken, formatToken} from "../../../Functions/Format";
 
 import LoginLogo from '../../../img/adminLoginIcon.svg'
 
 export const LoginPage = ({setAuth, history}) => {
-
 
     const login = (event) => {
         event.preventDefault();
@@ -20,9 +19,7 @@ export const LoginPage = ({setAuth, history}) => {
         postRequest(oauthUrlPages, {"username": event.target.email.value, "password": event.target.password.value}, `Basic ${token}`)
             .then(response => {
                 console.log(response);
-                let obj = {...response};
-                obj.main_token = token;
-                obj.expires_in = new Date(new Date().getTime() + +obj.expires_in * 1000).getTime();
+                let obj = {...response, main_token: token, expires_in: formatDateToToken(response.expires_in)};
                 setAuth(obj);
                 history.push('/admin');
             }, error => console.log(error));
@@ -58,7 +55,7 @@ export const LoginPage = ({setAuth, history}) => {
                         Вход
                     </Text>
                     <form
-                        onSubmit={e => login(e)}
+                        onSubmit={login}
                     >
                         <Text
                             weight='normal'

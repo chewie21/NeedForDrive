@@ -17,7 +17,8 @@ import {
     orderStatusUrlPages,
     orderUrlPages,
     pointsUrlPages,
-    rateUrlPages, secret
+    rateUrlPages,
+    secret
 } from "../../Environments/ApiFactoryUrls";
 
 import {
@@ -47,6 +48,7 @@ import {ModalOrder} from "../../Common/OrderInfo/ModalOrder/ModalOrder";
 import {ModalMenuMobile} from "../../Common/Menu/ModalMenuMobile";
 import {HeaderMobile} from "../../Common/Header/HeaderMobile";
 import {MobileFooter} from "./Mobile/MobileFooter";
+import {sendOrder} from "../../Functions/AddToOrder";
 
 import orderTabletIcon from '../../img/tabletOrder.svg';
 import orderTabletIconHover from '../../img/tabletOrderHover.svg';
@@ -67,7 +69,7 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
     const [order, setOrder] = useState(null);
 
     const newOrder = (order, status, history, setError) => {
-        postRequest(orderUrlPages, order, secret)
+        postRequest(orderUrlPages, sendOrder(order, status), secret)
             .then((response) => {
                 localStorage.setItem(`orderId`, response.data.id);
                 history.push('/placedOrder')
@@ -174,9 +176,7 @@ export const OrderPage = ({userLocation, confirmedUserLocation, confirmUserLocat
                         />
                     </FixedFooterMobile>
                 }
-
             </MobileContainer>
-
         </OrderContainer>
     );
 }

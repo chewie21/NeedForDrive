@@ -7,14 +7,11 @@ export const addPointToOrder = (point, city, coordinates) => {
 }
 
 export const addCarToOrder = (order, item) => {
-    let obj = {...order};
-    obj.carId = item;
-    obj.meanPrice = `${item.priceMin} - ${item.priceMax}`;
-    for(const item in obj) {
-        if(item !== `carId` && item !== `meanPrice` && item !== `pointId` && item !== `cityId` && item !== `coordinates`) {
-            delete obj[item];
-        }
-    }
+    const availableKeys = [`carId`, `meanPrice`, `pointId`, `cityId`, `coordinates`];
+    let obj = {...order, carId: item, meanPrice: `${item.priceMin} - ${item.priceMax}`};
+    Object.keys(obj).forEach(key => {
+        if(!availableKeys.includes(key)) delete obj[key];
+    });
     return obj;
 }
 
@@ -32,17 +29,11 @@ export const deleteParamFromOrder = (order, key) => {
 
 export const addDateFromToOrder = (order, item) => {
     let obj = {...order};
-    if(item) {
-        obj.dateFrom = item;
-    } else {
-        delete obj.dateFrom;
-    }
+    item ? obj.dateFrom = item : delete obj.dateFrom;
     delete obj.dateTo;
     return obj;
 }
 
 export const sendOrder = (order, status) => {
-    let obj = {...order};
-    obj.orderStatusId = status;
-    return obj;
+    return {...order, orderStatusId: status};
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const AdminButton = styled.button`
-    color: #FFFFFF;
+    color: ${props => props.textColor ? props.textColor : '#FFFFFF'};
     line-height: 1;
     font-weight: normal;
     font-size: ${props => props.size};

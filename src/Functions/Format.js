@@ -57,3 +57,43 @@ export const formatToken = (token) => {
 
     return btoa(string);
 }
+
+export const formatOrderStatus = (status) => {
+    if(status === `issued`) {
+        return `В работе`
+    } else if (status === `new`) {
+        return `Новый`
+    } else if (status === `confirmed`) {
+        return `Подтвержден`
+    } else if (status === `cancelled`) {
+        return `Отменнен`
+    }
+}
+
+export const formatDateToToken = (seconds) => new Date(new Date().getTime() + +seconds * 1000).getTime();
+
+export const formatToFilter = (data, name) => {
+    let arr = [];
+    data.forEach((item) => {
+        let obj = {
+            label: item.name,
+            value: item.id,
+            name: name
+        }
+        arr.push(obj);
+    });
+    return arr;
+}
+
+export const formatToOrderInfo = (data) => {
+    let arr = [];
+    data.forEach((item) => {
+        let obj = {
+            label: item.address ? item.address : item.name,
+            value: item.id,
+            item: item
+        }
+        arr.push(obj);
+    });
+    return arr;
+}

@@ -2,12 +2,15 @@ import React from "react";
 import clsx from "clsx";
 
 import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import {useButtonStyles, useLabelStyles} from "./Button.styles";
+import {useButtonStyles} from "./Button.styles";
 
 export const CustomRadio = (props) => {
-    const styleProps = {borderRadius: `50%`}
+    const styleProps = {
+        borderRadius: `50%`,
+        border: props.border ? props.border : '3px solid #0EC261',
+        cursor: props.cursor ? props.cursor : 'pointer'
+    }
     const classes = useButtonStyles(styleProps);
     return (
         <Radio
@@ -16,20 +19,6 @@ export const CustomRadio = (props) => {
             color="default"
             checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
             icon={<span className={classes.icon} />}
-            {...props}
-        />
-    )
-};
-
-export const CustomRadioLabel = (props) => {
-    const styleProps = {color: `#121212`}
-    const classes = useLabelStyles();
-    return (
-        <FormControlLabel
-            classes={{
-                root: classes.root,
-                label: classes.label
-            }}
             {...props}
         />
     )

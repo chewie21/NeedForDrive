@@ -5,6 +5,7 @@ import {AdminPage} from "./AdminPage/AdminPage";
 import {LoginPage} from "./LoginPage/LoginPage";
 import {postRequest} from "../../Functions/RequestsToApiFactory";
 import {refreshUrlPages} from "../../Environments/ApiFactoryUrls";
+import {formatDateToToken} from "../../Functions/Format";
 
 export const Admin = () => {
 
@@ -13,13 +14,10 @@ export const Admin = () => {
     const [auth, setAuth] = useState(null);
 
     useEffect(() => {
-        console.log(auth);
         if(auth && (new Date().getTime() > auth.expires_in)) {
             postRequest(refreshUrlPages, {"refresh_token": `${auth.refresh_token}`}, `Basic ${auth.main_token}`)
                 .then(result => {
-                    let obj = {...result};
-                    obj.main_token = auth.main_token;
-                    obj.expires_in = new Date(new Date().getTime() + +obj.expires_in * 1000);
+                    let obj = {...result, main_token: auth.main_token, expires_in: formatDateToToken(result.expires_in)};
                     setAuth(obj);
                 }, error => setAuth(null));
         }
