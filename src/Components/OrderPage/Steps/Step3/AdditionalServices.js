@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {CustomCheck, CustomLabelChek} from "../../../../Common/Button/CheckBox";
+import {CustomCheck} from "../../../../Common/Button/CheckBox";
 import {Text} from "../../../../Common/Text/Text";
 import {addParamToOrder, deleteParamFromOrder} from "../../../../Functions/AddToOrder";
+import {CustomCheckLabel} from "../../../../Common/Button/CheckBoxLabel";
 
 export const AdditionalServices = ({order, setOrder}) => {
 
@@ -47,7 +48,7 @@ export const AdditionalServices = ({order, setOrder}) => {
                 Доп услуги
             </Text>
             {data.map((item, index) => (
-                <CustomLabelChek
+                <CustomCheckLabel
                     key={index}
                     onChange={(e) => handleChange(e, item)}
                     checked={state[item.name]}

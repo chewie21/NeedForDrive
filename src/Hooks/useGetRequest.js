@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import {getRequest} from "../Functions/RequestsToApiFactory";
+import {secret} from "../Environments/ApiFactoryUrls";
 
-export const useGetRequest = (url) => {
+export const useGetRequest = (url, token = secret) => {
 
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
@@ -9,7 +10,7 @@ export const useGetRequest = (url) => {
 
     useEffect(() => {
         setLoading(true);
-        getRequest(url)
+        getRequest(url, token)
             .then(
                 response => {
                     setResponse(response);

@@ -22,6 +22,7 @@ export const MobileFooter = ({navs, setActiveStep, order, modalOrder, confirmOrd
                                 onClick={() => setActiveStep(index - 1)}
                             >
                                 <IconImageHover
+                                    key={index}
                                     height='32px'
                                     width='32px'
                                     margin='0 0 0 0'
@@ -35,6 +36,7 @@ export const MobileFooter = ({navs, setActiveStep, order, modalOrder, confirmOrd
                     {order &&
                         <Center>
                             <IconImageHover
+                                key={index}
                                 onClick={modalOrder}
                                 height='32px'
                                 width='32px'
@@ -47,10 +49,12 @@ export const MobileFooter = ({navs, setActiveStep, order, modalOrder, confirmOrd
                     {navs[index + 1] ? navs[index + 1].lock ? '' :
                         <Right>
                             <Link
+                                key={index}
                                 to={navs[index +1].to}
                                 onClick={() => setActiveStep(index + 1)}
                             >
                                 <IconImageHover
+                                    key={index}
                                     height='32px'
                                     width='32px'
                                     margin='0 0 0 0'
@@ -61,6 +65,7 @@ export const MobileFooter = ({navs, setActiveStep, order, modalOrder, confirmOrd
                         </Right> :
                         <Right>
                             <IconImageHover
+                                key={index}
                                 height='32px'
                                 width='32px'
                                 margin='0 0 0 0'

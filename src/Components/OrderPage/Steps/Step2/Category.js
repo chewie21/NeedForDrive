@@ -1,6 +1,8 @@
 import React from "react";
-import {CustomRadio, CustomRadioLabel} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
+
+import {CustomRadio} from "../../../../Common/Button/RadioButton";
+import {CustomRadioLabel} from "../../../../Common/Button/RadioButtonLabel";
 
 export const Category = ({setFilter, response}) => {
 

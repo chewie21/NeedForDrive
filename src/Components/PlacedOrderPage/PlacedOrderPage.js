@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {orderStatusUrlPages, orderUrlPages} from "../../Environments/ApiFactoryUrls";
 
@@ -58,6 +58,12 @@ export const PlacedOrderPage = ({userLocation, orderId, history, confirmedUserLo
                 history.push('/main');
             }).catch(() => setError(true));
     }
+
+    useEffect(() => {
+        if(order.error) {
+            history.push('/main');
+        }
+    })
 
     return (
         order.response &&

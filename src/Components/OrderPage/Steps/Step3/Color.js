@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Text} from "../../../../Common/Text/Text";
-import {CustomRadio, CustomRadioLabel} from "../../../../Common/Button/RadioButton";
+import {CustomRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {addParamToOrder} from "../../../../Functions/AddToOrder";
 import {Container} from "./Step3.styled";
+import {CustomRadioLabel} from "../../../../Common/Button/RadioButtonLabel";
 
 export const Color = ({order, setOrder}) => {
 
@@ -16,7 +17,7 @@ export const Color = ({order, setOrder}) => {
            setFilter(`Любой`);
            setOrder(addParamToOrder(order, `color`, `Любой`));
        }
-    }, [order, setOrder]);
+    }, []);
 
     const changeColor = (e) => {
         setFilter(e.target.value);
