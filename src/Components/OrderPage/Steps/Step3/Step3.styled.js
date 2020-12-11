@@ -10,6 +10,7 @@ export const Row = styled.div`
     align-items: center;
 `;
 
+//override react-datepicker styles
 export const Style = createGlobalStyle`
     .date-pick-active {
         padding-left: 8px;

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {OrderListItem} from "./OrderListItem";
+import {OrderListItem} from "./AdminOrdersItem/OrderListItem";
 
 import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled";
@@ -13,6 +13,24 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 
 	const [config, setConfig] = useState(null);
 	const [filtersConfig, setFiltersConfig] = useState(null);
+
+	const timeOptions = [
+		{
+			label: 'За сутки',
+			value: 86400000,
+			name: 'createdAt'
+		},
+		{
+			label: 'За неделю',
+			value: 604800000,
+			name: 'createdAt'
+		},
+		{
+			label: 'За месяц',
+			value: 2628002880,
+			name: 'createdAt'
+		},
+	]
 
 	useEffect(() => {
 		if(orderStatus.response && !config) {
@@ -32,23 +50,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 			const obj = [
 				{
 					placeholder: 'Время',
-					options: [
-						{
-							label: 'За сутки',
-							value: 86400000,
-							name: 'createdAt'
-						},
-						{
-							label: 'За неделю',
-							value: 604800000,
-							name: 'createdAt'
-						},
-						{
-							label: 'За месяц',
-							value: 2628002880,
-							name: 'createdAt'
-						},
-					]
+					options: timeOptions
 				},
 				{
 					placeholder: 'Модель',

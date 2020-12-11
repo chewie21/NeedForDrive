@@ -112,6 +112,7 @@ export const customStyles = {
 	),
 }
 
+//override react-datepicker styles
 export const Style = createGlobalStyle`
   	.react-datepicker-wrapper {
       	display: block;

@@ -1,10 +1,9 @@
 import {Table} from "react-bootstrap";
 
 import {Text} from "../Text/Text";
-import {Container, PaginationContainer, Style, TableContainer, TableFilterContainer} from "./CustomTable.styled";
+import {Container, Style, TableContainer, TableFilterContainer} from "./CustomTable.styled";
 
 import {AdminFilters} from "../AdminFilters/AdminFilters";
-import Pagination from "@material-ui/lab/Pagination";
 import {formatDateToOrderMain, formatOrderStatus} from "../../Functions/Format";
 
 export const CustomTable = ({config, paginationFunc, history}) =>
