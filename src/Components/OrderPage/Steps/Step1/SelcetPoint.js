@@ -25,7 +25,6 @@ export const SelectPoint = ({
             setPointsOfCity(null);
         }
         if (response && changeCity) {
-            console.log(thisChangeCity);
             if(changeCity !== thisChangeCity) {
                 setThisChangeCity(changeCity);
                 setPoints(response, changeCity, setPointsOfCity, setCenter, order, setValue).then();

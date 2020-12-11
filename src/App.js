@@ -1,26 +1,51 @@
 import React from "react";
-import {Redirect, Route, Switch, withRouter, useHistory} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, withRouter} from "react-router-dom";
 
 import {MainPage} from "./Components/MainPage/MainPage";
 import {OrderPage} from "./Components/OrderPage/OrderPage";
 import {useUserLocation} from "./Hooks/useUserLocation";
 import {PlacedOrderPage} from "./Components/PlacedOrderPage/PlacedOrderPage";
-
+import {Admin} from "./Components/Admin/Admin";
+import {ThemeProvider} from "@material-ui/styles";
+import {theme} from "./Common/Theme";
 
 const App = () => {
 
-    const userLocation = useUserLocation();
+    const {userLocation, confirmedUserLocation, confirmUserLocation} = useUserLocation();
     const history = useHistory();
 
     const orderId = localStorage.getItem(`orderId`);
 
     return (
-        <Switch>
-            <Route path='/order' render={() => <OrderPage history={history} {...userLocation}/>}/>
-            <Route path='/main' render={() => <MainPage {...userLocation}/>}/>
-            {orderId && <Route path='/placedOrder' render={() => <PlacedOrderPage history={history} {...userLocation} orderId={orderId}/>}/>}
-            {orderId ? <Redirect from='/' to='/placedOrder'/> : <Redirect from='/' to='/main'/>}
-        </Switch>
+        <ThemeProvider theme={theme}>
+            <Switch>
+                <Route path='/order' render={() =>
+                    <OrderPage
+                        history={history}
+                        userLocation={userLocation}
+                        confirmUserLocation={confirmUserLocation}
+                        confirmedUserLocation={confirmedUserLocation}
+                    />}
+                />
+                <Route path='/main' render={() =>
+                    <MainPage
+                        userLocation={userLocation}
+                        confirmUserLocation={confirmUserLocation}
+                        confirmedUserLocation={confirmedUserLocation}
+                    />}
+                />
+                <Route path='/admin' render={() => <Admin/>}/>
+                <Route path='/placedOrder' render={() =>
+                    <PlacedOrderPage
+                        history={history}
+                        userLocation={userLocation}
+                        confirmUserLocation={confirmUserLocation}
+                        confirmedUserLocation={confirmedUserLocation}
+                        orderId={orderId}/>}
+                />
+                {orderId ? <Redirect from='/' to='/placedOrder'/> : <Redirect from='/' to='/main'/>}
+            </Switch>
+        </ThemeProvider>
     );
 }
 

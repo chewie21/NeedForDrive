@@ -29,8 +29,6 @@ async function getCenter(center) {
 
 export async function setPoints(points, changeCity, setPointsOfCity, setCenter, order, setValue) {
 
-    console.log(order);
-
     const arr = [];
     let valueObj;
     const pointsOfThisCity = points.data.filter(item => item.cityId.name === changeCity.label);

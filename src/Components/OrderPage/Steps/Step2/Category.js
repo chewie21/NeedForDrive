@@ -1,6 +1,8 @@
 import React from "react";
-import {GreenLabel, GreenRadio} from "../../../../Common/Button/RadioButton";
 import RadioGroup from "@material-ui/core/RadioGroup";
+
+import {CustomRadio} from "../../../../Common/Button/RadioButton";
+import {CustomRadioLabel} from "../../../../Common/Button/RadioButtonLabel";
 
 export const Category = ({setFilter, response}) => {
 
@@ -10,16 +12,16 @@ export const Category = ({setFilter, response}) => {
 
     return (
         response && <RadioGroup row defaultValue='Все модели' onChange={chooseCategory}>
-            <GreenLabel
+            <CustomRadioLabel
                 value='Все модели'
-                control={<GreenRadio/>}
+                control={<CustomRadio/>}
                 label='Все модели'
             />
             {response.data.map((item, index) =>
-                <GreenLabel
+                <CustomRadioLabel
                     key={index}
                     value={item.name}
-                    control={<GreenRadio/>}
+                    control={<CustomRadio/>}
                     label={item.name}
                 />
             )}

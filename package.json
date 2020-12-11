@@ -5,6 +5,7 @@
   "homepage": "http://chewie21.github.io/NeedForDrive",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/styles": "^4.11.2",
     "clsx": "^1.1.1",
     "gh-pages": "^3.1.0",
     "history": "^5.0.0",
