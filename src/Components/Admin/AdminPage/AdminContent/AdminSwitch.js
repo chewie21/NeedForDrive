@@ -6,6 +6,8 @@ import {AdminOrderInfo} from "./AdminOrders/AdminOrderInfo/AdminOrderInfo";
 import {AdminCarsInfo} from "./AdminCars/AdminCarsInfo/AdminCarsInfo";
 import {AdminCities} from "./AdminCities/AdminCities";
 import {AdminCitiesInfo} from "./AdminCities/AdminCitiesInfo/AdminCitiesInfo";
+import {AdminPoints} from "./AdminPoints/AdminPoints";
+import {AdminPointsInfo} from "./AdminPoints/AdminPointsInfo/AdminPointsInfo";
 
 export const AdminSwitch = ({
 		auth,
@@ -67,25 +69,47 @@ export const AdminSwitch = ({
 				/>
 			}
 		/>
-		{/*<Route*/}
-		{/*	exact path='/admin/cities'*/}
-		{/*	render={(props) =>*/}
-		{/*		<AdminCities*/}
-		{/*			{...props}*/}
-		{/*			auth={auth}*/}
-		{/*			history={history}*/}
-		{/*		/>*/}
-		{/*	}*/}
-		{/*/>*/}
-		{/*<Route*/}
-		{/*	exact path='/admin/cities/:id'*/}
-		{/*	render={(props) =>*/}
-		{/*		<AdminCitiesInfo*/}
-		{/*			{...props}*/}
-		{/*			auth={auth}*/}
-		{/*			history={history}*/}
-		{/*		/>*/}
-		{/*	}*/}
-		{/*/>*/}
-		<Redirect from='/' to='/admin/orders'/>
+		<Route
+			exact path='/admin/cities'
+			render={(props) =>
+				<AdminCities
+					{...props}
+					auth={auth}
+					history={history}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/cities/:id'
+			render={(props) =>
+				<AdminCitiesInfo
+					{...props}
+					auth={auth}
+					history={history}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/points'
+			render={(props) =>
+				<AdminPoints
+					{...props}
+					auth={auth}
+					history={history}
+					cities={cities}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/points/:id'
+			render={(props) =>
+				<AdminPointsInfo
+					{...props}
+					auth={auth}
+					history={history}
+					cities={cities}
+				/>
+			}
+		/>
+		<Redirect from='/' to='/admin/cities'/>
 	</Switch>

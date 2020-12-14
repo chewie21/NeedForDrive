@@ -1,32 +1,31 @@
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
-import {Form, Modal} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import React, {useEffect, useState} from "react";
 import {CityName} from "../AdminCitiesComponents/CityName";
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {carsUrlPages, citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
-import {formatToOrderInfo} from "../../../../../../Functions/Format";
+import {citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCitiesModal = ({onHide, show, auth, history}) => {
+export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
 
-	const city = {
-		name: ''
-	}
+	const city = { name: '' };
 
 	const [config, setConfig] = useState(null);
 
+	const refreshConfig = () => setConfig({ data: city });
+
 	useEffect(() => {
-		if(!config) {
-			let obj = {};
-			obj.data = city;
-			setConfig(obj);
-		}
-	})
+		if(!config) refreshConfig();
+	});
 
-	const sendNewCity = () => {
-
-	}
+	const sendNewCity = () => sendNewEntity(citiesUrl, config, setConfig, auth,
+			() => {
+				onHide();
+				refreshConfig();
+				getCities();
+			}
+		);
 
 	return (
 		config &&
@@ -36,7 +35,7 @@ export const AdminCitiesModal = ({onHide, show, auth, history}) => {
 			onHide={onHide}
 		>
 			{config.modalText &&
-			<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>}
+				<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>}
 			<Modal.Header closeButton className='d-flex justify-content-around'>
 				<Text
 					weight='normal'

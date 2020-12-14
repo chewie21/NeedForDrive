@@ -27,7 +27,8 @@ export const AdminMenu = () => {
 
     const sections = [
         orders,
-        cars
+        cars,
+        cities, points
     ];
 
     const [menuSections, setMenuSections] = useState(sections);

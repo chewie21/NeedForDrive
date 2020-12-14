@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {carsUrlPages, citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
 
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {Text} from "../../../../../../Common/Text/Text";
@@ -17,22 +17,13 @@ export const AdminCitiesInfo = ({auth, history, match}) => {
 	useEffect(() => {
 		if(!config) {
 			getRequest(`${citiesUrl}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => {
-						setConfig({
-							data: res.data,
-						});
-					}
-				);
+				.then(res => setConfig({ data: res.data }));
 		}
 	});
 
+	const deleteCity = () => deleteEntity(citiesUrl, auth, config, setConfig, () => history.push('/admin/cities'));
 
-	const deleteCity = () => {
-		deleteEntity(
-			citiesUrl, auth, config, setConfig,
-			() => history.push('/admin/cars'),
-			`Упс... Что-то пошло не так`);
-	}
+	const sendEditCity = () => sendEditEntity(citiesUrl, config, setConfig, auth);
 
 	return (
 		config &&
@@ -55,6 +46,7 @@ export const AdminCitiesInfo = ({auth, history, match}) => {
 						config={config}
 						history={history}
 						deleteFunction={deleteCity}
+						sendFunction={sendEditCity}
 					/>
 				</ButtonsContainer>
 				<InfoContainer>

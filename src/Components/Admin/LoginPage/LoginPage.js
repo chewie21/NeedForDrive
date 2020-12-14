@@ -4,7 +4,7 @@ import {Text} from "../../../Common/Text/Text";
 
 import {TextLink} from "../../../Common/Text/TextLink";
 import {AdminButton} from "../../../Common/Button/AdminButton";
-import {oauthUrl, oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
+import {oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
 
 import {postRequest} from "../../../Functions/RequestsToApiFactory";
 import {formatDateToToken, formatToken} from "../../../Functions/Format";

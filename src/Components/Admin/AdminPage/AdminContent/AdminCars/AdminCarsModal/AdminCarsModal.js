@@ -30,12 +30,12 @@ export const AdminCarsModal = ({onHide, categories, show, auth, getCars}) => {
 
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => {
+	const refreshConfig = () =>
 		setConfig({
 			data: car,
 			categories: formatToOrderInfo(categories.response.data)
 		});
-	}
+
 
 	useEffect(() => {
 		if(categories.response && !config) refreshConfig();

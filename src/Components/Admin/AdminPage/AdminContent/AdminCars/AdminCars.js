@@ -2,8 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
 import {Text} from "../../../../../Common/Text/Text";
-import {BootstrapStyle} from "./AdminCarsInfo/AdminCasrInfo.styled";
-import {Container, ContentContainer} from "./AdminCars.styled";
+import {Container, ContentContainer, BootstrapStyle} from "./AdminCars.styled";
 
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
 import {formatToFilter} from "../../../../../Functions/Format";
@@ -38,7 +37,7 @@ export const AdminCars = ({auth, categories, history}) => {
 				item.tank ? `${item.tank}%` : 'Неизвестно'
 			]
 			tableBody.push(arr);
-		})
+		});
 		return tableBody;
 	};
 
