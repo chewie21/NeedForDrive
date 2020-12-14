@@ -1,25 +1,25 @@
-import {Text} from "../../../../../../Common/Text/Text";
 import React, {useState} from "react";
+import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
 
-export const CarName = ({config, setConfig}) => {
+export const PointAddress = ({config, setConfig}) => {
 
-	const [value, setValue] = useState(config.data.name ? config.data.name : '');
+	const [value, setValue] = useState(config.data.address ? config.data.address : '');
 
 	const validation = (e) => {
-		const regExp = /[^A-Za-z0-9 -.,]/g;
+		const regExp = /[^А-Яа-я0-9-., ]/g;
 		const value = e.target.value.replace(regExp, ``);
 		setValue(value);
 	}
 
-	const setCar = (e) => {
+	const setPoint = (e) => {
 		let data = {...config.data};
 		const value = e.target.value;
 		if(value) {
-			data.name = value;
+			data.address = value;
 			setConfig({...config, data: data});
 		} else {
-			setValue(data.name);
+			setValue(data.address);
 		}
 	}
 
@@ -31,14 +31,14 @@ export const CarName = ({config, setConfig}) => {
 				color='#3D5170'
 				margin='0 0 6px 0'
 			>
-				Название
+				Адрес
 			</Text>
 			<Form.Control
 				isInvalid={!value}
 				type="text"
 				value={value}
 				onInput={validation}
-				onBlur={setCar}
+				onBlur={setPoint}
 			/>
 		</React.Fragment>
 	)

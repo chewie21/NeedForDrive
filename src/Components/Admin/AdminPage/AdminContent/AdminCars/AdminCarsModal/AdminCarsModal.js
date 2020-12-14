@@ -12,53 +12,54 @@ import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {ModalBodyLeft, ModalBodyRight, ModalBodySection} from "./AdminCarsModal.styled";
-import {sendCar, sendNewEntity} from "../../../../../../Functions/SendFunctions";
+import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
 import {carsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCarsModal = ({onHide, categories, show, auth, history}) => {
+export const AdminCarsModal = ({onHide, categories, show, auth, getCars}) => {
 
 	const car = {
 		categoryId: {},
 		colors: [],
-		name: null,
-		description: null,
-		number: null,
-		priceMax: null,
-		priceMin: null,
+		name: '',
+		description: '',
+		number: '',
+		priceMax: '',
+		priceMin: '',
 		thumbnail: {}
 	}
 
 	const [config, setConfig] = useState(null);
 
-	useEffect(() => {
-		if(categories.response && !config) {
-			let obj = {};
-			obj.data = car;
-			obj.categories = formatToOrderInfo(categories.response.data);
-			setConfig(obj);
-		}
-	})
+	const refreshConfig = () =>
+		setConfig({
+			data: car,
+			categories: formatToOrderInfo(categories.response.data)
+		});
 
-	const sendNewCar = () => {
-		sendCar(config, setConfig, auth,
-			() => sendNewEntity(
-				carsUrlPages, config, setConfig, auth, () => history.push(`admin/cars`),
-				`Успех! Запись добавленна!`,
-				`Что-то пошло не так...`)
-		)
-	}
+
+	useEffect(() => {
+		if(categories.response && !config) refreshConfig();
+	});
+
+	const sendNewCar = () => sendNewEntity(carsUrlPages, config, setConfig, auth,
+		() => {
+				onHide();
+				refreshConfig();
+				getCars();
+			}
+		);
 
 	return (
 		config &&
 		<Modal
 			show={show}
 			size="lg"
-			aria-labelledby="contained-modal-title-vcenter"
 			centered
 			onHide={onHide}
 		>
 			{config.modalText &&
-				<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>}
+				<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>
+			}
 			<Modal.Header closeButton className='d-flex justify-content-around'>
 				<Text
 					weight='normal'

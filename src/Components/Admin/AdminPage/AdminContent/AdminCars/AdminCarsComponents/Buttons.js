@@ -4,6 +4,7 @@ import React from "react";
 export const CarButtons = ({config, history, sendFunction, deleteFunction}) =>
 		<React.Fragment>
 			<AdminButton
+				disabled={config.modalText}
 				size='11.5px'
 				padding='8px'
 				color='#E9ECEF'
@@ -15,6 +16,7 @@ export const CarButtons = ({config, history, sendFunction, deleteFunction}) =>
 			</AdminButton>
 			<div className='d-flex w-50 justify-content-between'>
 				<AdminButton
+					disabled={config.modalText}
 					size='11.5px'
 					padding='8px'
 					color='#CB3656'

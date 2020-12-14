@@ -6,7 +6,7 @@ import {Container} from "./ModalMessage.styled";
 
 export const ModalMessage = ({config, setConfig, margin}) =>
 	<Container
-		color={config.modalType ? '#0EC261' : '#CB3656'}
+		color={config.modalColor}
 		margin={margin ? margin : '0'}
 	>
 		<Text
@@ -27,7 +27,7 @@ export const ModalMessage = ({config, setConfig, margin}) =>
 				let obj = {...config};
 				delete obj[`modalText`];
 				delete obj[`modalType`];
-				setConfig({...obj});
+				setConfig(obj);
 			}}
 		/>
 	</Container>

@@ -46,9 +46,6 @@ export const BootstrapStyle = createGlobalStyle`
 	.form-check-input {
 	  cursor: pointer;
 	}
-	.error {
-	  	border: 1px solid #CB3656;
-	}
 `;
 
 export const Container = styled.div`

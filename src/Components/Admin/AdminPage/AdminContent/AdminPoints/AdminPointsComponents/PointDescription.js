@@ -1,18 +1,19 @@
+import React, {useState} from "react";
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
-import React, {useState} from "react";
 
-export const CarDescription = ({config, setConfig}) => {
+export const PointDescription = ({config, setConfig}) => {
 
-	const [value, setValue] = useState(config.data.description ? config.data.description : '');
+	const [value, setValue] = useState(config.data.name ? config.data.name : '');
 
-	const setCar = (e) => {
+	const setPoint = (e) => {
 		let data = {...config.data};
-		if(e.target.value) {
-			data.description = e.target.value;
+		const value = e.target.value;
+		if(value) {
+			data.name = value;
 			setConfig({...config, data: data});
 		} else {
-			setValue(data.description);
+			setValue(data.name);
 		}
 	}
 
@@ -31,7 +32,7 @@ export const CarDescription = ({config, setConfig}) => {
 				type="text"
 				value={value}
 				onInput={(e) => setValue(e.target.value)}
-				onBlur={setCar}
+				onBlur={setPoint}
 			/>
 		</React.Fragment>
 	)

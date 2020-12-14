@@ -26,7 +26,7 @@ import {CarColors} from "../AdminCarsComponents/CarColors";
 import {CarImg} from "../AdminCarsComponents/CarImg";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {CarButtons} from "../AdminCarsComponents/Buttons";
-import {deleteEntity, sendCar, sendEditEntity} from "../../../../../../Functions/SendFunctions";
+import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
 
 export const AdminCarsInfo = ({auth, categories, history, match}) => {
 
@@ -45,21 +45,9 @@ export const AdminCarsInfo = ({auth, categories, history, match}) => {
 		}
 	});
 
-	const sendEditCar = () => {
-		sendCar(config, setConfig, auth,
-			() => sendEditEntity(
-				carsUrlPages, config, setConfig, auth,
-				`Успех! Изменения сохраннены!`,
-				`Упс... Что-то пошло не так...`)
-			)
-	}
+	const sendEditCar = () => sendEditEntity(carsUrlPages, config, setConfig, auth);
 
-	const deleteCar = () => {
-		deleteEntity(
-			carsUrlPages, auth, config, setConfig,
-			() => history.push('/admin/cars'),
-			`Упс... Что-то пошло не так`);
-	}
+	const deleteCar = () => deleteEntity(carsUrlPages, auth, config, setConfig,() => history.push('/admin/cars'));
 
 	return (
 		config &&

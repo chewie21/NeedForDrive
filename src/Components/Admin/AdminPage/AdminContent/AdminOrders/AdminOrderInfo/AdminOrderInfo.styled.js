@@ -18,7 +18,7 @@ export const OrderContainer = styled.div`
 
 export const ButtonsContainer = styled.div`
   	display: flex;
-  	justify-content: flex-end;
+  	justify-content: space-between;
   	width: 100%;
   	padding: 15px 20px;
 `;

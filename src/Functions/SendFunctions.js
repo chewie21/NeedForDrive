@@ -1,78 +1,57 @@
 import {deleteRequest, postRequest, putRequest} from "./RequestsToApiFactory";
-import {formatFindErrors} from "./Format";
+import {formatFindEntityErrors} from "./Format";
 
-export const sendEditEntity = (url, config, setConfig, auth, successMessage, errorMessage) => {
-	putRequest(url, config.data.id, {...config.data}, `Bearer ${auth.access_token}`)
-		.then(res => {
-			setConfig({...config, data: res.data, modalType: true, modalText: successMessage});
-			setTimeout(() => {
-				let obj = {...config};
-				delete obj[`modalText`];
-				delete obj[`modalType`];
-				setConfig({...obj});
-			}, 3000)
-		}, error => {
-			setConfig({...config, modalType: false, modalText: errorMessage});
-			setTimeout(() => {
-				let obj = {...config};
-				delete obj[`modalText`];
-				delete obj[`modalType`];
-				setConfig({...obj});
-			}, 5000)
-		});
-}
+export const closeModal = (config, setConfig) => {
+	let obj = {...config};
+	delete obj[`modalText`];
+	delete obj[`modalColor`];
+	setConfig(obj);
+};
 
-export const sendNewEntity = (url, config, setConfig, auth, successFunc, successMessage, errorMessage) => {
-	postRequest(url, config.data, `Bearer ${auth.access_token}`)
-		.then(res => {
-			let obj = {...config};
-			obj.modalType = true;
-			obj.modalText = successMessage;
-			setConfig(obj);
-			setTimeout(() => {
-				successFunc();
-			}, 3000)
-		}, error => {
-			let obj = {...config};
-			obj.modalType = false;
-			obj.modalText = errorMessage;
-			setConfig(obj);
-			setTimeout(() => {
-				let obj = {...config};
-				delete obj[`modalText`];
-				delete obj[`modalType`];
-				setConfig({...obj});
-			}, 5000)
-		})
-}
+export const loadingModal = (config, setConfig) => setConfig({...config, modalColor: `#007BFF`, modalText: `Идет загрузка...`});
 
-export const deleteEntity = (url, auth, config, setConfig, redirect, message) => {
+export const sendEditEntity = (url, config, setConfig, auth) => {
+	if(formatFindEntityErrors(config.data)) {
+		loadingModal(config, setConfig);
+		putRequest(url, config.data.id, {...config.data}, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({...config, data: res.data, modalColor: `#0EC261`, modalText: `Успех! Изменения сохраннены!`});
+				setTimeout(() => closeModal(config, setConfig), 2000);
+			}, error => {
+				setConfig({...config, modalColor: `#CB3656`, modalText: `Что-то пошло не так...`});
+				setTimeout(() => closeModal(config, setConfig), 5000);
+			});
+	} else {
+		setConfig({...config, modalColor: `#CB3656`, modalText: `Обнаруженны неверно заполненные поля!`});
+		setTimeout(() => closeModal(config, setConfig), 5000);
+	}
+};
+
+export const sendNewEntity = (url, config, setConfig, auth, redirect) => {
+	if(formatFindEntityErrors(config.data)) {
+		loadingModal(config, setConfig);
+		postRequest(url, config.data, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({...config, modalText: `Успех! Запись добавленна!`, modalColor: `#0EC261`});
+				setTimeout(() => redirect(), 2000);
+			}, error => {
+				setConfig({...config, modalColor: `#CB3656`, modalText: `Упс... Что-то пошло не так...`});
+				setTimeout(() => closeModal(config, setConfig), 5000)
+			});
+	} else {
+		setConfig({...config, modalColor: `#CB3656`, modalText: `Обнаруженны неверно заполненные поля!`});
+		setTimeout(() => closeModal(config, setConfig), 5000);
+	}
+};
+
+export const deleteEntity = (url, auth, config, setConfig, redirect) => {
+	loadingModal(config, setConfig);
 	deleteRequest(url, config.data.id, `Bearer ${auth.access_token}`)
 		.then(res => {
-			redirect();
+			setConfig({...config, modalText: `Успех! Запись удаленна!`, modalColor: `#0EC261`});
+			setTimeout(() => redirect(), 2000);
 		}, error => {
-			setConfig({...config, modalType: false, modal: message});
-			setTimeout(() => {
-				let obj = {...config};
-				delete obj[`modal`];
-				delete obj[`modalType`];
-				setConfig({...obj});
-			}, 5000)
+			setConfig({...config, modalColor: `#CB3656`, modal: `Упс... Что-то пошло не так...`});
+			setTimeout(() => closeModal(config, setConfig), 5000);
 		});
-}
-
-export const sendCar = (config, setConfig, auth, sendFunction) => {
-	let obj = {...config};
-	if(formatFindErrors(obj.data)) {
-		sendFunction();
-	} else {
-		obj.modalType = false;
-		obj.modalText = `Обнаруженны неверно заполненные поля!`;
-		setTimeout(() => {
-			delete obj[`modalText`];
-			delete obj[`modalType`];
-			setConfig({...obj});
-		}, 5000);
-		setConfig(obj);
-	}
-}
+};

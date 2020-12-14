@@ -1,7 +1,7 @@
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import React from "react";
 
-export const OrderButtons = ({config, history, sendFunction, deleteFunction}) =>
+export const CityButtons = ({config, history, sendFunction, deleteFunction}) =>
 	<React.Fragment>
 		<div className='w-25'>
 			<AdminButton

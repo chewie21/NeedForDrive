@@ -1,27 +1,27 @@
-import {Text} from "../../../../../../Common/Text/Text";
 import React, {useState} from "react";
+import {Text} from "../../../../../../Common/Text/Text";
 import {FormControl} from "react-bootstrap";
 
-export const CarCategory = ({config, setConfig}) => {
+export const PointCities = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(
-		Object.keys(config.data.categoryId).length === 0 ?
+		Object.keys(config.data.cityId).length === 0 ?
 			'' :
-			config.data.categoryId
+			config.data.cityId
 	);
 
-	const editCar = (e) => {
+	const editPoint = (e) => {
 		let data = {...config.data};
 		let value = e.target.value;
-		config.categories.forEach(item => {
+		config.cities.forEach(item => {
 			if(item.value === value) {
-				data.categoryId = {
+				data.cityId = {
 					id: item.value,
 					name: item.label
 				};
 			}
 		});
-		setValue(data.categoryId);
+		setValue(data.cityId);
 		setConfig({...config, data: data});
 	};
 
@@ -33,12 +33,12 @@ export const CarCategory = ({config, setConfig}) => {
 				color='#3D5170'
 				margin='0 0 6px 0'
 			>
-				Категория
+				Город
 			</Text>
 			<FormControl
 				as="select"
 				isInvalid={!value}
-				onChange={editCar}
+				onChange={editPoint}
 			>
 				{!value &&
 				<option
@@ -47,7 +47,7 @@ export const CarCategory = ({config, setConfig}) => {
 				>
 					Выбирите значение
 				</option>}
-				{config.categories.map((item, index) => (
+				{config.cities.map((item, index) => (
 					<option
 						selected={value ? item.value === value.id ? 'selected' : '' : ''}
 						key={index}

@@ -4,7 +4,7 @@ import React, {useState} from "react";
 
 export const CarNumber = ({config, setConfig}) => {
 
-	const [value, setValue] = useState(config.data.number ? config.data.number : null);
+	const [value, setValue] = useState(config.data.number ? config.data.number : '');
 
 	const regExp = /^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui;
 
