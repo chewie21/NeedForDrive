@@ -20,14 +20,14 @@ import {
 	OrderItemContainer,
 	OrderItemImg,
 	OrderItemSection
-} from "./OrderListItem.styled";
+} from "./AdminOrderItem.styled";
 
-export const OrderListItem = ({order, auth, orderStatus, config, setConfig, history}) => {
+export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, history}) => {
 
 	const setStatus = (status) => {
 		putRequest(orderUrlPages, `${order.id}`, {...order, orderStatusId : status}, `Bearer ${auth.access_token}`)
 			.then(res => {
-				config.orders.splice(config.orders.indexOf(order), 1, res.data);
+				config.data.splice(config.data.indexOf(order), 1, res.data);
 				setConfig({...config});
 			});
 	}
@@ -36,7 +36,7 @@ export const OrderListItem = ({order, auth, orderStatus, config, setConfig, hist
 		deleteRequest(orderUrlPages, `${order.id}`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				getRequest(`${config.url}page=${config.page-1}&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-					.then(res => setConfig({...config, orders: res.data}));
+					.then(res => setConfig({...config, data: res.data}));
 			});
 	}
 

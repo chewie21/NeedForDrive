@@ -1,6 +1,6 @@
-import {Text} from "../../../../../../../Common/Text/Text";
-import {CustomCheckLabel} from "../../../../../../../Common/Button/CheckBoxLabel";
-import {CustomCheck} from "../../../../../../../Common/Button/CheckBox";
+import {Text} from "../../../../../../Common/Text/Text";
+import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
+import {CustomCheck} from "../../../../../../Common/Button/CheckBox";
 import React from "react";
 
 export const ServiceInfo = ({config, setConfig}) => {
@@ -12,14 +12,14 @@ export const ServiceInfo = ({config, setConfig}) => {
 	];
 
 	const editOrder = (e, item) => {
-		let obj = {...config.order};
-		obj[item.name] = e.target.checked;
+		let data = {...config.data};
+		data[item.name] = e.target.checked;
 		if(e.target.checked) {
-			obj.price = +obj.price + +e.target.value
+			data.price = +data.price + +e.target.value
 		} else {
-			obj.price = +obj.price - +e.target.value
+			data.price = +data.price - +e.target.value
 		}
-		setConfig({...config, order: obj});
+		setConfig({...config, data: data});
 	}
 
 	return (
@@ -36,7 +36,7 @@ export const ServiceInfo = ({config, setConfig}) => {
 				<CustomCheckLabel
 					key={index}
 					onChange={(e) => editOrder(e, item)}
-					checked={config.order[item.name]}
+					checked={config.data[item.name]}
 					name={item.name}
 					value={item.value}
 					control={<CustomCheck key={index}/> }

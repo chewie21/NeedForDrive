@@ -1,15 +1,15 @@
-import {Text} from "../../../../../../../Common/Text/Text";
+import {Text} from "../../../../../../Common/Text/Text";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import {CustomRadioLabel} from "../../../../../../../Common/Button/RadioButtonLabel";
-import {CustomRadio} from "../../../../../../../Common/Button/RadioButton";
+import {CustomRadioLabel} from "../../../../../../Common/Button/RadioButtonLabel";
+import {CustomRadio} from "../../../../../../Common/Button/RadioButton";
 import React from "react";
 
 export const RateInfo = ({config, setConfig}) => {
 
 	const editOrder = (item) => {
-		let obj = {...config.order};
-		obj.rateId = item;
-		setConfig({...config, order: obj});
+		let data = {...config.data};
+		data.rateId = item;
+		setConfig({...config, data: data});
 	}
 
 	return (
@@ -22,7 +22,7 @@ export const RateInfo = ({config, setConfig}) => {
 			>
 				Тариф
 			</Text>
-			<RadioGroup value={config.order.rateId.price}>
+			<RadioGroup value={config.data.rateId.price}>
 				{config.rate.map((item, index) =>
 					<CustomRadioLabel
 						onChange={() => editOrder(item)}

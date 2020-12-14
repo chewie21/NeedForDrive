@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import {Container, LogoContainer, MenuSection} from "./AdminMenu.styled";
 import {IconImage} from "../../../../Common/IconImage/IconImage";
 import {Text} from "../../../../Common/Text/Text";
@@ -6,13 +8,26 @@ import {Link} from "react-router-dom";
 import LoginLogo from "../../../../img/adminMenuIcon.svg";
 import CarsActive from '../../../../img/adminCarsActive.svg';
 import OrdersActive from '../../../../img/adminOrdersActive.png';
-import {useState} from "react";
+import CitiesActive from '../../../../img/citiesActive.svg';
+import RateActive from '../../../../img/rateActive.svg';
 
 export const AdminMenu = () => {
 
+    const orders =  {name: 'Заказы', active: true, img: OrdersActive, link: '/admin/orders'};
+    const orderStatus = {name: 'Статусы заказов', active: false, img: OrdersActive, link: '/admin/orderStatus'};
+
+    const cars = {name: 'Автомобили', active: false, img: CarsActive, link: '/admin/cars'};
+    const categories = {name: 'Категории авто', active: false, img: CarsActive, link: '/admin/categories'};
+
+    const cities = {name: 'Города', active: false, img: CitiesActive, link: '/admin/cities'};
+    const points = {name: 'Пункты выдачи', active: false, img: CitiesActive, link: '/admin/points'};
+
+    const rate = {name: 'Тарифы', active: false, img: RateActive, link: '/admin/rate'};
+    const rateType = {name: 'Ставки тарифов', active: false, img: RateActive, link: '/admin/rateType'}
+
     const sections = [
-        {name: 'Заказы', active: true, img: OrdersActive, link: '/admin/orders'},
-        {name: 'Список авто', active: false, img: CarsActive, link: '/admin/cars'}
+        orders,
+        cars
     ];
 
     const [menuSections, setMenuSections] = useState(sections);

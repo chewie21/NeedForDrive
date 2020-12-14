@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {OrderListItem} from "./AdminOrdersItem/OrderListItem";
+import {AdminOrderItem} from "./AdminOrdersItem/AdminOrderItem";
 
-import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {orderUrl, orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled";
 import {Text} from "../../../../../Common/Text/Text";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
@@ -38,7 +38,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 				.then(res => {
 					const obj = {
 						url: `${orderUrlPages}?`,
-						orders: res.data,
+						data: res.data,
 						orderStatus: orderStatus.response.data,
 						count: Math.floor(res.count / 10),
 						page: 1,
@@ -91,8 +91,8 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 						/>
 					}
 					<OrdersContainer>
-						{config.orders.map((item, index) => (
-							<OrderListItem
+						{config.data.map((item, index) => (
+							<AdminOrderItem
 								order={item}
 								key={index}
 								auth={auth}

@@ -1,14 +1,14 @@
-import {Text} from "../../../../../../../Common/Text/Text";
+import {Text} from "../../../../../../Common/Text/Text";
 import Select from "react-select";
-import {customStyles} from "../AdminOrderInfo.styled";
+import {customStyles} from "../AdminOrderInfo/AdminOrderInfo.styled";
 import React from "react";
 
 export const StatusInfo = ({config, setConfig}) => {
 
 	const editOrder = (e) => {
-		let obj = {...config.order};
-		obj.orderStatusId = e.item;
-		setConfig({...config, order: obj});
+		let data = {...config.data};
+		data.orderStatusId = e.item;
+		setConfig({...config, data: data});
 	}
 
 	return (
@@ -23,7 +23,7 @@ export const StatusInfo = ({config, setConfig}) => {
 			</Text>
 			<Select
 				styles={customStyles}
-				defaultValue={{label: config.order.orderStatusId.name, value: config.order.orderStatusId.id}}
+				defaultValue={{label: config.data.orderStatusId.name, value: config.data.orderStatusId.id}}
 				options={config.orderStatus}
 				onChange={editOrder}
 			/>

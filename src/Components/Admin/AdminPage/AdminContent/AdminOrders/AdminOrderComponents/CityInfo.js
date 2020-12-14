@@ -1,16 +1,16 @@
-import {Text} from "../../../../../../../Common/Text/Text";
+import {Text} from "../../../../../../Common/Text/Text";
 import Select from "react-select";
-import {customStyles} from "../AdminOrderInfo.styled";
+import {customStyles} from "../AdminOrderInfo/AdminOrderInfo.styled";
 import React from "react";
 
 export const CityInfo = ({config, setConfig}) => {
 
 	const editOrder = (e) => {
-		if(e.label !== config.order.cityId.name) {
-			let obj = {...config.order};
-			obj.cityId = e.item;
-			obj.pointId = null;
-			setConfig({...config, order: obj})
+		if(e.label !== config.data.cityId.name) {
+			let data = {...config.data};
+			data.cityId = e.item;
+			data.pointId = null;
+			setConfig({...config, data: data})
 		}
 	}
 
@@ -26,7 +26,7 @@ export const CityInfo = ({config, setConfig}) => {
 			</Text>
 			<Select
 				styles={customStyles}
-				defaultValue={{label: config.order.cityId.name, value: config.order.cityId.id}}
+				defaultValue={{label: config.data.cityId.name, value: config.data.cityId.id}}
 				options={config.cities}
 				onChange={editOrder}
 			/>

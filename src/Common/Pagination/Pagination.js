@@ -6,7 +6,7 @@ export const CustomPagination = ({config, setConfig, auth}) => {
 
 	const setNewPage = (event, value) => {
 		getRequest(`${config.url}&page=${value-1}&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-			.then(res => setConfig({...config, page: value, orders: res.data}));
+			.then(res => setConfig({...config, page: value, data: res.data}));
 	}
 
 	return (

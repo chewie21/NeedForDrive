@@ -1,7 +1,7 @@
-import {Container, FiltersContainer, ButtonsContainer, customStyles} from "./Filters.styled";
+import {ButtonsContainer, Container, customStyles, FiltersContainer} from "./Filters.styled";
 import {AdminButton} from "../Button/AdminButton";
 import Select from "react-select";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {removeFilters, setFilters} from "../../Functions/FiltersFunctions";
 
 export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {

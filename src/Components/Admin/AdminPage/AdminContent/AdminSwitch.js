@@ -3,6 +3,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {AdminOrders} from "./AdminOrders/AdminOrders";
 import {AdminCars} from "./AdminCars/AdminCars";
 import {AdminOrderInfo} from "./AdminOrders/AdminOrderInfo/AdminOrderInfo";
+import {AdminCarsInfo} from "./AdminCars/AdminCarsInfo/AdminCarsInfo";
 
 export const AdminSwitch = ({
 		auth,
@@ -11,7 +12,8 @@ export const AdminSwitch = ({
 		points,
 		cars,
 		rate,
-		orderStatus
+		orderStatus,
+		categories
 	}) =>
 	<Switch>
 		<Route
@@ -41,6 +43,27 @@ export const AdminSwitch = ({
 				/>
 			}
 		/>
-		<Route exact path='/admin/cars' render={() => <AdminCars auth={auth}/>}/>
+		<Route
+			exact path='/admin/cars'
+			render={() =>
+				<AdminCars
+					history={history}
+					auth={auth}
+					cars={cars}
+					categories={categories}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/cars/:id'
+			render={(props) =>
+				<AdminCarsInfo
+					{...props}
+					auth={auth}
+					history={history}
+					categories={categories}
+				/>
+			}
+		/>
 		<Redirect from='/' to='/admin/orders'/>
 	</Switch>

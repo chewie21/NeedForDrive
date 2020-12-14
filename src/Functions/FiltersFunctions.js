@@ -20,9 +20,9 @@ export const setFilters = (filters, config, setConfig, auth, url) => {
 			const obj = {
 				...config,
 				page: 1,
-				orders: res.data,
+				data: res.data,
 				url: newUrl,
-				count: Math.floor(res.count / 10)
+				count: Math.ceil(res.count / 10)
 			}
 			setConfig(obj);
 		});
@@ -34,9 +34,9 @@ export const removeFilters = (config, setConfig, auth, url) => {
 			const obj = {
 				...config,
 				page: 1,
-				orders: res.data,
+				data: res.data,
 				url: `${url}?`,
-				count: Math.floor(res.count / 10)
+				count: Math.ceil(res.count / 10)
 			}
 			setConfig(obj);
 		});

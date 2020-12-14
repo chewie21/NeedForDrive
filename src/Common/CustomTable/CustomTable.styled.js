@@ -4,6 +4,11 @@ export const Style = createGlobalStyle`
 	tbody > tr {
 	  cursor: pointer;
 	}
+    tbody > tr:hover {
+      cursor: pointer;
+	  background: #F5F6F8 !important;
+	  border-left: 4px solid #007BFF;
+    }
 `;
 
 export const Container = styled.div`

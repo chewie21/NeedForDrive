@@ -11,17 +11,17 @@ import {
 	Style
 } from "./AdminOrderInfo.styled";
 import {Text} from "../../../../../../Common/Text/Text";
-import {getRequest, putRequest} from "../../../../../../Functions/RequestsToApiFactory";
+import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
-import {Modal} from "./AdminOrderInfoComponents/Modal";
-import {Buttons} from "./AdminOrderInfoComponents/Buttons";
-import {CarInfo} from "./AdminOrderInfoComponents/CarInfo";
-import {StatusInfo} from "./AdminOrderInfoComponents/StatusInfo";
-import {CityInfo} from "./AdminOrderInfoComponents/CityInfo";
-import {PointInfo} from "./AdminOrderInfoComponents/PointInfo";
-import {DateInfo} from "./AdminOrderInfoComponents/DateInfo";
-import {RateInfo} from "./AdminOrderInfoComponents/RateInfo";
-import {ServiceInfo} from "./AdminOrderInfoComponents/ServiceInfo";
+import {OrderButtons} from "../AdminOrderComponents/Buttons";
+import {CarInfo} from "../AdminOrderComponents/CarInfo";
+import {StatusInfo} from "../AdminOrderComponents/StatusInfo";
+import {CityInfo} from "../AdminOrderComponents/CityInfo";
+import {PointInfo} from "../AdminOrderComponents/PointInfo";
+import {DateInfo} from "../AdminOrderComponents/DateInfo";
+import {RateInfo} from "../AdminOrderComponents/RateInfo";
+import {ServiceInfo} from "../AdminOrderComponents/ServiceInfo";
+import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 
 export const AdminOrderInfo = ({
 		auth, history, match,
@@ -30,29 +30,11 @@ export const AdminOrderInfo = ({
 
 	const [config, setConfig] = useState(null);
 
-	const setOrder = (order) => {
-		putRequest(orderUrlPages, `${order.id}`, {...order}, `Bearer ${auth.access_token}`)
-			.then(res => {
-				setConfig({...config, order: res.data, modal: true});
-				setTimeout(() => {
-					delete config[`modal`];
-					setConfig({...config});
-				}, 5000)
-			}, error => {
-				setConfig({...config, modal: false});
-				setTimeout(() => {
-					delete config[`modal`];
-					setConfig({...config});
-				}, 5000)
-			});
-	}
-
 	useEffect(() => {
-		console.log(config);
 		if(!config && cities && cars && rate && orderStatus && points) {
 			getRequest(`${orderUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({
-					order: res.data,
+					data: res.data,
 					cars: formatToOrderInfo(cars.response.data),
 					cities: formatToOrderInfo(cities.response.data),
 					rate: rate.response.data,
@@ -62,22 +44,22 @@ export const AdminOrderInfo = ({
 		}
 		if(config) {
 			let price;
-			if(config.order.rateId.rateTypeId.name === `Поминутно`) {
+			if(config.data.rateId.rateTypeId.name === `Поминутно`) {
 				price =
-					Math.round((config.order.dateTo - config.order.dateFrom) / 60 / 1000)
-					* config.order.rateId.price;
-			} else if (config.order.rateId.rateTypeId.name === `На сутки`) {
+					Math.round((config.data.dateTo - config.data.dateFrom) / 60 / 1000)
+					* config.data.rateId.price;
+			} else if (config.data.rateId.rateTypeId.name === `На сутки`) {
 				price =
-					(Math.floor((config.order.dateTo - config.order.dateFrom) / 60 / 1000 / 60 / 24) + 1)
-					* config.order.rateId.price;
+					(Math.floor((config.data.dateTo - config.data.dateFrom) / 60 / 1000 / 60 / 24) + 1)
+					* config.data.rateId.price;
 			}
-			if(config.order.isFullTank) price = price + 500;
-			if(config.order.isNeedChildChair) price = price + 200;
-			if(config.order.isRightWheel) price = price + 1600;
-			if(price !== config.order.price) {
-				let obj = {...config.order};
-				obj.price = price;
-				setConfig({...config, order: obj});
+			if(config.data.isFullTank) price = price + 500;
+			if(config.data.isNeedChildChair) price = price + 200;
+			if(config.data.isRightWheel) price = price + 1600;
+			if(price !== config.data.price) {
+				let data = {...config.data};
+				data.price = price;
+				setConfig({...config, data: data});
 			}
 		}
 	});
@@ -85,8 +67,8 @@ export const AdminOrderInfo = ({
 	return (
 		config &&
 			<Container>
-				{config.modal &&
-					<Modal config={config} setConfig={setConfig}/>
+				{config.modalText &&
+					<ModalMessage config={config} setConfig={setConfig}/>
 				}
 				<Style/>
 				<Text
@@ -95,11 +77,16 @@ export const AdminOrderInfo = ({
 					margin='0 0 27px 0'
 					color='#3D5170'
 				>
-					Заказ № {config.order.id}
+					Заказ № {config.data.id}
 				</Text>
 				<OrderContainer>
 					<ButtonsContainer>
-						<Buttons config={config} setOrder={setOrder} history={history}/>
+						<OrderButtons
+							config={config}
+							setConfig={setConfig}
+							history={history}
+							auth={auth}
+						/>
 					</ButtonsContainer>
 					<ContentContainer>
 						<CarInfoContainer>
@@ -143,7 +130,7 @@ export const AdminOrderInfo = ({
 									margin='0'
 									color='#3D5170'
 								>
-									{config.order.price} ₽
+									{config.data.price} ₽
 								</Text>
 							</div>
 						</OrderInfoContainer>

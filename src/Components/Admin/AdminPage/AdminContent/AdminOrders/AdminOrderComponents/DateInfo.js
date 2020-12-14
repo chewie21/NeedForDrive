@@ -1,13 +1,13 @@
-import {Text} from "../../../../../../../Common/Text/Text";
+import {Text} from "../../../../../../Common/Text/Text";
 import DatePicker from "react-datepicker";
 import React from "react";
 
 export const DateInfo = ({config, setConfig}) => {
 
-	const editOrder = (date) => {
-		let obj = {...config.order};
-		obj.dateTo = date.getTime();
-		setConfig({...config, order: obj});
+	const editOrder = (date, key) => {
+		let data = {...config.data};
+		data[key] = date.getTime();
+		setConfig({...config, data: data});
 	}
 
 	return (
@@ -21,7 +21,7 @@ export const DateInfo = ({config, setConfig}) => {
 				Время аренды
 			</Text>
 			<DatePicker
-				selected={new Date(config.order.dateFrom)}
+				selected={new Date(config.data.dateFrom)}
 				showTimeSelect
 				timeFormat="HH:mm"
 				timeIntervals={5}
@@ -29,19 +29,19 @@ export const DateInfo = ({config, setConfig}) => {
 				dateFormat="dd/MM/yyyy HH:mm"
 				className='date-pick-active'
 				minDate={new Date()}
-				maxDate={new Date(config.order.dateTo)}
-				onChange={editOrder}
+				maxDate={new Date(config.data.dateTo)}
+				onChange={(date) => editOrder(date, `dateFrom`)}
 			/>
 			<DatePicker
 				className='date-pick-active'
-				selected={new Date(config.order.dateTo)}
+				selected={new Date(config.data.dateTo)}
 				showTimeSelect
 				timeFormat="HH:mm"
 				timeIntervals={5}
 				timeCaption="time"
 				dateFormat="dd/MM/yyyy HH:mm"
-				minDate={new Date(config.order.dateFrom)}
-				onChange={editOrder}
+				minDate={new Date(config.data.dateFrom)}
+				onChange={(date) => editOrder(date, `dateTo`)}
 			/>
 		</React.Fragment>
 	)
