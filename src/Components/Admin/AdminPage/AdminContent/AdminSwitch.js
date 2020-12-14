@@ -111,5 +111,5 @@ export const AdminSwitch = ({
 				/>
 			}
 		/>
-		<Redirect from='/' to='/admin/cities'/>
+		<Redirect from='/' to='/admin/orders'/>
 	</Switch>

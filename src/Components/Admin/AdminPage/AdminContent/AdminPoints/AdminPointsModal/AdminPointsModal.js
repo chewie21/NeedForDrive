@@ -4,7 +4,7 @@ import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import React, {useEffect, useState} from "react";
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {pointsUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {pointsUrl, pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
 import {PointAddress} from "../AdminPointsComponents/PointAddress";
 import {PointDescription} from "../AdminPointsComponents/PointDescription";
@@ -31,7 +31,7 @@ export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
 		if(!config && cities) refreshConfig();
 	});
 
-	const sendNewPoints = () => sendNewEntity(pointsUrl, config, setConfig, auth,
+	const sendNewPoints = () => sendNewEntity(pointsUrlPages, config, setConfig, auth,
 		() => {
 			onHide();
 			refreshConfig();

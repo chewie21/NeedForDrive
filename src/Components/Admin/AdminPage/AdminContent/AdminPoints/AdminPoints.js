@@ -5,7 +5,7 @@ import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 import {Container, ContentContainer, BootstrapStyle} from "./AdminPoints.styled";
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {orderUrlPages, pointsUrl} from "../../../../../Environments/ApiFactoryUrls";
+import {pointsUrl, pointsUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminPointsModal} from "./AdminPointsModal/AdminPointsModal";
@@ -36,11 +36,10 @@ export const AdminPoints = ({auth, cities, history}) => {
 	};
 
 	const getPoint = () => {
-		getRequest(`${pointsUrl}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+		getRequest(`${pointsUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
-				console.log(res);
 				setConfig({
-					url: `${pointsUrl}?`,
+					url: `${pointsUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
@@ -97,7 +96,7 @@ export const AdminPoints = ({auth, cities, history}) => {
 					setConfig={setConfig}
 					filtersConfig={filtersConfig}
 					auth={auth}
-					url={pointsUrl}
+					url={pointsUrlPages}
 				/>
 				}
 				<CustomTable

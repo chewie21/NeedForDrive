@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {carsUrlPages, citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {Text} from "../../../../../../Common/Text/Text";
@@ -16,14 +16,14 @@ export const AdminCitiesInfo = ({auth, history, match}) => {
 
 	useEffect(() => {
 		if(!config) {
-			getRequest(`${citiesUrl}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			getRequest(`${citiesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({ data: res.data }));
 		}
 	});
 
-	const deleteCity = () => deleteEntity(citiesUrl, auth, config, setConfig, () => history.push('/admin/cities'));
+	const deleteCity = () => deleteEntity(citiesUrlPages, auth, config, setConfig, () => history.push('/admin/cities'));
 
-	const sendEditCity = () => sendEditEntity(citiesUrl, config, setConfig, auth);
+	const sendEditCity = () => sendEditEntity(citiesUrlPages, config, setConfig, auth);
 
 	return (
 		config &&

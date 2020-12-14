@@ -5,7 +5,7 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import React, {useEffect, useState} from "react";
 import {CityName} from "../AdminCitiesComponents/CityName";
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {citiesUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
 
@@ -19,7 +19,7 @@ export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
 		if(!config) refreshConfig();
 	});
 
-	const sendNewCity = () => sendNewEntity(citiesUrl, config, setConfig, auth,
+	const sendNewCity = () => sendNewEntity(citiesUrlPages, config, setConfig, auth,
 			() => {
 				onHide();
 				refreshConfig();

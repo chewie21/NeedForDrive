@@ -6,7 +6,7 @@ import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 import React, {useEffect, useState} from "react";
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {citiesUrl} from "../../../../../Environments/ApiFactoryUrls";
+import {citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 
@@ -31,10 +31,10 @@ export const AdminCities = ({auth, history}) => {
 	}
 
 	const getCities = () => {
-		getRequest(`${citiesUrl}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+		getRequest(`${citiesUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				setConfig({
-					url: `${citiesUrl}?`,
+					url: `${citiesUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,

@@ -14,7 +14,7 @@ import {PointAddress} from "../AdminPointsComponents/PointAddress";
 import {PointDescription} from "../AdminPointsComponents/PointDescription";
 import {PointCities} from "../AdminPointsComponents/PointCities";
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {pointsUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {pointsUrl, pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
 
@@ -24,14 +24,14 @@ export const AdminPointsInfo = ({auth, history, match, cities}) => {
 
 	useEffect(() => {
 		if(!config) {
-			getRequest(`${pointsUrl}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			getRequest(`${pointsUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({ data: res.data, cities: formatToOrderInfo(cities.response.data) }));
 		}
 	});
 
-	const deletePoint = () => deleteEntity(pointsUrl, auth, config, setConfig, () => history.push('/admin/points'));
+	const deletePoint = () => deleteEntity(pointsUrlPages, auth, config, setConfig, () => history.push('/admin/points'));
 
-	const sendEditPoint = () => sendEditEntity(pointsUrl, config, setConfig, auth);
+	const sendEditPoint = () => sendEditEntity(pointsUrlPages, config, setConfig, auth);
 
 	return (
 		config &&
