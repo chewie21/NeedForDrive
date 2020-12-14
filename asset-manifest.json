@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.8d1c1e93.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.8d1c1e93.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.0046ee10.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.0046ee10.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.046848f9.chunk.css": "/NeedForDrive/static/css/2.046848f9.chunk.css",
@@ -57,6 +57,6 @@
     "static/css/2.046848f9.chunk.css",
     "static/js/2.80980740.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.8d1c1e93.chunk.js"
+    "static/js/main.0046ee10.chunk.js"
   ]
 }
