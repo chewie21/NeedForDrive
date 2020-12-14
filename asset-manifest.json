@@ -1,23 +1,25 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.f67e8700.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.f67e8700.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.8d1c1e93.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.8d1c1e93.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.046848f9.chunk.css": "/NeedForDrive/static/css/2.046848f9.chunk.css",
-    "static/js/2.6710ebae.chunk.js": "/NeedForDrive/static/js/2.6710ebae.chunk.js",
-    "static/js/2.6710ebae.chunk.js.map": "/NeedForDrive/static/js/2.6710ebae.chunk.js.map",
+    "static/js/2.80980740.chunk.js": "/NeedForDrive/static/js/2.80980740.chunk.js",
+    "static/js/2.80980740.chunk.js.map": "/NeedForDrive/static/js/2.80980740.chunk.js.map",
     "index.html": "/NeedForDrive/index.html",
     "static/css/2.046848f9.chunk.css.map": "/NeedForDrive/static/css/2.046848f9.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.6710ebae.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.6710ebae.chunk.js.LICENSE.txt",
+    "static/js/2.80980740.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.80980740.chunk.js.LICENSE.txt",
     "static/media/Facebook_hover.6895d2b0.svg": "/NeedForDrive/static/media/Facebook_hover.6895d2b0.svg",
     "static/media/Facebook_white.f7e2cc5e.svg": "/NeedForDrive/static/media/Facebook_white.f7e2cc5e.svg",
     "static/media/Instagram_hover.5713b4e3.svg": "/NeedForDrive/static/media/Instagram_hover.5713b4e3.svg",
     "static/media/Instagram_white.83905bcf.svg": "/NeedForDrive/static/media/Instagram_white.83905bcf.svg",
     "static/media/Telegram_hover.1b499e9d.svg": "/NeedForDrive/static/media/Telegram_hover.1b499e9d.svg",
     "static/media/Telegram_white.ccc181a2.svg": "/NeedForDrive/static/media/Telegram_white.ccc181a2.svg",
+    "static/media/adminAddEntity.44cd3aae.svg": "/NeedForDrive/static/media/adminAddEntity.44cd3aae.svg",
+    "static/media/adminAddEntityHover.76679990.svg": "/NeedForDrive/static/media/adminAddEntityHover.76679990.svg",
     "static/media/adminCarsActive.88b69bea.svg": "/NeedForDrive/static/media/adminCarsActive.88b69bea.svg",
     "static/media/adminFind.c8b5b3af.svg": "/NeedForDrive/static/media/adminFind.c8b5b3af.svg",
     "static/media/adminLoginIcon.bc4f3ee8.svg": "/NeedForDrive/static/media/adminLoginIcon.bc4f3ee8.svg",
@@ -28,6 +30,7 @@
     "static/media/adminOrdersDangerous.be61c7fb.svg": "/NeedForDrive/static/media/adminOrdersDangerous.be61c7fb.svg",
     "static/media/adminOrdersSecondary.4ffdacdd.svg": "/NeedForDrive/static/media/adminOrdersSecondary.4ffdacdd.svg",
     "static/media/adminOrdersSuccess.23a56dac.svg": "/NeedForDrive/static/media/adminOrdersSuccess.23a56dac.svg",
+    "static/media/citiesActive.00f0187d.svg": "/NeedForDrive/static/media/citiesActive.00f0187d.svg",
     "static/media/closeModal.f5226d54.svg": "/NeedForDrive/static/media/closeModal.f5226d54.svg",
     "static/media/close_btn.1d4598cc.svg": "/NeedForDrive/static/media/close_btn.1d4598cc.svg",
     "static/media/close_btn_hover.cbdbd562.svg": "/NeedForDrive/static/media/close_btn_hover.cbdbd562.svg",
@@ -41,6 +44,7 @@
     "static/media/orderMobile.e301c2c1.svg": "/NeedForDrive/static/media/orderMobile.e301c2c1.svg",
     "static/media/order_arrow.429b5a6c.svg": "/NeedForDrive/static/media/order_arrow.429b5a6c.svg",
     "static/media/order_arrow_active.1e09a2d1.svg": "/NeedForDrive/static/media/order_arrow_active.1e09a2d1.svg",
+    "static/media/rateActive.c2f965d6.svg": "/NeedForDrive/static/media/rateActive.c2f965d6.svg",
     "static/media/slider1.81af2a05.png": "/NeedForDrive/static/media/slider1.81af2a05.png",
     "static/media/slider2.cffabb09.png": "/NeedForDrive/static/media/slider2.cffabb09.png",
     "static/media/slider3.720360f1.png": "/NeedForDrive/static/media/slider3.720360f1.png",
@@ -51,8 +55,8 @@
   "entrypoints": [
     "static/js/runtime-main.533bc2a0.js",
     "static/css/2.046848f9.chunk.css",
-    "static/js/2.6710ebae.chunk.js",
+    "static/js/2.80980740.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.f67e8700.chunk.js"
+    "static/js/main.8d1c1e93.chunk.js"
   ]
 }
