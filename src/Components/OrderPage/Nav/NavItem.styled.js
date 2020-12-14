@@ -1,8 +1,8 @@
 import styled, {createGlobalStyle} from "styled-components";
 
 export const Style = createGlobalStyle`
-    a {
-        text-decoration: none !important;
+    a, a:hover {
+        text-decoration: none;
     }
 `;
 

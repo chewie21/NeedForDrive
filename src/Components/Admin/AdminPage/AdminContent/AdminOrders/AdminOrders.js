@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {OrderListItem} from "./OrderListItem";
+import {AdminOrderItem} from "./AdminOrdersItem/AdminOrderItem";
 
-import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {orderUrl, orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled";
 import {Text} from "../../../../../Common/Text/Text";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
@@ -14,13 +14,31 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 	const [config, setConfig] = useState(null);
 	const [filtersConfig, setFiltersConfig] = useState(null);
 
+	const timeOptions = [
+		{
+			label: 'За сутки',
+			value: 86400000,
+			name: 'createdAt'
+		},
+		{
+			label: 'За неделю',
+			value: 604800000,
+			name: 'createdAt'
+		},
+		{
+			label: 'За месяц',
+			value: 2628002880,
+			name: 'createdAt'
+		},
+	]
+
 	useEffect(() => {
 		if(orderStatus.response && !config) {
 			getRequest(`${orderUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 				.then(res => {
 					const obj = {
 						url: `${orderUrlPages}?`,
-						orders: res.data,
+						data: res.data,
 						orderStatus: orderStatus.response.data,
 						count: Math.floor(res.count / 10),
 						page: 1,
@@ -32,23 +50,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 			const obj = [
 				{
 					placeholder: 'Время',
-					options: [
-						{
-							label: 'За сутки',
-							value: 86400000,
-							name: 'createdAt'
-						},
-						{
-							label: 'За неделю',
-							value: 604800000,
-							name: 'createdAt'
-						},
-						{
-							label: 'За месяц',
-							value: 2628002880,
-							name: 'createdAt'
-						},
-					]
+					options: timeOptions
 				},
 				{
 					placeholder: 'Модель',
@@ -89,8 +91,8 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 						/>
 					}
 					<OrdersContainer>
-						{config.orders.map((item, index) => (
-							<OrderListItem
+						{config.data.map((item, index) => (
+							<AdminOrderItem
 								order={item}
 								key={index}
 								auth={auth}

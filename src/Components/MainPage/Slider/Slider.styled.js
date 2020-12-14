@@ -36,6 +36,7 @@ export const Slide = styled.div`
         background-size: cover;
     `;
 
+//override bootstrap slider style
 export const SlideContent = styled.div`
         padding: 20%;
         @media(max-width: 1024px) {

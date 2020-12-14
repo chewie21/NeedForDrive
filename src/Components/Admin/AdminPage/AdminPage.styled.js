@@ -37,7 +37,7 @@ export const SwitchContainer = styled.div`
 `;
 
 export const Style = createGlobalStyle`
-    a {
-        text-decoration: none !important;
+    a, a:hover {
+        text-decoration: none;
     }
 `;

@@ -8,6 +8,7 @@ export const Container = styled.div`
 	border-top: 1px solid #F5F6F8;
 `;
 
+//override @material-ui styles
 export const Style = createGlobalStyle`
 	.MuiPaginationItem-root {
 		color : #007BFF !important;

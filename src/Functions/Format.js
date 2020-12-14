@@ -32,11 +32,12 @@ export const formatDateToOrderList = (milliseconds) => {
 };
 
 export const formatImgPath = (item, url) =>
-    item.thumbnail.path ?
-        item.thumbnail.path.charAt(0) === '/' ?
-            `${url}${item.thumbnail.path}` :
-            item.thumbnail.path :
-        DefaultImg;
+    Object.keys(item.thumbnail).length !== 0 ?
+        item.thumbnail.path ?
+            item.thumbnail.path.charAt(0) === '/' ?
+                `${url}${item.thumbnail.path}` :
+                item.thumbnail.path :
+            DefaultImg : DefaultImg;
 
 export const formatToken = (token) => {
     let range = (start, end) => [...Array(end - start).keys(), end - start].map(n => start + n);
@@ -96,4 +97,31 @@ export const formatToOrderInfo = (data) => {
         arr.push(obj);
     });
     return arr;
+}
+
+export const formatColor = (str) =>
+    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+export const formatFindErrors = (obj) => {
+
+    if(obj.priceMax < obj.priceMin) return false;
+
+    const isEmpty = (obj) => {
+        for(let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    for(const key in obj) {
+        if(typeof obj[key] === "string" || typeof obj[key] === "number") {
+            if(!obj[key]) return false;
+        } else {
+            if(isEmpty(obj[key])) return false;
+        }
+    }
+
+    return true;
 }

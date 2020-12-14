@@ -1,26 +1,33 @@
-import {ButtonsContainer, CustomButton, OrderItemContainer, OrderItemImg, OrderItemSection} from "./AdminOrders.styled";
-import {formatDateToOrderMain, formatImgPath} from "../../../../../Functions/Format";
-import {mainUrlPages, orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
-import {Text} from "../../../../../Common/Text/Text";
-import {CustomCheck} from "../../../../../Common/Button/CheckBox";
+
+import {formatDateToOrderMain, formatImgPath} from "../../../../../../Functions/Format";
+import {mainUrlPages, orderUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {Text} from "../../../../../../Common/Text/Text";
+import {CustomCheck} from "../../../../../../Common/Button/CheckBox";
 import React from "react";
-import {deleteRequest, getRequest, putRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {IconImage} from "../../../../../Common/IconImage/IconImage";
+import {deleteRequest, getRequest, putRequest} from "../../../../../../Functions/RequestsToApiFactory";
+import {IconImage} from "../../../../../../Common/IconImage/IconImage";
 
-import SuccessImg from '../../../../../img/adminOrdersSuccess.svg';
-import DangerousImg from '../../../../../img/adminOrdersDangerous.svg';
-import SecondaryImg from '../../../../../img/adminOrdersSecondary.svg';
-import PrimaryImg from '../../../../../img/adminOrderPrimary.svg';
+import SuccessImg from '../../../../../../img/adminOrdersSuccess.svg';
+import DangerousImg from '../../../../../../img/adminOrdersDangerous.svg';
+import SecondaryImg from '../../../../../../img/adminOrdersSecondary.svg';
+import PrimaryImg from '../../../../../../img/adminOrderPrimary.svg';
 
-import DefaultCar from '../../../../../img/defaulImg.png';
-import {CustomCheckLabel} from "../../../../../Common/Button/CheckBoxLabel";
+import DefaultCar from '../../../../../../img/defaulImg.png';
+import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
+import {
+	ButtonsContainer,
+	CustomButton,
+	OrderItemContainer,
+	OrderItemImg,
+	OrderItemSection
+} from "./AdminOrderItem.styled";
 
-export const OrderListItem = ({order, auth, orderStatus, config, setConfig, history}) => {
+export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, history}) => {
 
 	const setStatus = (status) => {
 		putRequest(orderUrlPages, `${order.id}`, {...order, orderStatusId : status}, `Bearer ${auth.access_token}`)
 			.then(res => {
-				config.orders.splice(config.orders.indexOf(order), 1, res.data);
+				config.data.splice(config.data.indexOf(order), 1, res.data);
 				setConfig({...config});
 			});
 	}
@@ -29,7 +36,7 @@ export const OrderListItem = ({order, auth, orderStatus, config, setConfig, hist
 		deleteRequest(orderUrlPages, `${order.id}`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				getRequest(`${config.url}page=${config.page-1}&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-					.then(res => setConfig({...config, orders: res.data}));
+					.then(res => setConfig({...config, data: res.data}));
 			});
 	}
 
