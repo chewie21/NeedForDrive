@@ -22,6 +22,7 @@ import {DateInfo} from "../AdminOrderComponents/DateInfo";
 import {RateInfo} from "../AdminOrderComponents/RateInfo";
 import {ServiceInfo} from "../AdminOrderComponents/ServiceInfo";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
 
 export const AdminOrderInfo = ({
 		auth, history, match,
@@ -64,6 +65,10 @@ export const AdminOrderInfo = ({
 		}
 	});
 
+	const sendEditOrder = () => sendEditEntity(orderUrlPages, config, setConfig, auth);
+
+	const deleteOrder = () => deleteEntity(orderUrlPages, auth, config, setConfig, () => history.push('/admin/orders'));
+
 	return (
 		config &&
 			<Container>
@@ -83,9 +88,9 @@ export const AdminOrderInfo = ({
 					<ButtonsContainer>
 						<OrderButtons
 							config={config}
-							setConfig={setConfig}
 							history={history}
-							auth={auth}
+							sendFunction={sendEditOrder}
+							deleteFunction={deleteOrder}
 						/>
 					</ButtonsContainer>
 					<ContentContainer>

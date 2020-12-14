@@ -102,9 +102,9 @@ export const formatToOrderInfo = (data) => {
 export const formatColor = (str) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-export const formatFindErrors = (obj) => {
+export const formatFindEntityErrors = (obj) => {
 
-    if(obj.priceMax < obj.priceMin) return false;
+    if(obj.priceMax && obj.priceMin && (obj.priceMax < obj.priceMin)) return false;
 
     const isEmpty = (obj) => {
         for(let key in obj) {
@@ -116,10 +116,12 @@ export const formatFindErrors = (obj) => {
     }
 
     for(const key in obj) {
-        if(typeof obj[key] === "string" || typeof obj[key] === "number") {
-            if(!obj[key]) return false;
-        } else {
-            if(isEmpty(obj[key])) return false;
+        if (obj.hasOwnProperty(key)) {
+            if (typeof obj[key] === "string" || typeof obj[key] === "number") {
+                if (!obj[key]) return false;
+            } else if (typeof obj[key] !== "boolean") {
+                if (isEmpty(obj[key])) return false;
+            }
         }
     }
 

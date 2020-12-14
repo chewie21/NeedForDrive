@@ -1,12 +1,12 @@
 import {Text} from "../../../../../../Common/Text/Text";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FormControl} from "react-bootstrap";
 
 export const CarCategory = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(
 		Object.keys(config.data.categoryId).length === 0 ?
-			null :
+			'' :
 			config.data.categoryId
 	)
 
@@ -43,7 +43,7 @@ export const CarCategory = ({config, setConfig}) => {
 				{!value &&
 				<option
 					selected={'selected'}
-					value={null}
+					value={''}
 				>
 					Выбирите значение
 				</option>}

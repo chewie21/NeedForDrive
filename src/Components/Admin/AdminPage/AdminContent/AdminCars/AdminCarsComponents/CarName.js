@@ -4,7 +4,7 @@ import {Form} from "react-bootstrap";
 
 export const CarName = ({config, setConfig}) => {
 
-	const [value, setValue] = useState(config.data.name ? config.data.name : null);
+	const [value, setValue] = useState(config.data.name ? config.data.name : '');
 
 	const validation = (e) => {
 		const regExp = /[^A-Za-z0-9 -.,]/g;

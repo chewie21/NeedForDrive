@@ -36,14 +36,13 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 		if(orderStatus.response && !config) {
 			getRequest(`${orderUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 				.then(res => {
-					const obj = {
+					setConfig({
 						url: `${orderUrlPages}?`,
 						data: res.data,
 						orderStatus: orderStatus.response.data,
 						count: Math.floor(res.count / 10),
 						page: 1,
-					}
-					setConfig(obj);
+					});
 				})
 		}
 		if(cars.response && cities.response && orderStatus.response && !filtersConfig) {

@@ -13,7 +13,6 @@ export const CarInfo = ({config, setConfig}) => {
 		setConfig({...config, data: data});
 	}
 
-
 	return (
 		<React.Fragment>
 			<OrderInfoImg src={formatImgPath(config.data.carId, mainUrlPages)}/>

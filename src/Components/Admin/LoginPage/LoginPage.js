@@ -4,7 +4,7 @@ import {Text} from "../../../Common/Text/Text";
 
 import {TextLink} from "../../../Common/Text/TextLink";
 import {AdminButton} from "../../../Common/Button/AdminButton";
-import {oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
+import {oauthUrl, oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
 
 import {postRequest} from "../../../Functions/RequestsToApiFactory";
 import {formatDateToToken, formatToken} from "../../../Functions/Format";
@@ -18,9 +18,7 @@ export const LoginPage = ({setAuth, history}) => {
         const token = formatToken(secret);
         postRequest(oauthUrlPages, {"username": event.target.email.value, "password": event.target.password.value}, `Basic ${token}`)
             .then(response => {
-                console.log(response);
-                let obj = {...response, main_token: token, expires_in: formatDateToToken(response.expires_in)};
-                setAuth(obj);
+                setAuth({...response, main_token: token, expires_in: formatDateToToken(response.expires_in)});
                 history.push('/admin');
             }, error => console.log(error));
     }

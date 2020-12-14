@@ -40,25 +40,23 @@ export const AdminCars = ({auth, categories, history}) => {
 			tableBody.push(arr);
 		})
 		return tableBody;
-	}
+	};
 
-	useEffect(() => {
+	const getCars = () => {
 		getRequest(`${carsUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
-				console.log(res);
-				const obj = {
+				setConfig({
 					url: `${carsUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
 					tableHeaders: tableHeaders,
-				}
-				setConfig(obj);
-			})
-	}, [])
+				});
+			});
+	};
 
-	//разделил для того, чтобы не зависил вывод основной информации от фильтров
 	useEffect(() => {
+		if(!config) getCars();
 		if(!filtersConfig && categories.response) {
 			const obj = [
 				{
@@ -68,7 +66,7 @@ export const AdminCars = ({auth, categories, history}) => {
 			]
 			setFiltersConfig(obj);
 		}
-	})
+	});
 
 	return (
 		config &&
@@ -79,7 +77,7 @@ export const AdminCars = ({auth, categories, history}) => {
 				onHide={() => setModalShow(false)}
 				categories={categories}
 				auth={auth}
-				history={history}
+				getCars={getCars}
 			/>
 			<div className='d-flex'>
 				<Text
