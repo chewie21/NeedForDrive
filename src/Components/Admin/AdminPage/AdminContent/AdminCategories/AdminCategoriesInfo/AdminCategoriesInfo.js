@@ -8,9 +8,9 @@ import {CategoryDescription} from "../AdminCategoriesComponents/CategoryDescript
 import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
 
 import {Text} from "../../../../../../Common/Text/Text";
-
-import {categoriesUrl, citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {BootstrapStyle, Container, ContentContainer, InfoContainer, InfoSection} from "../AdminCategories.styled";
+
+import {categoriesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCategoriesInfo = ({auth, history, match}) => {
 
@@ -18,13 +18,13 @@ export const AdminCategoriesInfo = ({auth, history, match}) => {
 
 	useEffect(() => {
 		if(!config)
-			getRequest(`${categoriesUrl}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			getRequest(`${categoriesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({ data: res.data }));
 	});
 
-	const deleteCategory = () => deleteEntity(categoriesUrl, auth, config, setConfig, () => history.push('/admin/categories'));
+	const deleteCategory = () => deleteEntity(categoriesUrlPages, auth, config, setConfig, () => history.push('/admin/categories'));
 
-	const sendEditCategory = () => sendEditEntity(categoriesUrl, config, setConfig, auth);
+	const sendEditCategory = () => sendEditEntity(categoriesUrlPages, config, setConfig, auth);
 
 	return (
 		config &&

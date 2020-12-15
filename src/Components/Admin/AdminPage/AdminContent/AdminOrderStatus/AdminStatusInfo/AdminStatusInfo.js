@@ -9,7 +9,7 @@ import {StatusName} from "../AdminStatusComponents/StatusName";
 import {Text} from "../../../../../../Common/Text/Text";
 import {BootstrapStyle, Container, ContentContainer, InfoContainer} from "../AdminOrderStatus.styled";
 
-import {orderStatusUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {orderStatusUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminStatusInfo = ({auth, history, match}) => {
 
@@ -17,14 +17,14 @@ export const AdminStatusInfo = ({auth, history, match}) => {
 
 	useEffect(() => {
 		if(!config) {
-			getRequest(`${orderStatusUrl}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			getRequest(`${orderStatusUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({data: res.data }));
 		}
 	});
 
-	const sendEditStatus = () => sendEditEntity(orderStatusUrl, config, setConfig, auth);
+	const sendEditStatus = () => sendEditEntity(orderStatusUrlPages, config, setConfig, auth);
 
-	const deleteStatus = () => deleteEntity(orderStatusUrl, auth, config, setConfig,() => history.push('/admin/orderStatus'));
+	const deleteStatus = () => deleteEntity(orderStatusUrlPages, auth, config, setConfig,() => history.push('/admin/orderStatus'));
 
 	return (
 		config &&

@@ -10,7 +10,7 @@ import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import {InfoSection} from "../AdminCategories.styled";
 
-import {categoriesUrl} from "../../../../../../Environments/ApiFactoryUrls";
+import {categoriesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCategoriesModal = ({onHide, show, auth, getCategories}) => {
 
@@ -24,7 +24,7 @@ export const AdminCategoriesModal = ({onHide, show, auth, getCategories}) => {
 		if(!config) refreshConfig();
 	});
 
-	const sendNewCategory = () => sendNewEntity(categoriesUrl, config, setConfig, auth,
+	const sendNewCategory = () => sendNewEntity(categoriesUrlPages, config, setConfig, auth,
 		() => {
 				onHide();
 				refreshConfig();

@@ -12,7 +12,7 @@ import {AdminCategoriesModal} from "./AdminCategoriesModal/AdminCategoriesModal"
 import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
-import {categoriesUrl, citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {categoriesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCategories = ({auth, history}) => {
 
@@ -35,11 +35,11 @@ export const AdminCategories = ({auth, history}) => {
 	}
 
 	const getCategories = () => {
-		getRequest(`${categoriesUrl}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+		getRequest(`${categoriesUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				console.log(res);
 				setConfig({
-					url: `${categoriesUrl}?`,
+					url: `${categoriesUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,

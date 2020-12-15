@@ -3,12 +3,12 @@ import {Modal} from "react-bootstrap";
 
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {StatusName} from "../AdminStatusComponents/StatusName";
 
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
-import {orderStatusUrl} from "../../../../../../Environments/ApiFactoryUrls";
-import {StatusName} from "../AdminStatusComponents/StatusName";
+import {orderStatusUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminStatusModal = ({onHide, show, auth, getStatus}) => {
 
@@ -23,7 +23,7 @@ export const AdminStatusModal = ({onHide, show, auth, getStatus}) => {
 	});
 
 	const sendNewStatus = () =>
-		sendNewEntity(orderStatusUrl, config, setConfig, auth,
+		sendNewEntity(orderStatusUrlPages, config, setConfig, auth,
 			() => {
 				onHide();
 				refreshConfig();

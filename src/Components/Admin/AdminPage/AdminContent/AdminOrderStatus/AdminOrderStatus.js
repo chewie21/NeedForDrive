@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {carsUrlPages, orderStatusUrl} from "../../../../../Environments/ApiFactoryUrls";
+
 import {BootstrapStyle, Container, ContentContainer} from "../AdminCars/AdminCars.styled";
-import {AdminCarsModal} from "../AdminCars/AdminCarsModal/AdminCarsModal";
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
-import AddCarButton from "../../../../../img/adminAddEntity.svg";
-import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
-import {Filters} from "../../../../../Common/Filters/Filters";
+
+import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminStatusModal} from "./AdminStatusModal/AdminStatusModal";
+
+import AddCarButton from "../../../../../img/adminAddEntity.svg";
+import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
+
+import {orderStatusUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
 export const AdminOrderStatus = ({auth, history}) => {
 
@@ -33,11 +35,11 @@ export const AdminOrderStatus = ({auth, history}) => {
 	}
 
 	const getStatus = () => {
-		getRequest(`${orderStatusUrl}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+		getRequest(`${orderStatusUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				console.log(res);
 				setConfig({
-					url: `${orderStatusUrl}?`,
+					url: `${orderStatusUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
