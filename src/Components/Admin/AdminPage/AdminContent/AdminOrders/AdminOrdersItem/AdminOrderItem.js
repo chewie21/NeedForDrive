@@ -113,47 +113,49 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 			</OrderItemSection>
 			<OrderItemSection width='252px' className=''>
 				<ButtonsContainer>
-					{order.orderStatusId.name === 'new' ?
-						<CustomButton
-							onClick={() => setStatus(orderStatus[3])}
-							radius='4px 0px 0px 4px;'
-							border='0.5px solid #BECAD6'
-						>
-							<IconImage
-								height='12px'
-								width='12px'
-								margin='0'
-								img={SuccessImg}
-							/>
-							<Text
-								color='#5A6169'
-								weight='normal'
-								size='11px'
-								margin='-1px 0 0 0'
+					{orderStatus && (
+						order.orderStatusId.name === 'new' ?
+							<CustomButton
+								onClick={() => setStatus(orderStatus[3])}
+								radius='4px 0px 0px 4px;'
+								border='0.5px solid #BECAD6'
 							>
-							Готово
-							</Text>
-						</CustomButton> :
-						<CustomButton
-							radius='4px 0px 0px 4px;'
-							border='0.5px solid #BECAD6'
-							onClick={() => setStatus(orderStatus[0])}
-						>
-							<IconImage
-								height='12px'
-								width='12px'
-								margin='0'
-								img={PrimaryImg}
-							/>
-							<Text
-								color='#5A6169'
-								weight='normal'
-								size='11px'
-								margin='-1px 0 0 0'
+								<IconImage
+									height='12px'
+									width='12px'
+									margin='0'
+									img={SuccessImg}
+								/>
+								<Text
+									color='#5A6169'
+									weight='normal'
+									size='11px'
+									margin='-1px 0 0 0'
+								>
+								Готово
+								</Text>
+							</CustomButton> :
+							<CustomButton
+								radius='4px 0px 0px 4px;'
+								border='0.5px solid #BECAD6'
+								onClick={() => setStatus(orderStatus[0])}
 							>
-								Открыть
-							</Text>
-						</CustomButton>}
+								<IconImage
+									height='12px'
+									width='12px'
+									margin='0'
+									img={PrimaryImg}
+								/>
+								<Text
+									color='#5A6169'
+									weight='normal'
+									size='11px'
+									margin='-1px 0 0 0'
+								>
+									Открыть
+								</Text>
+							</CustomButton>)
+					}
 					<CustomButton
 						radius='0'
 						border='none'

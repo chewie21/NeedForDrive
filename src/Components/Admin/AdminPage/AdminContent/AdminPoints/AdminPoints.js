@@ -49,8 +49,11 @@ export const AdminPoints = ({auth, cities, history}) => {
 	};
 
 	useEffect(() => {
-		if(!config) getPoint();
-		if(!filtersConfig && cities) {
+		getPoint();
+	}, []);
+
+	useEffect(() => {
+		if(!filtersConfig && cities.response) {
 			setFiltersConfig([
 				{
 					placeholder: 'Город',
@@ -80,14 +83,15 @@ export const AdminPoints = ({auth, cities, history}) => {
 				>
 					Пункты выдачи
 				</Text>
-				<IconImageHover
-					width='30px'
-					height='30px'
-					margin='0 0 0 10px'
-					img={AddCarButton}
-					imgHover={AddCarButtonHover}
-					onClick={() => setModalShow(true)}
-				/>
+				{cities.response &&
+					<IconImageHover
+						width='30px'
+						height='30px'
+						margin='0 0 0 10px'
+						img={AddCarButton}
+						imgHover={AddCarButtonHover}
+						onClick={() => setModalShow(true)}
+					/>}
 			</div>
 			<ContentContainer>
 				{filtersConfig &&

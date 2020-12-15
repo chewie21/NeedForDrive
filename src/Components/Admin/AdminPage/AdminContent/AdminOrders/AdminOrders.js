@@ -30,21 +30,21 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 			value: 2628002880,
 			name: 'createdAt'
 		},
-	]
+	];
 
 	useEffect(() => {
-		if(orderStatus.response && !config) {
-			getRequest(`${orderUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-				.then(res => {
-					setConfig({
-						url: `${orderUrlPages}?`,
-						data: res.data,
-						orderStatus: orderStatus.response.data,
-						count: Math.floor(res.count / 10),
-						page: 1,
-					});
-				})
-		}
+		getRequest(`${orderUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({
+					url: `${orderUrlPages}?`,
+					data: res.data,
+					count: Math.floor(res.count / 10),
+					page: 1,
+				});
+			});
+	}, [])
+
+	useEffect(() => {
 		if(cars.response && cities.response && orderStatus.response && !filtersConfig) {
 			const obj = [
 				{
@@ -95,7 +95,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 								order={item}
 								key={index}
 								auth={auth}
-								orderStatus={config.orderStatus}
+								orderStatus={orderStatus.response}
 								config={config}
 								setConfig={setConfig}
 								history={history}

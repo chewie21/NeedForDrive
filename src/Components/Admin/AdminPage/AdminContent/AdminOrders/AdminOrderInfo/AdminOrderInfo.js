@@ -32,7 +32,7 @@ export const AdminOrderInfo = ({
 	const [config, setConfig] = useState(null);
 
 	useEffect(() => {
-		if(!config && cities && cars && rate && orderStatus && points) {
+		if(!config && cities.response && cars.response && rate.response && orderStatus.response && points.response) {
 			getRequest(`${orderUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({
 					data: res.data,
