@@ -101,6 +101,7 @@ export const AdminCarsModal = ({onHide, categories, show, auth, getCars}) => {
 			</Modal.Body>
 			<Modal.Footer>
 				<AdminButton
+					disabled={config.modalText}
 					size='14px'
 					padding='8px'
 					color='#007BFF'

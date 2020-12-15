@@ -21,3 +21,15 @@ export const ContentContainer = styled.div`
 			  0px 3.5px 35px rgba(90, 97, 105, 0.1);
 	border-radius: 9px;
 `;
+
+export const ButtonsContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+  	padding: 15px 20px;
+`;
+
+export const InfoContainer = styled.div`
+  	width: 100%;
+  	padding: 15px 20px;
+`;

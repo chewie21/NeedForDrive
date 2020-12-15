@@ -1,14 +1,18 @@
+import React, {useEffect, useState} from "react";
+
 import {Container, ContentContainer, BootstrapStyle} from "./AdminCities.styled";
-import {AdminCitiesModal} from "./AdminCitiesModal/AdminCitiesModal";
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
-import AddCarButton from "../../../../../img/adminAddEntity.svg";
-import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
-import React, {useEffect, useState} from "react";
+
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {AdminCitiesModal} from "./AdminCitiesModal/AdminCitiesModal";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
+
+import AddCarButton from "../../../../../img/adminAddEntity.svg";
+import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
+
+import {citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCities = ({auth, history}) => {
 

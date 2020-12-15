@@ -1,9 +1,10 @@
-import {AdminButton} from "../../../../../../Common/Button/AdminButton";
+import {ButtonsContainer} from "./Button.styles";
+import {AdminButton} from "./AdminButton";
 import React from "react";
 
-export const CityButtons = ({config, history, sendFunction, deleteFunction}) =>
-	<React.Fragment>
-		<div className='w-25'>
+export const AdminInfoButtons = ({config, history, sendFunction, deleteFunction, padding}) =>
+	<ButtonsContainer padding={padding}>
+		<div className='w-50'>
 			<AdminButton
 				size='11.5px'
 				padding='8px'
@@ -15,8 +16,9 @@ export const CityButtons = ({config, history, sendFunction, deleteFunction}) =>
 				Назад
 			</AdminButton>
 		</div>
-		<div className='d-flex w-25 justify-content-between'>
+		<div className='d-flex w-50 justify-content-between'>
 			<AdminButton
+				disabled={config.modalText}
 				size='11.5px'
 				padding='8px'
 				color='#CB3656'
@@ -36,4 +38,5 @@ export const CityButtons = ({config, history, sendFunction, deleteFunction}) =>
 				Сохранить
 			</AdminButton>
 		</div>
-	</React.Fragment>
+	</ButtonsContainer>
+

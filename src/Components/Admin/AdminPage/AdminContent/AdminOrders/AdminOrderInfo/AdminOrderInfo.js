@@ -13,7 +13,6 @@ import {
 import {Text} from "../../../../../../Common/Text/Text";
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
-import {OrderButtons} from "../AdminOrderComponents/Buttons";
 import {CarInfo} from "../AdminOrderComponents/CarInfo";
 import {StatusInfo} from "../AdminOrderComponents/StatusInfo";
 import {CityInfo} from "../AdminOrderComponents/CityInfo";
@@ -23,6 +22,7 @@ import {RateInfo} from "../AdminOrderComponents/RateInfo";
 import {ServiceInfo} from "../AdminOrderComponents/ServiceInfo";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
+import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
 
 export const AdminOrderInfo = ({
 		auth, history, match,
@@ -85,14 +85,13 @@ export const AdminOrderInfo = ({
 					Заказ № {config.data.id}
 				</Text>
 				<OrderContainer>
-					<ButtonsContainer>
-						<OrderButtons
-							config={config}
-							history={history}
-							sendFunction={sendEditOrder}
-							deleteFunction={deleteOrder}
-						/>
-					</ButtonsContainer>
+					<AdminInfoButtons
+						padding='15px 20px'
+						config={config}
+						history={history}
+						sendFunction={sendEditOrder}
+						deleteFunction={deleteOrder}
+					/>
 					<ContentContainer>
 						<CarInfoContainer>
 							<div className='w-75'>

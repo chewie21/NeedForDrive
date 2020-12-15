@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from "react";
-import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
+import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
-import {Text} from "../../../../../../Common/Text/Text";
-import {CityButtons} from "../AdminCitiesComponents/CityButtons";
-import {BootstrapStyle, ButtonsContainer, Container, InfoContainer} from "./AdminCitiesInfo.styled";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
 import {CityName} from "../AdminCitiesComponents/CityName";
-import {ContentContainer} from "../../AdminCars/AdminCars.styled";
+import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
+
+import {BootstrapStyle, Container, ContentContainer, InfoContainer} from "../AdminCities.styled";
+import {Text} from "../../../../../../Common/Text/Text";
+
+import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCitiesInfo = ({auth, history, match}) => {
 
 	const [config, setConfig] = useState(null);
 
 	useEffect(() => {
-		if(!config) {
+		if(!config)
 			getRequest(`${citiesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => setConfig({ data: res.data }));
-		}
+
 	});
 
 	const deleteCity = () => deleteEntity(citiesUrlPages, auth, config, setConfig, () => history.push('/admin/cities'));
@@ -41,14 +42,13 @@ export const AdminCitiesInfo = ({auth, history, match}) => {
 				Карточка города
 			</Text>
 			<ContentContainer>
-				<ButtonsContainer>
-					<CityButtons
-						config={config}
-						history={history}
-						deleteFunction={deleteCity}
-						sendFunction={sendEditCity}
-					/>
-				</ButtonsContainer>
+				<AdminInfoButtons
+					padding='15px 20px'
+					config={config}
+					history={history}
+					deleteFunction={deleteCity}
+					sendFunction={sendEditCity}
+				/>
 				<InfoContainer>
 					<CityName
 						config={config}
