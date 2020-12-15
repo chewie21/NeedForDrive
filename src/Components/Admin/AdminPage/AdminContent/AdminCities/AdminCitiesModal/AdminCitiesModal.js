@@ -1,10 +1,13 @@
+import React, {useEffect, useState} from "react";
+
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {CityName} from "../AdminCitiesComponents/CityName";
+import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
+
 import {Modal} from "react-bootstrap";
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import React, {useEffect, useState} from "react";
-import {CityName} from "../AdminCitiesComponents/CityName";
-import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
+
 import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {

@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {carsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {
 	BootstrapStyle,
-	ButtonsContainer,
 	Container,
 	InfoContainer,
 	InfoSection,
@@ -25,8 +24,8 @@ import {CarCategory} from "../AdminCarsComponents/CarCategory";
 import {CarColors} from "../AdminCarsComponents/CarColors";
 import {CarImg} from "../AdminCarsComponents/CarImg";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
-import {CarButtons} from "../AdminCarsComponents/Buttons";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
+import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
 
 export const AdminCarsInfo = ({auth, categories, history, match}) => {
 
@@ -132,14 +131,12 @@ export const AdminCarsInfo = ({auth, categories, history, match}) => {
 							<InfoSection>
 								<CarCategory config={config} setConfig={setConfig}/>
 							</InfoSection>
-							<ButtonsContainer>
-								<CarButtons
-									sendFunction={sendEditCar}
-									deleteFunction={deleteCar}
-									config={config}
-									history={history}
-								/>
-							</ButtonsContainer>
+							<AdminInfoButtons
+								sendFunction={sendEditCar}
+								deleteFunction={deleteCar}
+								config={config}
+								history={history}
+							/>
 						</div>
 					</RightSection>
 				</InfoContainer>

@@ -1,15 +1,18 @@
 import {Modal} from "react-bootstrap";
-import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import React, {useEffect, useState} from "react";
+
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import React, {useEffect, useState} from "react";
+import {InfoSection} from "../AdminPoints.styled";
+
+import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {pointsUrl, pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
 import {PointAddress} from "../AdminPointsComponents/PointAddress";
 import {PointDescription} from "../AdminPointsComponents/PointDescription";
 import {PointCities} from "../AdminPointsComponents/PointCities";
-import {ModalBodySection} from "./AdminPointsModal.styled";
+
+import {pointsUrl, pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
 
@@ -59,13 +62,15 @@ export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
 				</Text>
 			</Modal.Header>
 			<Modal.Body>
-				<ModalBodySection>
+				<InfoSection margin='0 0 15px 0'>
 					<PointAddress config={config} setConfig={setConfig}/>
-				</ModalBodySection>
-				<ModalBodySection>
+				</InfoSection>
+				<InfoSection margin='0 0 15px 0'>
 					<PointDescription config={config} setConfig={setConfig}/>
-				</ModalBodySection>
-				<PointCities config={config} setConfig={setConfig}/>
+				</InfoSection>
+				<InfoSection margin='0'>
+					<PointCities config={config} setConfig={setConfig}/>
+				</InfoSection>
 			</Modal.Body>
 			<Modal.Footer>
 				<AdminButton

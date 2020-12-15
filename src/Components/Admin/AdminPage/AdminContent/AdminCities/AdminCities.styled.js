@@ -11,6 +11,7 @@ export const BootstrapStyle = createGlobalStyle`
 
 export const Container = styled.div`
 	width: 100%;
+  	position: relative;
 `;
 
 export const ContentContainer = styled.div`
@@ -20,4 +21,10 @@ export const ContentContainer = styled.div`
 			  0px 5px 5px rgba(90, 97, 105, 0.06), 
 			  0px 3.5px 35px rgba(90, 97, 105, 0.1);
 	border-radius: 9px;
+`;
+
+
+export const InfoContainer = styled.div`
+  	width: 100%;
+  	padding: 15px 20px;
 `;

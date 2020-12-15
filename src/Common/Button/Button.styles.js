@@ -1,4 +1,5 @@
 import {makeStyles} from "@material-ui/core/styles";
+import styled from "styled-components";
 
 export const useButtonStyles = makeStyles({
 	root: props => ({
@@ -42,3 +43,12 @@ export const useLabelStyles = makeStyles({
 		color: '#121212'
 	})
 });
+
+export const ButtonsContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: ${props => props.padding};
+`;
+
+//15px 20px

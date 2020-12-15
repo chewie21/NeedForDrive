@@ -1,26 +1,26 @@
 import React, {useEffect, useState} from "react";
 
-import {Container, ContentContainer, BootstrapStyle} from "./AdminCities.styled";
+import {BootstrapStyle, Container, ContentContainer} from "./AdminCategories.styled";
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
 
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {AdminCitiesModal} from "./AdminCitiesModal/AdminCitiesModal";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
+import {AdminCategoriesModal} from "./AdminCategoriesModal/AdminCategoriesModal";
 
 import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
-import {citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {categoriesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCities = ({auth, history}) => {
+export const AdminCategories = ({auth, history}) => {
 
 	const [config, setConfig] = useState(null);
 	const [modalShow, setModalShow] = useState(false);
 
 	const tableHeaders = [
-		'Город'
+		'Категория'
 	];
 
 	const formatToTableBody = (data) => {
@@ -34,32 +34,33 @@ export const AdminCities = ({auth, history}) => {
 		return tableBody;
 	}
 
-	const getCities = () => {
-		getRequest(`${citiesUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+	const getCategories = () => {
+		getRequest(`${categoriesUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
+				console.log(res);
 				setConfig({
-					url: `${citiesUrlPages}?`,
+					url: `${categoriesUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
 					tableHeaders: tableHeaders,
 				});
-			})
+			});
 	}
 
 	useEffect(() => {
-		getCities();
-	},[])
+		getCategories();
+	}, []);
 
 	return (
 		config &&
 		<Container>
 			<BootstrapStyle/>
-			<AdminCitiesModal
+			<AdminCategoriesModal
 				show={modalShow}
 				onHide={() => setModalShow(false)}
 				auth={auth}
-				getCities={getCities}
+				getCategories={getCategories}
 			/>
 			<div className='d-flex'>
 				<Text
@@ -68,7 +69,7 @@ export const AdminCities = ({auth, history}) => {
 					margin='0 0 27px 0'
 					color='#3D5170'
 				>
-					Города
+					Категории автомобилей
 				</Text>
 				<IconImageHover
 					width='30px'
@@ -84,7 +85,7 @@ export const AdminCities = ({auth, history}) => {
 					config={config}
 					head={config.tableHeaders}
 					body={formatToTableBody(config.data)}
-					url={`/admin/cities/`}
+					url={`/admin/categories/`}
 					history={history}
 				/>
 				<CustomPagination

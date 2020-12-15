@@ -26,8 +26,8 @@ export const AdminMenu = () => {
     const rateType = {name: 'Ставки тарифов', active: false, img: RateActive, link: '/admin/rateType'}
 
     const sections = [
-        orders,
-        cars,
+        orders, orderStatus,
+        cars, categories,
         cities, points
     ];
 

@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from "react";
+
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
-import AddCarButton from "../../../../../img/adminAddEntity.svg";
-import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 import {Container, ContentContainer, BootstrapStyle} from "./AdminPoints.styled";
+
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {pointsUrl, pointsUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminPointsModal} from "./AdminPointsModal/AdminPointsModal";
 import {Filters} from "../../../../../Common/Filters/Filters";
 import {formatToFilter} from "../../../../../Functions/Format";
+
+import AddCarButton from "../../../../../img/adminAddEntity.svg";
+import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
+
+import {pointsUrl, pointsUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
 export const AdminPoints = ({auth, cities, history}) => {
 
