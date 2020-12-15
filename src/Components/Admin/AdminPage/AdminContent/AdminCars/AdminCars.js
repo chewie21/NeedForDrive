@@ -55,7 +55,10 @@ export const AdminCars = ({auth, categories, history}) => {
 	};
 
 	useEffect(() => {
-		if(!config) getCars();
+		getCars();
+	}, []);
+
+	useEffect(() => {
 		if(!filtersConfig && categories.response) {
 			const obj = [
 				{
@@ -87,14 +90,15 @@ export const AdminCars = ({auth, categories, history}) => {
 				>
 					Автомобили
 				</Text>
-				<IconImageHover
-					width='30px'
-					height='30px'
-					margin='0 0 0 10px'
-					img={AddCarButton}
-					imgHover={AddCarButtonHover}
-					onClick={() => setModalShow(true)}
-				/>
+				{categories.response &&
+					<IconImageHover
+						width='30px'
+						height='30px'
+						margin='0 0 0 10px'
+						img={AddCarButton}
+						imgHover={AddCarButtonHover}
+						onClick={() => setModalShow(true)}
+					/>}
 			</div>
 			<ContentContainer>
 				{filtersConfig &&

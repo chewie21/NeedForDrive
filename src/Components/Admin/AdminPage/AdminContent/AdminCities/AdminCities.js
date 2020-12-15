@@ -44,8 +44,8 @@ export const AdminCities = ({auth, history}) => {
 	}
 
 	useEffect(() => {
-		if(!config) getCities();
-	})
+		getCities();
+	},[])
 
 	return (
 		config &&
