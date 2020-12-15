@@ -8,6 +8,10 @@ import {AdminCities} from "./AdminCities/AdminCities";
 import {AdminCitiesInfo} from "./AdminCities/AdminCitiesInfo/AdminCitiesInfo";
 import {AdminPoints} from "./AdminPoints/AdminPoints";
 import {AdminPointsInfo} from "./AdminPoints/AdminPointsInfo/AdminPointsInfo";
+import {AdminCategories} from "./AdminCategories/AdminCategories";
+import {AdminCategoriesInfo} from "./AdminCategories/AdminCategoriesInfo/AdminCategoriesInfo";
+import {AdminOrderStatus} from "./AdminOrderStatus/AdminOrderStatus";
+import {AdminStatusInfo} from "./AdminOrderStatus/AdminStatusInfo/AdminStatusInfo";
 
 export const AdminSwitch = ({
 		auth,
@@ -48,6 +52,25 @@ export const AdminSwitch = ({
 			}
 		/>
 		<Route
+			exact path='/admin/orderStatus'
+			render={() =>
+				<AdminOrderStatus
+					auth={auth}
+					history={history}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/orderStatus/:id'
+			render={(props) =>
+				<AdminStatusInfo
+					{...props}
+					auth={auth}
+					history={history}
+				/>
+			}
+		/>
+		<Route
 			exact path='/admin/cars'
 			render={() =>
 				<AdminCars
@@ -66,6 +89,28 @@ export const AdminSwitch = ({
 					auth={auth}
 					history={history}
 					categories={categories}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/categories'
+			render={(props) =>
+				<AdminCategories
+					{...props}
+					auth={auth}
+					history={history}
+					cities={cities}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/categories/:id'
+			render={(props) =>
+				<AdminCategoriesInfo
+					{...props}
+					auth={auth}
+					history={history}
+					cities={cities}
 				/>
 			}
 		/>
