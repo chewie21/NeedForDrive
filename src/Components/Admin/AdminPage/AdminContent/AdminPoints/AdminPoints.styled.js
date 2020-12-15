@@ -11,6 +11,7 @@ export const BootstrapStyle = createGlobalStyle`
 
 export const Container = styled.div`
 	width: 100%;
+  	position: relative;
 `;
 
 export const ContentContainer = styled.div`
