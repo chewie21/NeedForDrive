@@ -15,7 +15,7 @@ export const sendEditEntity = (url, config, setConfig, auth, refresh) => {
 		loadingModal(config, setConfig);
 		putRequest(url, config.data.id, {...config.data}, `Bearer ${auth.access_token}`)
 			.then(res => {
-				refresh();
+				if(refresh) refresh();
 				setConfig({...config, data: res.data, modalColor: `#0EC261`, modalText: `Успех! Изменения сохраннены!`});
 				setTimeout(() => closeModal(config, setConfig), 2000);
 			}, error => {

@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const FindContainer = styled.div`
-	width: 74%;
+	width: 75%;
   	display: flex;
   
   	align-self: center;
@@ -25,6 +25,7 @@ export const Input = styled.input`
 `;
 
 export const NotificationContainer = styled.div`
+	cursor: pointer;
 	width: 6%;
   	height: 100%;
   	border-left: 1px solid #F5F6F8;
@@ -33,11 +34,63 @@ export const NotificationContainer = styled.div`
   	align-items: center;
   	display: flex;
   	justify-content: center;
+  	position: relative;
 `;
 
 export const AccountContainer = styled.div`
-  	width: 20%;
+  	width: 19%;
   	align-self: center;
   	padding: 0 25px 0 25px;
 `;
 
+export const CountContainer = styled.div`
+	position: absolute;
+  	border-radius: 50%;
+  	background: red;
+  	height: 16px;
+  	width: 16px;
+  	right: 15px;
+  	bottom: 18px;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+`;
+
+export const customStyles = {
+	control: (styles) => (
+		{
+			...styles,
+			cursor: `pointer`,
+			backgroundColor: "white",
+			border: `none`,
+			width: 225,
+			fontWeight: 300,
+			fontSize: 14,
+			boxShadow: `none !important`,
+		}
+	),
+	input: (styles) => (
+		{
+			...styles,
+			fontWeight: 300,
+			fontSize: 14,
+			padding: 0,
+			margin: 0,
+		}
+	),
+	dropdownIndicator: (styles) => (
+		{
+			display: `none`
+		}
+	),
+	indicatorSeparator: (styles) => (
+		{
+			display: `none`
+		}
+	),
+	clearIndicator: (styles) => (
+		{
+			display: 'none'
+		}
+	)
+}

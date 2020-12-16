@@ -46,6 +46,17 @@ export const FooterContainer = styled.div`
 	box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 `;
 
+export const NotificationContainer = styled.div`
+  	z-index: 98;
+  	position: fixed;
+  	height: 100%;
+  	width: 20%;
+  	background: #FFFFFF;
+  	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  	right: 0;
+  	overflow: scroll;
+`;
+
 export const Style = createGlobalStyle`
     a, a:hover {
         text-decoration: none;

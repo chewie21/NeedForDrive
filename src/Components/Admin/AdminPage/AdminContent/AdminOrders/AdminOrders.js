@@ -108,7 +108,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 									order={item}
 									key={index}
 									auth={auth}
-									orderStatus={orderStatus.response}
+									orderStatus={orderStatus}
 									config={config}
 									setConfig={setConfig}
 									history={history}
