@@ -38,6 +38,12 @@ export const rateUrl = `http://api-factory.simbirsoft1.com/api/db/rate`;
 //prod
 export const rateUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rate`;
 
+//Тип аренды
+//dev
+export const rateTypeUrl = `http://api-factory.simbirsoft1.com/api/db/rateType`;
+//prod
+export const rateTypeUrlPages = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rateType`;
+
 //Получение заказа
 //dev
 export const orderUrl = `http://api-factory.simbirsoft1.com/api/db/order`

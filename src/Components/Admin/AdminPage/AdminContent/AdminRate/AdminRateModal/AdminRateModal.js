@@ -1,37 +1,45 @@
 import React, {useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 
+import {formatToOrderInfo} from "../../../../../../Functions/Format";
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {CategoryName} from "../AdminCategoriesComponents/CategoryName";
-import {CategoryDescription} from "../AdminCategoriesComponents/CategoryDescription";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {RateType} from "../AdminRateComponents/RateType";
+import {RatePrice} from "../AdminRateComponents/RatePrice";
 
 import {Text} from "../../../../../../Common/Text/Text";
+import {InfoSection} from "../../AdminPoints/AdminPoints.styled";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import {InfoSection} from "../AdminCategories.styled";
 
-import {categoriesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {rateUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categories}) => {
+export const AdminRateModal = ({onHide, rateTypeId, show, auth, getRate, rate}) => {
 
-	const category = { name : '', description: '' };
+	const newRate = {
+		rateTypeId: {},
+		price: ''
+	};
 
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: category });
+	const refreshConfig = () =>
+		setConfig({
+			data: newRate,
+			rateTypeId: formatToOrderInfo(rateTypeId.response.data)
+		});
 
 	useEffect(() => {
-		if(!config) refreshConfig();
+		if(!config && rateTypeId.response) refreshConfig();
 	});
 
-	const sendNewCategory = () => sendNewEntity(categoriesUrlPages, config, setConfig, auth,
+	const sendNewRate = () => sendNewEntity(rateUrlPages, config, setConfig, auth,
 		() => {
-				onHide();
-				categories.refreshResponse();
-				refreshConfig();
-				getCategories();
-			}
-		)
+			onHide();
+			refreshConfig();
+			rate.refreshResponse();
+			getRate();
+		}
+	);
 
 	return (
 		config &&
@@ -49,15 +57,15 @@ export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categor
 					margin='0'
 					color='#3D5170'
 				>
-					Добавить категорию
+					Добавить тариф
 				</Text>
 			</Modal.Header>
 			<Modal.Body>
 				<InfoSection margin='0 0 15px 0'>
-					<CategoryName config={config} setConfig={setConfig}/>
+					<RatePrice config={config} setConfig={setConfig}/>
 				</InfoSection>
-				<InfoSection>
-					<CategoryDescription config={config} setConfig={setConfig}/>
+				<InfoSection margin='0'>
+					<RateType config={config} setConfig={setConfig}/>
 				</InfoSection>
 			</Modal.Body>
 			<Modal.Footer>
@@ -67,7 +75,7 @@ export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categor
 					padding='8px'
 					color='#007BFF'
 					width='100%'
-					onClick={sendNewCategory}
+					onClick={sendNewRate}
 				>
 					Сохранить
 				</AdminButton>

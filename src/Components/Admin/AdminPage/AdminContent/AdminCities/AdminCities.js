@@ -8,16 +8,19 @@ import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
 import {AdminCitiesModal} from "./AdminCitiesModal/AdminCitiesModal";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
+import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
+import {AdminError} from "../../../../../Common/AdminError/AdminError";
 
 import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
 import {citiesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCities = ({auth, history}) => {
+export const AdminCities = ({auth, history, cities}) => {
 
 	const [config, setConfig] = useState(null);
 	const [modalShow, setModalShow] = useState(false);
+	const [error, setError] = useState(false);
 
 	const tableHeaders = [
 		'Город'
@@ -44,7 +47,7 @@ export const AdminCities = ({auth, history}) => {
 					page: 1,
 					tableHeaders: tableHeaders,
 				});
-			})
+			}).catch(error => setError(true));
 	}
 
 	useEffect(() => {
@@ -52,47 +55,57 @@ export const AdminCities = ({auth, history}) => {
 	},[])
 
 	return (
-		config &&
-		<Container>
-			<BootstrapStyle/>
-			<AdminCitiesModal
-				show={modalShow}
-				onHide={() => setModalShow(false)}
-				auth={auth}
-				getCities={getCities}
-			/>
-			<div className='d-flex'>
-				<Text
-					weight='normal'
-					size='29px'
-					margin='0 0 27px 0'
-					color='#3D5170'
-				>
-					Города
-				</Text>
-				<IconImageHover
-					width='30px'
-					height='30px'
-					margin='0 0 0 10px'
-					img={AddCarButton}
-					imgHover={AddCarButtonHover}
-					onClick={() => setModalShow(true)}
-				/>
-			</div>
-			<ContentContainer>
-				<CustomTable
-					config={config}
-					head={config.tableHeaders}
-					body={formatToTableBody(config.data)}
-					url={`/admin/cities/`}
-					history={history}
-				/>
-				<CustomPagination
-					config={config}
-					setConfig={setConfig}
-					auth={auth}
-				/>
-			</ContentContainer>
-		</Container>
+		<React.Fragment>
+			{!config && !error &&
+				<AdminLoading/>
+			}
+			{!config && error &&
+				<AdminError history={history}/>
+			}
+			{config && !error &&
+				<Container>
+					<BootstrapStyle/>
+					<AdminCitiesModal
+						show={modalShow}
+						onHide={() => setModalShow(false)}
+						auth={auth}
+						getCities={getCities}
+						cities={cities}
+					/>
+					<div className='d-flex'>
+						<Text
+							weight='normal'
+							size='29px'
+							margin='0 0 27px 0'
+							color='#3D5170'
+						>
+							Города
+						</Text>
+						<IconImageHover
+							width='30px'
+							height='30px'
+							margin='0 0 0 10px'
+							img={AddCarButton}
+							imgHover={AddCarButtonHover}
+							onClick={() => setModalShow(true)}
+						/>
+					</div>
+					<ContentContainer>
+						<CustomTable
+							config={config}
+							head={config.tableHeaders}
+							body={formatToTableBody(config.data)}
+							url={`/admin/cities/`}
+							history={history}
+						/>
+						<CustomPagination
+							config={config}
+							setConfig={setConfig}
+							auth={auth}
+						/>
+					</ContentContainer>
+				</Container>
+			}
+		</React.Fragment>
 	)
 }

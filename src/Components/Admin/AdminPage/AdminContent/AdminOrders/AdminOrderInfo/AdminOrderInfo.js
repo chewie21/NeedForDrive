@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {orderUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+
 import {
-	ButtonsContainer,
 	CarInfoContainer,
 	Container,
 	ContentContainer,
@@ -11,6 +10,7 @@ import {
 	Style
 } from "./AdminOrderInfo.styled";
 import {Text} from "../../../../../../Common/Text/Text";
+
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
 import {CarInfo} from "../AdminOrderComponents/CarInfo";
@@ -23,6 +23,10 @@ import {ServiceInfo} from "../AdminOrderComponents/ServiceInfo";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
 import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
+import {AdminLoading} from "../../../../../../Common/AdminLoading/AdminLoading";
+import {AdminError} from "../../../../../../Common/AdminError/AdminError";
+
+import {orderUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminOrderInfo = ({
 		auth, history, match,
@@ -30,6 +34,7 @@ export const AdminOrderInfo = ({
 	}) => {
 
 	const [config, setConfig] = useState(null);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		if(!config && cities.response && cars.response && rate.response && orderStatus.response && points.response) {
@@ -41,7 +46,7 @@ export const AdminOrderInfo = ({
 					rate: rate.response.data,
 					orderStatus: formatToOrderInfo(orderStatus.response.data),
 					points: formatToOrderInfo(points.response.data),
-				}) );
+				})).catch(error => setError(true));
 		}
 		if(config) {
 			let price;
@@ -70,76 +75,85 @@ export const AdminOrderInfo = ({
 	const deleteOrder = () => deleteEntity(orderUrlPages, auth, config, setConfig, () => history.push('/admin/orders'));
 
 	return (
-		config &&
-			<Container>
-				{config.modalText &&
+		<React.Fragment>
+			{!config && !error &&
+				<AdminLoading/>
+			}
+			{!config && error &&
+				<AdminError history={history}/>
+			}
+			{config && !error &&
+				<Container>
+					{config.modalText &&
 					<ModalMessage config={config} setConfig={setConfig}/>
-				}
-				<Style/>
-				<Text
-					weight='normal'
-					size='29px'
-					margin='0 0 27px 0'
-					color='#3D5170'
-				>
-					Заказ № {config.data.id}
-				</Text>
-				<OrderContainer>
-					<AdminInfoButtons
-						padding='15px 20px'
-						config={config}
-						history={history}
-						sendFunction={sendEditOrder}
-						deleteFunction={deleteOrder}
-					/>
-					<ContentContainer>
-						<CarInfoContainer>
-							<div className='w-75'>
+					}
+					<Style/>
+					<Text
+						weight='normal'
+						size='29px'
+						margin='0 0 27px 0'
+						color='#3D5170'
+					>
+						Заказ № {config.data.id}
+					</Text>
+					<OrderContainer>
+						<AdminInfoButtons
+							padding='15px 20px'
+							config={config}
+							history={history}
+							sendFunction={sendEditOrder}
+							deleteFunction={deleteOrder}
+						/>
+						<ContentContainer>
+							<CarInfoContainer>
+								<div className='w-75'>
+									<InfoSection>
+										<CarInfo config={config} setConfig={setConfig}/>
+									</InfoSection>
+									<InfoSection>
+										<StatusInfo config={config} setConfig={setConfig}/>
+									</InfoSection>
+									<InfoSection>
+										<CityInfo config={config} setConfig={setConfig}/>
+									</InfoSection>
+									<InfoSection>
+										<PointInfo config={config} setConfig={setConfig}/>
+									</InfoSection>
+								</div>
+							</CarInfoContainer>
+							<OrderInfoContainer>
 								<InfoSection>
-									<CarInfo config={config} setConfig={setConfig}/>
+									<DateInfo config={config} setConfig={setConfig}/>
 								</InfoSection>
 								<InfoSection>
-									<StatusInfo config={config} setConfig={setConfig}/>
+									<RateInfo config={config} setConfig={setConfig}/>
 								</InfoSection>
 								<InfoSection>
-									<CityInfo config={config} setConfig={setConfig}/>
+									<ServiceInfo config={config} setConfig={setConfig}/>
 								</InfoSection>
-								<InfoSection>
-									<PointInfo config={config} setConfig={setConfig}/>
-								</InfoSection>
-							</div>
-						</CarInfoContainer>
-						<OrderInfoContainer>
-							<InfoSection>
-								<DateInfo config={config} setConfig={setConfig}/>
-							</InfoSection>
-							<InfoSection>
-								<RateInfo config={config} setConfig={setConfig}/>
-							</InfoSection>
-							<InfoSection>
-								<ServiceInfo config={config} setConfig={setConfig}/>
-							</InfoSection>
-							<div>
-								<Text
-									weight='500'
-									size='15px'
-									color='#3D5170'
-									margin='0 0 6px 0'
-								>
-									Итог
-								</Text>
-								<Text
-									weight='normal'
-									size='29px'
-									margin='0'
-									color='#3D5170'
-								>
-									{config.data.price} ₽
-								</Text>
-							</div>
-						</OrderInfoContainer>
-					</ContentContainer>
-				</OrderContainer>
-			</Container>
+								<div>
+									<Text
+										weight='500'
+										size='15px'
+										color='#3D5170'
+										margin='0 0 6px 0'
+									>
+										Итог
+									</Text>
+									<Text
+										weight='normal'
+										size='29px'
+										margin='0'
+										color='#3D5170'
+									>
+										{config.data.price} ₽
+									</Text>
+								</div>
+							</OrderInfoContainer>
+						</ContentContainer>
+					</OrderContainer>
+				</Container>
+			}
+		</React.Fragment>
 	)
 }

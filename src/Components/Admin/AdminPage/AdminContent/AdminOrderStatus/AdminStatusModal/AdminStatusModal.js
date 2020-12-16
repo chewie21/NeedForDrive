@@ -10,7 +10,7 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
 import {orderStatusUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminStatusModal = ({onHide, show, auth, getStatus}) => {
+export const AdminStatusModal = ({onHide, show, auth, getStatus, orderStatus}) => {
 
 	const status = { name : '' };
 
@@ -26,6 +26,7 @@ export const AdminStatusModal = ({onHide, show, auth, getStatus}) => {
 		sendNewEntity(orderStatusUrlPages, config, setConfig, auth,
 			() => {
 				onHide();
+				orderStatus.refreshResponse();
 				refreshConfig();
 				getStatus();
 			}

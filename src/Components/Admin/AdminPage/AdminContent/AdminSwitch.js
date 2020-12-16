@@ -12,6 +12,10 @@ import {AdminCategories} from "./AdminCategories/AdminCategories";
 import {AdminCategoriesInfo} from "./AdminCategories/AdminCategoriesInfo/AdminCategoriesInfo";
 import {AdminOrderStatus} from "./AdminOrderStatus/AdminOrderStatus";
 import {AdminStatusInfo} from "./AdminOrderStatus/AdminStatusInfo/AdminStatusInfo";
+import {AdminRateType} from "./AdminRateType/AdminRateType";
+import {AdminRateTypeInfo} from "./AdminRateType/AdminRateTypeInfo/AdminRateTypeInfo";
+import {AdminRate} from "./AdminRate/AdminRate";
+import {AdminRateInfo} from "./AdminRate/AdminRateInfo/AdminRateInfo";
 
 export const AdminSwitch = ({
 		auth,
@@ -21,7 +25,8 @@ export const AdminSwitch = ({
 		cars,
 		rate,
 		orderStatus,
-		categories
+		categories,
+		rateType
 	}) =>
 	<Switch>
 		<Route
@@ -57,6 +62,7 @@ export const AdminSwitch = ({
 				<AdminOrderStatus
 					auth={auth}
 					history={history}
+					orderStatus={orderStatus}
 				/>
 			}
 		/>
@@ -67,6 +73,7 @@ export const AdminSwitch = ({
 					{...props}
 					auth={auth}
 					history={history}
+					orderStatus={orderStatus}
 				/>
 			}
 		/>
@@ -89,17 +96,17 @@ export const AdminSwitch = ({
 					auth={auth}
 					history={history}
 					categories={categories}
+					cars={cars}
 				/>
 			}
 		/>
 		<Route
 			exact path='/admin/categories'
-			render={(props) =>
+			render={() =>
 				<AdminCategories
-					{...props}
 					auth={auth}
 					history={history}
-					cities={cities}
+					categories={categories}
 				/>
 			}
 		/>
@@ -110,17 +117,17 @@ export const AdminSwitch = ({
 					{...props}
 					auth={auth}
 					history={history}
-					cities={cities}
+					categories={categories}
 				/>
 			}
 		/>
 		<Route
 			exact path='/admin/cities'
-			render={(props) =>
+			render={() =>
 				<AdminCities
-					{...props}
 					auth={auth}
 					history={history}
+					cities={cities}
 				/>
 			}
 		/>
@@ -131,17 +138,18 @@ export const AdminSwitch = ({
 					{...props}
 					auth={auth}
 					history={history}
+					cities={cities}
 				/>
 			}
 		/>
 		<Route
 			exact path='/admin/points'
-			render={(props) =>
+			render={() =>
 				<AdminPoints
-					{...props}
 					auth={auth}
 					history={history}
 					cities={cities}
+					points={points}
 				/>
 			}
 		/>
@@ -153,6 +161,51 @@ export const AdminSwitch = ({
 					auth={auth}
 					history={history}
 					cities={cities}
+					points={points}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/rateType'
+			render={() =>
+				<AdminRateType
+					auth={auth}
+					history={history}
+					rateType={rateType}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/rateType/:id'
+			render={(props) =>
+				<AdminRateTypeInfo
+					{...props}
+					auth={auth}
+					history={history}
+					rateType={rateType}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/rate'
+			render={() =>
+				<AdminRate
+					auth={auth}
+					history={history}
+					rateType={rateType}
+					rate={rate}
+				/>
+			}
+		/>
+		<Route
+			exact path='/admin/rate/:id'
+			render={(props) =>
+				<AdminRateInfo
+					{...props}
+					auth={auth}
+					history={history}
+					rateType={rateType}
+					rate={rate}
 				/>
 			}
 		/>

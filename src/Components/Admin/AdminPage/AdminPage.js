@@ -1,19 +1,23 @@
+import React from "react";
+
+import {AdminMenu} from "./AdminMenu/AdminMenu";
+import {AdminHeader} from "./AdminHeader/AdminHeader";
+import {AdminSwitch} from "./AdminContent/AdminSwitch";
+import {useGetRequest} from "../../../Hooks/useGetRequest";
 import {logoutRequest} from "../../../Functions/RequestsToApiFactory";
+import {AdminFooter} from "./AdminFooter/AdminFooter";
+
+import {Container, FooterContainer, HeaderContainer, MenuContainer, Style, SwitchContainer} from "./AdminPage.styled";
+
 import {
     carsUrlPages,
     categoriesUrlPages,
     citiesUrlPages,
     logoutUrlPages,
     orderStatusUrlPages,
-    pointsUrlPages,
+    pointsUrlPages, rateTypeUrlPages,
     rateUrlPages
 } from "../../../Environments/ApiFactoryUrls";
-import {Container, HeaderContainer, MenuContainer, Style, SwitchContainer} from "./AdminPage.styled";
-import {AdminMenu} from "./AdminMenu/AdminMenu";
-import {AdminHeader} from "./AdminHeader/AdminHeader";
-import React from "react";
-import {AdminSwitch} from "./AdminContent/AdminSwitch";
-import {useGetRequest} from "../../../Hooks/useGetRequest";
 
 export const AdminPage = ({auth, setAuth, history}) => {
 
@@ -23,6 +27,7 @@ export const AdminPage = ({auth, setAuth, history}) => {
     const categories = useGetRequest(categoriesUrlPages);
     const rate = useGetRequest(rateUrlPages);
     const orderStatus = useGetRequest(orderStatusUrlPages);
+    const rateType = useGetRequest(rateTypeUrlPages);
 
     const logout = () => {
         logoutRequest(logoutUrlPages,`Bearer ${auth.access_token}`)
@@ -59,8 +64,12 @@ export const AdminPage = ({auth, setAuth, history}) => {
                     categories={categories}
                     rate={rate}
                     orderStatus={orderStatus}
+                    rateType={rateType}
                 />
             </SwitchContainer>
+            <FooterContainer>
+                <AdminFooter/>
+            </FooterContainer>
         </Container>
     )
 }

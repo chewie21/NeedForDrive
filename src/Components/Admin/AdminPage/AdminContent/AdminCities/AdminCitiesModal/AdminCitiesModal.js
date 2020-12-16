@@ -10,7 +10,7 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
 import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
+export const AdminCitiesModal = ({onHide, show, auth, getCities, cities}) => {
 
 	const city = { name: '' };
 
@@ -25,6 +25,7 @@ export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
 	const sendNewCity = () => sendNewEntity(citiesUrlPages, config, setConfig, auth,
 			() => {
 				onHide();
+				cities.refreshResponse();
 				refreshConfig();
 				getCities();
 			}
@@ -54,6 +55,7 @@ export const AdminCitiesModal = ({onHide, show, auth, getCities}) => {
 			</Modal.Body>
 			<Modal.Footer>
 				<AdminButton
+					disabled={config.modalText}
 					size='14px'
 					padding='8px'
 					color='#007BFF'

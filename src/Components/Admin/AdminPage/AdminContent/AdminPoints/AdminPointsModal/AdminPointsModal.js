@@ -12,11 +12,11 @@ import {PointAddress} from "../AdminPointsComponents/PointAddress";
 import {PointDescription} from "../AdminPointsComponents/PointDescription";
 import {PointCities} from "../AdminPointsComponents/PointCities";
 
-import {pointsUrl, pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
+export const AdminPointsModal = ({onHide, cities, show, auth, getPoints, points}) => {
 
-	const points = {
+	const newPoints = {
 		address: '',
 		name: '',
 		cityId: {}
@@ -26,18 +26,19 @@ export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
 
 	const refreshConfig = () =>
 		setConfig({
-			data: points,
+			data: newPoints,
 			cities: formatToOrderInfo(cities.response.data)
 		});
 
 	useEffect(() => {
-		if(!config && cities) refreshConfig();
+		if(!config && cities.response) refreshConfig();
 	});
 
-	const sendNewPoints = () => sendNewEntity(pointsUrlPages, config, setConfig, auth,
+	const sendNewPoint = () => sendNewEntity(pointsUrlPages, config, setConfig, auth,
 		() => {
 			onHide();
 			refreshConfig();
+			points.refreshResponse();
 			getPoints();
 		}
 	);
@@ -74,11 +75,12 @@ export const AdminPointsModal = ({onHide, cities, show, auth, getPoints}) => {
 			</Modal.Body>
 			<Modal.Footer>
 				<AdminButton
+					disable={config.modalText}
 					size='14px'
 					padding='8px'
 					color='#007BFF'
 					width='100%'
-					onClick={sendNewPoints}
+					onClick={sendNewPoint}
 				>
 					Сохранить
 				</AdminButton>
