@@ -2,7 +2,6 @@ import styled, {createGlobalStyle} from "styled-components";
 
 export const Container = styled.div`
     height: 100vh;
-    width: 100vw;
   	display: flex;
     background: #F5F6F8;
 `;
@@ -31,9 +30,20 @@ export const SwitchContainer = styled.div`
   	margin-top: 68px;
   	width: 80%;
   	flex-grow 1;
-  	padding: 27px;
+  	padding: 27px 27px 68px 27px;
   	height: fit-content;
   	background: #F5F6F8;
+`;
+
+export const FooterContainer = styled.div`
+	z-index: 99;
+	position: fixed;
+  	bottom: 0;
+	width: 80%;
+	margin-left: 20%;
+	height: fit-content;
+	background: #FFFFFF;
+	box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 `;
 
 export const Style = createGlobalStyle`

@@ -1,18 +1,23 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
 import {AdminOrderItem} from "./AdminOrdersItem/AdminOrderItem";
-
-import {orderUrl, orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
-import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled";
-import {Text} from "../../../../../Common/Text/Text";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {Filters} from "../../../../../Common/Filters/Filters";
 import {formatToFilter} from "../../../../../Functions/Format";
+import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
+import {AdminError} from "../../../../../Common/AdminError/AdminError";
+
+import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled";
+import {Text} from "../../../../../Common/Text/Text";
+
+import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
 export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 
 	const [config, setConfig] = useState(null);
 	const [filtersConfig, setFiltersConfig] = useState(null);
+	const [error, setError] = useState(false);
 
 	const timeOptions = [
 		{
@@ -41,7 +46,7 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 					count: Math.floor(res.count / 10),
 					page: 1,
 				});
-			});
+			}).catch(error => setError(true));
 	}, [])
 
 	useEffect(() => {
@@ -69,45 +74,55 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 	});
 
 	return (
-		config &&
-			<Container>
-				<Text
-					weight='normal'
-					size='29px'
-					margin='0 0 27px 0'
-					color='#3D5170'
-				>
-					Заказы
-				</Text>
-				<ContentContainer>
-					{filtersConfig &&
+		<React.Fragment>
+			{!config && !error &&
+				<AdminLoading/>
+			}
+			{!config && error &&
+				<AdminError history={history}/>
+			}
+			{config && !error &&
+				<Container>
+					<Text
+						weight='normal'
+						size='29px'
+						margin='0 0 27px 0'
+						color='#3D5170'
+					>
+						Заказы
+					</Text>
+					<ContentContainer>
+						{filtersConfig &&
 						<Filters
 							config={config}
 							setConfig={setConfig}
 							filtersConfig={filtersConfig}
 							auth={auth}
 							url={orderUrlPages}
+							setError={setError}
 						/>
-					}
-					<OrdersContainer>
-						{config.data.map((item, index) => (
-							<AdminOrderItem
-								order={item}
-								key={index}
-								auth={auth}
-								orderStatus={orderStatus.response}
-								config={config}
-								setConfig={setConfig}
-								history={history}
-							/>
-						))}
-					</OrdersContainer>
-					<CustomPagination
-						config={config}
-						setConfig={setConfig}
-						auth={auth}
-					/>
-				</ContentContainer>
-			</Container>
+						}
+						<OrdersContainer>
+							{config.data.map((item, index) => (
+								<AdminOrderItem
+									order={item}
+									key={index}
+									auth={auth}
+									orderStatus={orderStatus.response}
+									config={config}
+									setConfig={setConfig}
+									history={history}
+								/>
+							))}
+						</OrdersContainer>
+						<CustomPagination
+							config={config}
+							setConfig={setConfig}
+							auth={auth}
+						/>
+					</ContentContainer>
+				</Container>
+			}
+		</React.Fragment>
 	)
 }

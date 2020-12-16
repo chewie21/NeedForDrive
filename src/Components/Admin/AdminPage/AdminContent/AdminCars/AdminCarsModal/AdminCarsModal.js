@@ -1,4 +1,6 @@
 import {Modal} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+
 import {CarName} from "../AdminCarsComponents/CarName";
 import {CarDescription} from "../AdminCarsComponents/CarDescriprion";
 import {CarNumber} from "../AdminCarsComponents/CarNumber";
@@ -6,16 +8,17 @@ import {CarImg} from "../AdminCarsComponents/CarImg";
 import {CarPrice} from "../AdminCarsComponents/CarPrice";
 import {CarCategory} from "../AdminCarsComponents/CarCategory";
 import {CarColors} from "../AdminCarsComponents/CarColors";
-import React, {useEffect, useState} from "react";
 import {formatToOrderInfo} from "../../../../../../Functions/Format";
+import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
+
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {ModalBodyLeft, ModalBodyRight, ModalBodySection} from "./AdminCarsModal.styled";
-import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
+
 import {carsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCarsModal = ({onHide, categories, show, auth, getCars}) => {
+export const AdminCarsModal = ({onHide, categories, show, auth, getCars, cars}) => {
 
 	const car = {
 		categoryId: {},
@@ -44,6 +47,7 @@ export const AdminCarsModal = ({onHide, categories, show, auth, getCars}) => {
 	const sendNewCar = () => sendNewEntity(carsUrlPages, config, setConfig, auth,
 		() => {
 				onHide();
+				cars.refreshResponse();
 				refreshConfig();
 				getCars();
 			}

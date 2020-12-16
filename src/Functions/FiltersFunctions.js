@@ -1,6 +1,7 @@
 import {getRequest} from "./RequestsToApiFactory";
 
-export const setFilters = (filters, config, setConfig, auth, url) => {
+export const setFilters = (filters, config, setConfig, auth, url, setError, setLoading) => {
+	setLoading(true);
 	let str;
 	for(const key in filters) {
 		if(key === 'createdAt') {
@@ -25,10 +26,15 @@ export const setFilters = (filters, config, setConfig, auth, url) => {
 				count: Math.ceil(res.count / 10)
 			}
 			setConfig(obj);
-		});
+			setLoading(false);
+		}).catch(error => {
+			setLoading(false);
+			setError(true);
+	});
 }
 
-export const removeFilters = (config, setConfig, auth, url) => {
+export const removeFilters = (config, setConfig, auth, url, setError, setLoading) => {
+	setLoading(true);
 	getRequest(`${url}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 		.then(res => {
 			const obj = {
@@ -39,5 +45,9 @@ export const removeFilters = (config, setConfig, auth, url) => {
 				count: Math.ceil(res.count / 10)
 			}
 			setConfig(obj);
-		});
+			setLoading(false);
+		}).catch(error => {
+			setLoading(false);
+			setError(true);
+	});
 }

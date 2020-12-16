@@ -10,11 +10,12 @@ export const closeModal = (config, setConfig) => {
 
 export const loadingModal = (config, setConfig) => setConfig({...config, modalColor: `#007BFF`, modalText: `Идет загрузка...`});
 
-export const sendEditEntity = (url, config, setConfig, auth) => {
+export const sendEditEntity = (url, config, setConfig, auth, refresh) => {
 	if(formatFindEntityErrors(config.data)) {
 		loadingModal(config, setConfig);
 		putRequest(url, config.data.id, {...config.data}, `Bearer ${auth.access_token}`)
 			.then(res => {
+				refresh();
 				setConfig({...config, data: res.data, modalColor: `#0EC261`, modalText: `Успех! Изменения сохраннены!`});
 				setTimeout(() => closeModal(config, setConfig), 2000);
 			}, error => {

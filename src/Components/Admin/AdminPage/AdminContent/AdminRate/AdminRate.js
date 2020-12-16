@@ -1,54 +1,51 @@
 import React, {useEffect, useState} from "react";
 
-import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
-import {Text} from "../../../../../Common/Text/Text";
-import {Container, ContentContainer, BootstrapStyle} from "./AdminCars.styled";
-
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {formatToFilter} from "../../../../../Functions/Format";
-import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
-import {Filters} from "../../../../../Common/Filters/Filters";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
-import {AdminCarsModal} from "./AdminCarsModal/AdminCarsModal";
-import {AdminError} from "../../../../../Common/AdminError/AdminError";
+import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
+import {AdminRateModal} from "./AdminRateModal/AdminRateModal";
+import {formatToFilter} from "../../../../../Functions/Format";
+import {Filters} from "../../../../../Common/Filters/Filters";
 import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
+import {AdminError} from "../../../../../Common/AdminError/AdminError";
 
-import AddCarButton from '../../../../../img/adminAddEntity.svg';
-import AddCarButtonHover from '../../../../../img/adminAddEntityHover.svg';
+import {Text} from "../../../../../Common/Text/Text";
+import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
+import {BootstrapStyle, Container, ContentContainer} from "./AdminRate.styled";
 
-import {carsUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import AddCarButton from "../../../../../img/adminAddEntity.svg";
+import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
-export const AdminCars = ({auth, categories, history, cars}) => {
+import {rateUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 
-	const [modalShow, setModalShow] = useState(false);
+export const AdminRate = ({auth, rateType, history, rate}) => {
 
 	const [config, setConfig] = useState(null);
+	const [modalShow, setModalShow] = useState(false);
 	const [filtersConfig, setFiltersConfig] = useState(null);
 	const [error, setError] = useState(false);
 
 	const tableHeaders = [
-		'Модель', 'Категория', 'Номер', 'Бензин'
+		'Цена', 'Тариф'
 	];
 
 	const formatToTableBody = (data) => {
 		let tableBody = [];
 		data.forEach(item => {
 			let arr = [
-				item.name,
-				item.categoryId.name,
-				item.number ? item.number : `Отсутствует`,
-				item.tank ? `${item.tank}%` : 'Неизвестно'
-			]
+				`${item.price} (P/${item.rateTypeId.unit})`,
+				item.rateTypeId.name,
+			];
 			tableBody.push(arr);
 		});
 		return tableBody;
 	};
 
-	const getCars = () => {
-		getRequest(`${carsUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
+	const getRate = () => {
+		getRequest(`${rateUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
 			.then(res => {
 				setConfig({
-					url: `${carsUrlPages}?`,
+					url: `${rateUrlPages}?`,
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
@@ -58,18 +55,17 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 	};
 
 	useEffect(() => {
-		getCars();
+		getRate();
 	}, []);
 
 	useEffect(() => {
-		if(!filtersConfig && categories.response) {
-			const obj = [
+		if(!filtersConfig && rateType.response) {
+			setFiltersConfig([
 				{
-					placeholder: 'Категория',
-					options: formatToFilter(categories.response.data, 'categoryId')
+					placeholder: 'Тариф',
+					options: formatToFilter(rateType.response.data, `rateTypeId`)
 				}
-			]
-			setFiltersConfig(obj);
+			]);
 		}
 	});
 
@@ -84,13 +80,13 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 			{config && !error &&
 				<Container>
 					<BootstrapStyle/>
-					<AdminCarsModal
+					<AdminRateModal
 						show={modalShow}
 						onHide={() => setModalShow(false)}
-						categories={categories}
 						auth={auth}
-						getCars={getCars}
-						cars={cars}
+						getRate={getRate}
+						rateTypeId={rateType}
+						rate={rate}
 					/>
 					<div className='d-flex'>
 						<Text
@@ -99,9 +95,9 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 							margin='0 0 27px 0'
 							color='#3D5170'
 						>
-							Автомобили
+							Тарифы
 						</Text>
-						{categories.response &&
+						{rateType.response &&
 						<IconImageHover
 							width='30px'
 							height='30px'
@@ -118,7 +114,7 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 							setConfig={setConfig}
 							filtersConfig={filtersConfig}
 							auth={auth}
-							url={carsUrlPages}
+							url={rateUrlPages}
 							setError={setError}
 						/>
 						}
@@ -126,7 +122,7 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 							config={config}
 							head={config.tableHeaders}
 							body={formatToTableBody(config.data)}
-							url={`/admin/cars/`}
+							url={`/admin/rate/`}
 							history={history}
 						/>
 						<CustomPagination

@@ -23,12 +23,13 @@ export const AdminMenu = () => {
     const points = {name: 'Пункты выдачи', active: false, img: CitiesActive, link: '/admin/points'};
 
     const rate = {name: 'Тарифы', active: false, img: RateActive, link: '/admin/rate'};
-    const rateType = {name: 'Ставки тарифов', active: false, img: RateActive, link: '/admin/rateType'}
+    const rateType = {name: 'Виды тарифов', active: false, img: RateActive, link: '/admin/rateType'}
 
     const sections = [
         orders, orderStatus,
         cars, categories,
-        cities, points
+        cities, points,
+        rateType, rate
     ];
 
     const [menuSections, setMenuSections] = useState(sections);

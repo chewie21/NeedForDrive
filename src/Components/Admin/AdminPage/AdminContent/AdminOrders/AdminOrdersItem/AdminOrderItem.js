@@ -1,19 +1,18 @@
-
-import {formatDateToOrderMain, formatImgPath} from "../../../../../../Functions/Format";
-import {mainUrlPages, orderUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
-import {Text} from "../../../../../../Common/Text/Text";
-import {CustomCheck} from "../../../../../../Common/Button/CheckBox";
 import React from "react";
+
+import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
+import {formatDateToOrderMain, formatImgPath} from "../../../../../../Functions/Format";
+import {CustomCheck} from "../../../../../../Common/Button/CheckBox";
 import {deleteRequest, getRequest, putRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {IconImage} from "../../../../../../Common/IconImage/IconImage";
 
 import SuccessImg from '../../../../../../img/adminOrdersSuccess.svg';
 import DangerousImg from '../../../../../../img/adminOrdersDangerous.svg';
 import SecondaryImg from '../../../../../../img/adminOrdersSecondary.svg';
 import PrimaryImg from '../../../../../../img/adminOrderPrimary.svg';
-
 import DefaultCar from '../../../../../../img/defaulImg.png';
-import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
+
+import {IconImage} from "../../../../../../Common/IconImage/IconImage";
+import {Text} from "../../../../../../Common/Text/Text";
 import {
 	ButtonsContainer,
 	CustomButton,
@@ -21,6 +20,8 @@ import {
 	OrderItemImg,
 	OrderItemSection
 } from "./AdminOrderItem.styled";
+
+import {mainUrlPages, orderUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
 export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, history}) => {
 

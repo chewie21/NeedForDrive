@@ -2,46 +2,48 @@ import React, {useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 
 import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
-import {CategoryName} from "../AdminCategoriesComponents/CategoryName";
-import {CategoryDescription} from "../AdminCategoriesComponents/CategoryDescription";
+import {RateTypeName} from "../AdminRateTypeComponents/RateTypeName";
+import {RateTypeUnit} from "../AdminRateTypeComponents/RateTypeUnit";
 import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import {InfoSection} from "../AdminCategories.styled";
+import {InfoSection} from "../AdminRateType.styled";
 
-import {categoriesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {rateTypeUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categories}) => {
+export const AdminRateTypeModal = ({onHide, show, auth, getRateType, rateType}) => {
 
-	const category = { name : '', description: '' };
+	const newRateType = { unit: '', name: ''};
 
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: category });
+	const refreshConfig = () => setConfig({ data: newRateType });
 
 	useEffect(() => {
 		if(!config) refreshConfig();
 	});
 
-	const sendNewCategory = () => sendNewEntity(categoriesUrlPages, config, setConfig, auth,
-		() => {
+	const sendNewRateType = () => sendNewEntity(rateTypeUrlPages, config, setConfig, auth,
+			() => {
 				onHide();
-				categories.refreshResponse();
+				rateType.refreshResponse();
 				refreshConfig();
-				getCategories();
+				getRateType();
 			}
-		)
+		);
 
 	return (
 		config &&
 		<Modal
 			show={show}
+			size="lg"
 			centered
 			onHide={onHide}
 		>
 			{config.modalText &&
-			<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>}
+				<ModalMessage config={config} setConfig={setConfig} margin='-50px 0 0 0'/>
+			}
 			<Modal.Header closeButton className='d-flex justify-content-around'>
 				<Text
 					weight='normal'
@@ -49,15 +51,15 @@ export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categor
 					margin='0'
 					color='#3D5170'
 				>
-					Добавить категорию
+					Добавить тариф
 				</Text>
 			</Modal.Header>
 			<Modal.Body>
 				<InfoSection margin='0 0 15px 0'>
-					<CategoryName config={config} setConfig={setConfig}/>
+					<RateTypeName config={config} setConfig={setConfig}/>
 				</InfoSection>
 				<InfoSection>
-					<CategoryDescription config={config} setConfig={setConfig}/>
+					<RateTypeUnit config={config} setConfig={setConfig}/>
 				</InfoSection>
 			</Modal.Body>
 			<Modal.Footer>
@@ -67,7 +69,7 @@ export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categor
 					padding='8px'
 					color='#007BFF'
 					width='100%'
-					onClick={sendNewCategory}
+					onClick={sendNewRateType}
 				>
 					Сохранить
 				</AdminButton>

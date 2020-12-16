@@ -1,38 +1,40 @@
 import React, {useEffect, useState} from "react";
 
 import {getRequest} from "../../../../../../Functions/RequestsToApiFactory";
-import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
+import {formatToOrderInfo} from "../../../../../../Functions/Format";
 import {deleteEntity, sendEditEntity} from "../../../../../../Functions/SendFunctions";
-import {CityName} from "../AdminCitiesComponents/CityName";
+import {ModalMessage} from "../../../../../../Common/AdminModalMessage/ModalMessage";
 import {AdminInfoButtons} from "../../../../../../Common/Button/AdminInfoButtons";
+import {RateType} from "../AdminRateComponents/RateType";
+import {RatePrice} from "../AdminRateComponents/RatePrice";
 import {AdminLoading} from "../../../../../../Common/AdminLoading/AdminLoading";
 import {AdminError} from "../../../../../../Common/AdminError/AdminError";
 
-import {BootstrapStyle, Container, ContentContainer, InfoContainer} from "../AdminCities.styled";
+import {BootstrapStyle, Container, ContentContainer, InfoContainer, InfoSection} from "../AdminRate.styled";
 import {Text} from "../../../../../../Common/Text/Text";
 
-import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {rateUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
-export const AdminCitiesInfo = ({auth, history, match, cities}) => {
+export const AdminRateInfo = ({auth, history, match, rateType, rate}) => {
 
 	const [config, setConfig] = useState(null);
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		if(!config)
-			getRequest(`${citiesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({ data: res.data }))
+		if(!config && rateType.response) {
+			getRequest(`${rateUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
+				.then(res => setConfig({ data: res.data, rateTypeId: formatToOrderInfo(rateType.response.data) }))
 				.catch(error => setError(true));
-
+		}
 	});
 
-	const deleteCity = () => deleteEntity(citiesUrlPages, auth, config, setConfig,
+	const deleteRate = () => deleteEntity(rateUrlPages, auth, config, setConfig,
 		() => {
-			cities.refreshResponse();
-			history.push('/admin/cities');
+			rate.refreshResponse();
+			history.push('/admin/rate');
 		});
 
-	const sendEditCity = () => sendEditEntity(citiesUrlPages, config, setConfig, auth, () => cities.refreshResponse());
+	const sendEditRate = () => sendEditEntity(rateUrlPages, config, setConfig, auth, () => rate.refreshResponse());
 
 	return (
 		<React.Fragment>
@@ -54,21 +56,23 @@ export const AdminCitiesInfo = ({auth, history, match, cities}) => {
 						margin='0 0 27px 0'
 						color='#3D5170'
 					>
-						Карточка города
+						Карточка тарифа
 					</Text>
 					<ContentContainer>
 						<AdminInfoButtons
 							padding='15px 20px'
 							config={config}
 							history={history}
-							deleteFunction={deleteCity}
-							sendFunction={sendEditCity}
+							deleteFunction={deleteRate}
+							sendFunction={sendEditRate}
 						/>
 						<InfoContainer>
-							<CityName
-								config={config}
-								setConfig={setConfig}
-							/>
+							<InfoSection margin='0 0 15px 0'>
+								<RatePrice config={config} setConfig={setConfig}/>
+							</InfoSection>
+							<InfoSection margin='0'>
+								<RateType config={config} setConfig={setConfig}/>
+							</InfoSection>
 						</InfoContainer>
 					</ContentContainer>
 				</Container>
