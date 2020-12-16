@@ -2,7 +2,7 @@ import DefaultImg from "../img/defaulImg.png";
 
 export const formatNumber = (number) =>
     (number.slice(0, 1) + ' ' + number.slice(1,4) +
-        ' ' + number.slice(4, 7) + ' ' + number.slice(7)).toUpperCase();
+        ' ' + number.slice(4, 6) + ' ' + number.slice(6)).toUpperCase();
 
 export const formatDateToOrderMain = (milliseconds) => {
     const date = new Date(milliseconds);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
 import {formatDateToOrderMain, formatImgPath} from "../../../../../../Functions/Format";
@@ -114,10 +114,10 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 			</OrderItemSection>
 			<OrderItemSection width='252px' className=''>
 				<ButtonsContainer>
-					{orderStatus && (
+					{orderStatus.response && (
 						order.orderStatusId.name === 'new' ?
 							<CustomButton
-								onClick={() => setStatus(orderStatus[3])}
+								onClick={() => setStatus(orderStatus.response.data[3])}
 								radius='4px 0px 0px 4px;'
 								border='0.5px solid #BECAD6'
 							>
@@ -139,7 +139,7 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 							<CustomButton
 								radius='4px 0px 0px 4px;'
 								border='0.5px solid #BECAD6'
-								onClick={() => setStatus(orderStatus[0])}
+								onClick={() => setStatus(orderStatus.response.data[0])}
 							>
 								<IconImage
 									height='12px'
