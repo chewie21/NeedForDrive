@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/NeedForDrive/static/js/main.982ee994.chunk.js",
-    "main.js.map": "/NeedForDrive/static/js/main.982ee994.chunk.js.map",
+    "main.js": "/NeedForDrive/static/js/main.d665b719.chunk.js",
+    "main.js.map": "/NeedForDrive/static/js/main.d665b719.chunk.js.map",
     "runtime-main.js": "/NeedForDrive/static/js/runtime-main.533bc2a0.js",
     "runtime-main.js.map": "/NeedForDrive/static/js/runtime-main.533bc2a0.js.map",
     "static/css/2.046848f9.chunk.css": "/NeedForDrive/static/css/2.046848f9.chunk.css",
-    "static/js/2.79c147c0.chunk.js": "/NeedForDrive/static/js/2.79c147c0.chunk.js",
-    "static/js/2.79c147c0.chunk.js.map": "/NeedForDrive/static/js/2.79c147c0.chunk.js.map",
+    "static/js/2.f74384e2.chunk.js": "/NeedForDrive/static/js/2.f74384e2.chunk.js",
+    "static/js/2.f74384e2.chunk.js.map": "/NeedForDrive/static/js/2.f74384e2.chunk.js.map",
     "index.html": "/NeedForDrive/index.html",
     "static/css/2.046848f9.chunk.css.map": "/NeedForDrive/static/css/2.046848f9.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/NeedForDrive/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.79c147c0.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.79c147c0.chunk.js.LICENSE.txt",
+    "static/js/2.f74384e2.chunk.js.LICENSE.txt": "/NeedForDrive/static/js/2.f74384e2.chunk.js.LICENSE.txt",
     "static/media/Facebook_hover.6895d2b0.svg": "/NeedForDrive/static/media/Facebook_hover.6895d2b0.svg",
     "static/media/Facebook_white.f7e2cc5e.svg": "/NeedForDrive/static/media/Facebook_white.f7e2cc5e.svg",
     "static/media/Instagram_hover.5713b4e3.svg": "/NeedForDrive/static/media/Instagram_hover.5713b4e3.svg",
@@ -30,6 +30,8 @@
     "static/media/adminOrdersDangerous.be61c7fb.svg": "/NeedForDrive/static/media/adminOrdersDangerous.be61c7fb.svg",
     "static/media/adminOrdersSecondary.4ffdacdd.svg": "/NeedForDrive/static/media/adminOrdersSecondary.4ffdacdd.svg",
     "static/media/adminOrdersSuccess.23a56dac.svg": "/NeedForDrive/static/media/adminOrdersSuccess.23a56dac.svg",
+    "static/media/admin_menu_btn_hover.95948d14.svg": "/NeedForDrive/static/media/admin_menu_btn_hover.95948d14.svg",
+    "static/media/admin_menu_btn_mobile.9579c456.svg": "/NeedForDrive/static/media/admin_menu_btn_mobile.9579c456.svg",
     "static/media/citiesActive.00f0187d.svg": "/NeedForDrive/static/media/citiesActive.00f0187d.svg",
     "static/media/closeModal.f5226d54.svg": "/NeedForDrive/static/media/closeModal.f5226d54.svg",
     "static/media/close_btn.1d4598cc.svg": "/NeedForDrive/static/media/close_btn.1d4598cc.svg",
@@ -55,8 +57,8 @@
   "entrypoints": [
     "static/js/runtime-main.533bc2a0.js",
     "static/css/2.046848f9.chunk.css",
-    "static/js/2.79c147c0.chunk.js",
+    "static/js/2.f74384e2.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.982ee994.chunk.js"
+    "static/js/main.d665b719.chunk.js"
   ]
 }
