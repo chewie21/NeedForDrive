@@ -3,16 +3,15 @@ import React from "react";
 import {formatDateToOrderMain} from "../../../../../Functions/Format";
 import {putRequest} from "../../../../../Functions/RequestsToApiFactory";
 
-import {Container, NotificationSection} from "./NotificationItem.styled";
+import {ButtonsContainer, Container, NotificationSection, CustomButton} from "./NotificationItem.styled";
 import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImage} from "../../../../../Common/IconImage/IconImage";
-import {CustomButton} from "../../AdminContent/AdminOrders/AdminOrdersItem/AdminOrderItem.styled";
 
 import PrimaryImg from "../../../../../img/adminOrderPrimary.svg";
 import SecondaryImg from "../../../../../img/adminOrdersSecondary.svg";
 
-export const NotificationItem = ({order, auth, orderStatus, config, setConfig, history, setNotice, getNotice}) => {
+export const NotificationItem = ({order, auth, orderStatus, history, getNotice, toggle}) => {
 
 	const setStatus = (status) => {
 		putRequest(orderUrlPages, `${order.id}`, {...order, orderStatusId : status}, `Bearer ${auth.access_token}`)
@@ -52,12 +51,13 @@ export const NotificationItem = ({order, auth, orderStatus, config, setConfig, h
 				</Text>
 			</NotificationSection>
 			<NotificationSection>
-				<div className='d-flex w-100'>
+				<ButtonsContainer>
 					{orderStatus.response &&
 					<CustomButton
 						radius='4px 0px 0px 4px;'
 						border='0.5px solid #BECAD6'
 						onClick={() => setStatus(orderStatus.response.data[0])}
+						radiusL='4px 4px 0 0'
 					>
 						<IconImage
 							height='12px'
@@ -78,9 +78,11 @@ export const NotificationItem = ({order, auth, orderStatus, config, setConfig, h
 						radius='0 4px 4px 0px;'
 						border='0.5px solid #BECAD6'
 						onClick={() => {
-							setNotice(false);
+							toggle();
 							history.push(`/admin/orders/${order.id}`)
 						}}
+						radiusL='0px 0px 4px 4px'
+						borderTopL='none'
 					>
 						<IconImage
 							height='12px'
@@ -97,7 +99,7 @@ export const NotificationItem = ({order, auth, orderStatus, config, setConfig, h
 							Изменить
 						</Text>
 					</CustomButton>
-				</div>
+				</ButtonsContainer>
 			</NotificationSection>
 		</Container>
 	)

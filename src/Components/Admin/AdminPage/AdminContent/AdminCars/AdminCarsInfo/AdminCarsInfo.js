@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 import {
-	BootstrapStyle,
+	BootstrapStyle, ButtonsContainer, ButtonsMobileContainer,
 	Container,
 	InfoContainer,
 	InfoSection,
@@ -74,6 +74,7 @@ export const AdminCarsInfo = ({auth, categories, history, match, cars}) => {
 						size='29px'
 						margin='0 0 27px 0'
 						color='#3D5170'
+						smallSize='25px'
 					>
 						Карточка автомобиля
 					</Text>
@@ -145,15 +146,26 @@ export const AdminCarsInfo = ({auth, categories, history, match, cars}) => {
 								<InfoSection>
 									<CarCategory config={config} setConfig={setConfig}/>
 								</InfoSection>
-								<AdminInfoButtons
-									sendFunction={sendEditCar}
-									deleteFunction={deleteCar}
-									config={config}
-									history={history}
-								/>
+								<ButtonsContainer>
+									<AdminInfoButtons
+										sendFunction={sendEditCar}
+										deleteFunction={deleteCar}
+										config={config}
+										history={history}
+									/>
+								</ButtonsContainer>
 							</div>
 						</RightSection>
 					</InfoContainer>
+					<ButtonsMobileContainer>
+						<AdminInfoButtons
+							sendFunction={sendEditCar}
+							deleteFunction={deleteCar}
+							config={config}
+							history={history}
+							padding='15px 20px'
+						/>
+					</ButtonsMobileContainer>
 				</Container>
 			}
 		</React.Fragment>

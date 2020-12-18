@@ -5,8 +5,10 @@ import {getRequest} from "../../Functions/RequestsToApiFactory";
 export const CustomPagination = ({config, setConfig, auth}) => {
 
 	const setNewPage = (event, value) => {
+		let obj = {...config};
+		setConfig(null);
 		getRequest(`${config.url}&page=${value-1}&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-			.then(res => setConfig({...config, page: value, data: res.data}));
+			.then(res => setConfig({...obj, page: value, data: res.data}));
 	}
 
 	return (

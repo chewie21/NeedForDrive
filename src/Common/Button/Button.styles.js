@@ -51,4 +51,21 @@ export const ButtonsContainer = styled.div`
 	padding: ${props => props.padding};
 `;
 
-//15px 20px
+export const BackButtonContainer = styled.div`
+	display: flex;
+  	width: 30%;
+  
+  	@media(max-width: 540px) {
+	  	width: 30%;
+	}
+`;
+
+export const ActiveButtonsContainer = styled.div`
+	display: flex;
+	width: 50%;
+  	justify-content: space-between;
+
+	@media(max-width: 540px) {
+		width: 60%;
+	}
+`;

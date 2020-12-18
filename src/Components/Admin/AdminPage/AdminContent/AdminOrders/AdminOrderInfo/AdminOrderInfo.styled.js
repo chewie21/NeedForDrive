@@ -28,12 +28,20 @@ export const ContentContainer = styled.div`
 	width: 100%;	
   	display: flex;
   	justify-content: space-between;
+  
+  	@media(max-width: 720px) {
+	  	display: block;
+	}
 `;
 
 export const CarInfoContainer = styled.div`
 	width: 70%;
   	display: flex;
   	justify-content: center;
+
+	@media(max-width: 720px) {
+		width: 100%;
+	}
 `;
 
 export const OrderInfoContainer = styled.div`
@@ -41,6 +49,11 @@ export const OrderInfoContainer = styled.div`
   	display: flex;
   	flex-direction: column;
   	justify-content: space-around;
+
+	@media(max-width: 720px) {
+		width: 75%;
+      	margin: auto;
+	}
 `;
 
 export const InfoSection = styled.div`

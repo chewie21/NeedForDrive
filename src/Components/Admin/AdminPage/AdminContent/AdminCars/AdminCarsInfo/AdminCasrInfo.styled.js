@@ -56,6 +56,10 @@ export const Container = styled.div`
 export const InfoContainer = styled.div`
 	display: flex;
   	justify-content: space-between;
+
+  	@media(max-width: 720px) {
+	    display: block;
+    }
 `;
 
 export const LeftSection = styled.div`
@@ -70,6 +74,15 @@ export const LeftSection = styled.div`
 	0px 2px 4px rgba(90, 97, 105, 0.12),
 	0px 5px 5px rgba(90, 97, 105, 0.06),
 	0px 3.5px 35px rgba(90, 97, 105, 0.1);
+  
+  	@media(max-width: 960px) {
+      	width: 47%;
+    }
+  
+	@media(max-width: 720px) {
+		width: 100%;
+	  	margin-bottom: 27px;
+	}
 `;
 
 export const RightSection = styled.div`
@@ -86,6 +99,13 @@ export const RightSection = styled.div`
 	0px 2px 4px rgba(90, 97, 105, 0.12),
 	0px 5px 5px rgba(90, 97, 105, 0.06),
 	0px 3.5px 35px rgba(90, 97, 105, 0.1);
+
+	@media(max-width: 960px) {
+		width: 47%;
+	}
+    @media(max-width: 720px) {
+     	width: 100%;
+    }
 `;
 
 export const CarImgContainer = styled.div`
@@ -133,7 +153,25 @@ export const CarColorContainer = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
+		
+	@media(max-width: 960px) {
+		display: none;
+	}
+`;
+
+export const ButtonsMobileContainer = styled.div`
+  	margin-top: 27px;
 	width: 100%;
+	display: none;
+	justify-content: space-between;
+	background: #FFFFFF;
+	border-radius: 9px;
+	box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11),
+	0px 2px 4px rgba(90, 97, 105, 0.12),
+	0px 5px 5px rgba(90, 97, 105, 0.06),
+	0px 3.5px 35px rgba(90, 97, 105, 0.1);
+
+	@media(max-width: 960px) {
+		display: flex;
+	}
 `;

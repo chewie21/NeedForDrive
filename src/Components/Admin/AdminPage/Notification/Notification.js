@@ -4,7 +4,7 @@ import {AdminLoading} from "../../../../Common/AdminLoading/AdminLoading";
 import {Text} from "../../../../Common/Text/Text";
 import {NotificationItem} from "./NotificationItem/NotificationItem";
 
-export const Notification = ({auth, orderStatus, history, setNotice, loading, error, config, setConfig, getNotice}) =>
+export const Notification = ({auth, orderStatus, history, config, loading, error, getNotice, toggle}) =>
 	<Container>
 		{loading &&
 			<AdminLoading/>
@@ -36,11 +36,9 @@ export const Notification = ({auth, orderStatus, history, setNotice, loading, er
 					key={index}
 					auth={auth}
 					orderStatus={orderStatus}
-					config={config}
-					setConfig={setConfig}
 					history={history}
-					setNotice={setNotice}
 					getNotice={getNotice}
+					toggle={toggle}
 				/>
 			))
 		}

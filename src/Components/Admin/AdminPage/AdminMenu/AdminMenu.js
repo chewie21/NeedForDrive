@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 import LoginLogo from "../../../../img/adminMenuIcon.svg";
 
-export const AdminMenu = ({menuSections, changeMenuSection}) =>
+export const AdminMenu = ({menuSections, changeMenuSection, toggle}) =>
     <Container>
         <LogoContainer>
             <IconImage
@@ -24,7 +24,14 @@ export const AdminMenu = ({menuSections, changeMenuSection}) =>
             </Text>
         </LogoContainer>
         {menuSections.map((item, index) => (
-            <Link to={item.link} key={index} onClick={() => changeMenuSection(item)}>
+            <Link
+                to={item.link}
+                key={index}
+                onClick={() => {
+                    changeMenuSection(item);
+                    toggle();
+                }}
+            >
                 {item.active ?
                     <MenuSection index={index} border='4px solid #007BFF' padding='22px'>
                         <IconImage

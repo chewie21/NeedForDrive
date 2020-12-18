@@ -14,7 +14,7 @@ import {sendNewEntity} from "../../../../../../Functions/SendFunctions";
 
 import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
-import {ModalBodyLeft, ModalBodyRight, ModalBodySection} from "./AdminCarsModal.styled";
+import {ModalBodyContainer, ModalBodyLeft, ModalBodyRight, ModalBodySection} from "./AdminCarsModal.styled";
 
 import {carsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 
@@ -74,34 +74,36 @@ export const AdminCarsModal = ({onHide, categories, show, auth, getCars, cars}) 
 					Добавить автомобиль
 				</Text>
 			</Modal.Header>
-			<Modal.Body className='d-flex'>
-				<ModalBodyLeft>
-					<ModalBodySection>
-						<CarImg config={config} setConfig={setConfig}/>
-					</ModalBodySection>
-					<ModalBodySection>
-						<CarColors config={config} setConfig={setConfig}/>
-					</ModalBodySection>
-				</ModalBodyLeft>
-				<ModalBodyRight>
-					<div className='w-75'>
+			<Modal.Body>
+				<ModalBodyContainer>
+					<ModalBodyLeft>
 						<ModalBodySection>
-							<CarName config={config} setConfig={setConfig}/>
+							<CarImg config={config} setConfig={setConfig}/>
 						</ModalBodySection>
 						<ModalBodySection>
-							<CarDescription config={config} setConfig={setConfig}/>
+							<CarColors config={config} setConfig={setConfig}/>
 						</ModalBodySection>
-						<ModalBodySection>
-							<CarNumber config={config} setConfig={setConfig}/>
-						</ModalBodySection>
-						<ModalBodySection>
-							<CarPrice config={config} setConfig={setConfig}/>
-						</ModalBodySection>
-						<ModalBodySection>
-							<CarCategory config={config} setConfig={setConfig}/>
-						</ModalBodySection>
-					</div>
-				</ModalBodyRight>
+					</ModalBodyLeft>
+					<ModalBodyRight>
+						<div className='w-75'>
+							<ModalBodySection>
+								<CarName config={config} setConfig={setConfig}/>
+							</ModalBodySection>
+							<ModalBodySection>
+								<CarDescription config={config} setConfig={setConfig}/>
+							</ModalBodySection>
+							<ModalBodySection>
+								<CarNumber config={config} setConfig={setConfig}/>
+							</ModalBodySection>
+							<ModalBodySection>
+								<CarPrice config={config} setConfig={setConfig}/>
+							</ModalBodySection>
+							<ModalBodySection>
+								<CarCategory config={config} setConfig={setConfig}/>
+							</ModalBodySection>
+						</div>
+					</ModalBodyRight>
+				</ModalBodyContainer>
 			</Modal.Body>
 			<Modal.Footer>
 				<AdminButton

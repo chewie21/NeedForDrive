@@ -1,22 +1,22 @@
-import {ButtonsContainer} from "./Button.styles";
+import {ActiveButtonsContainer, ButtonsContainer, BackButtonContainer} from "./Button.styles";
 import {AdminButton} from "./AdminButton";
 import React from "react";
 
 export const AdminInfoButtons = ({config, history, sendFunction, deleteFunction, padding}) =>
 	<ButtonsContainer padding={padding}>
-		<div className='w-50'>
+		<BackButtonContainer>
 			<AdminButton
 				size='11.5px'
 				padding='8px'
 				color='#E9ECEF'
-				width='45%'
+				width='100%'
 				textColor='#3D5170'
 				onClick={() => history.goBack()}
 			>
 				Назад
 			</AdminButton>
-		</div>
-		<div className='d-flex w-50 justify-content-between'>
+		</BackButtonContainer>
+		<ActiveButtonsContainer>
 			<AdminButton
 				disabled={config.modalText}
 				size='11.5px'
@@ -37,6 +37,6 @@ export const AdminInfoButtons = ({config, history, sendFunction, deleteFunction,
 			>
 				Сохранить
 			</AdminButton>
-		</div>
+		</ActiveButtonsContainer>
 	</ButtonsContainer>
 

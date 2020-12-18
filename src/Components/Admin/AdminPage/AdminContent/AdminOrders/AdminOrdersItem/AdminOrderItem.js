@@ -43,7 +43,10 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 
 	return (
 		<OrderItemContainer>
-			<OrderItemSection width='20%'>
+			<OrderItemSection
+				width='20%'
+				displayS='none'
+			>
 				{order.carId ?
 					<OrderItemImg
 						src={formatImgPath(order.carId, mainUrlPages)}
@@ -53,7 +56,12 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 					/>
 				}
 			</OrderItemSection>
-			<OrderItemSection width='30%'>
+			<OrderItemSection
+				width='30%'
+				widthL='20%'
+				widthM='40%'
+				widthS='50%'
+			>
 				<Text
 					size='13px'
 					weight='normal'
@@ -79,7 +87,11 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 					Цвет: <b>{order.color}</b>
 				</Text>
 			</OrderItemSection>
-			<OrderItemSection width='15%'>
+			<OrderItemSection
+				width='15%'
+				widthL='20%'
+				display='none'
+			>
 				<CustomCheckLabel
 					cursor='default'
 					size={12}
@@ -102,9 +114,14 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 					label='Правый руль'
 				/>
 			</OrderItemSection>
-			<OrderItemSection width='15%' className='d-flex justify-content-center align-items-center'>
+			<OrderItemSection
+				className='d-flex justify-content-center align-items-center'
+			  	width='15%'
+				widthL='20%'
+				widthS='25%'
+			>
 				<Text
-					size='20px'
+					size={window.innerWidth > 540 ? '20px' : '15px'}
 					weight='normal'
 					margin='0'
 					color='#121212'
@@ -112,14 +129,45 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 					{order.price} ₽
 				</Text>
 			</OrderItemSection>
-			<OrderItemSection width='252px' className=''>
+			<OrderItemSection
+				width='252px'
+				widthXl='200px'
+				widthL='20%'
+				widthS='25%'
+			>
 				<ButtonsContainer>
+					<CustomButton
+						radius='4px 0px 0px 4px;'
+						border='0.5px solid #BECAD6'
+						onClick={() => history.push(`/admin/orders/${order.id}`)}
+						radiusL='4px 4px 0px 0px'
+					>
+						<IconImage
+							height='12px'
+							width='12px'
+							margin='0'
+							img={SecondaryImg}
+						/>
+						<Text
+							color='#5A6169'
+							weight='normal'
+							size='11px'
+							margin='-1px 0 0 0'
+						>
+							Изменить
+						</Text>
+					</CustomButton>
 					{orderStatus.response && (
 						order.orderStatusId.name === 'new' ?
 							<CustomButton
 								onClick={() => setStatus(orderStatus.response.data[3])}
-								radius='4px 0px 0px 4px;'
-								border='0.5px solid #BECAD6'
+								radius='0'
+								border='none'
+								borderTop='0.5px solid #BECAD6'
+								borderBottom='0.5px solid #BECAD6'
+								borderL='0.5px solid #BECAD6'
+								borderBottomL='none'
+								borderTopL='none'
 							>
 								<IconImage
 									height='12px'
@@ -137,9 +185,14 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 								</Text>
 							</CustomButton> :
 							<CustomButton
-								radius='4px 0px 0px 4px;'
-								border='0.5px solid #BECAD6'
 								onClick={() => setStatus(orderStatus.response.data[0])}
+								radius='0'
+								border='none'
+								borderTop='0.5px solid #BECAD6'
+								borderBottom='0.5px solid #BECAD6'
+								borderL='0.5px solid #BECAD6'
+								borderBottomL='none'
+								borderTopL='none'
 							>
 								<IconImage
 									height='12px'
@@ -158,10 +211,9 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 							</CustomButton>)
 					}
 					<CustomButton
-						radius='0'
-						border='none'
-						borderTop='0.5px solid #BECAD6'
-						borderBottom='0.5px solid #BECAD6'
+						radius='0px 4px 4px 0px'
+						border='0.5px solid #BECAD6'
+						radiusL='0px 0px 4px 4px'
 						onClick={() => deleteOrder(order)}
 					>
 						<IconImage
@@ -177,26 +229,6 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 							margin='-1px 0 0 0'
 						>
 							Удалить
-						</Text>
-					</CustomButton>
-					<CustomButton
-						radius='0 4px 4px 0px;'
-						border='0.5px solid #BECAD6'
-						onClick={() => history.push(`/admin/orders/${order.id}`)}
-					>
-						<IconImage
-							height='12px'
-							width='12px'
-							margin='0'
-							img={SecondaryImg}
-						/>
-						<Text
-							color='#5A6169'
-							weight='normal'
-							size='11px'
-							margin='-1px 0 0 0'
-						>
-							Изменить
 						</Text>
 					</CustomButton>
 				</ButtonsContainer>

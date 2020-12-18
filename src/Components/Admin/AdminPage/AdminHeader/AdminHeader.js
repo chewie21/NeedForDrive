@@ -6,7 +6,7 @@ import {
 	Container,
 	FindContainer,
 	NotificationContainer,
-	CountContainer, customStyles,
+	CountContainer, customStyles, MenuContainer,
 } from "./AdminHeader.styled";
 import {AdminButton} from "../../../../Common/Button/AdminButton";
 import {IconImage} from "../../../../Common/IconImage/IconImage";
@@ -16,9 +16,11 @@ import {Text} from "../../../../Common/Text/Text";
 import Find from '../../../../img/adminFind.svg';
 import Notification from '../../../../img/adminNotifications.svg'
 import NotificationHover from '../../../../img/adminNotificationsHover.svg'
+import BurgerImg from "../../../../img/admin_menu_btn_mobile.svg";
+import BurgerImgHover from "../../../../img/admin_menu_btn_hover.svg";
 
 
-export const AdminHeader = ({logout, setNotice, notice, count, sections, changeMenuSection, history}) => {
+export const AdminHeader = ({logout, count, sections, changeMenuSection, history, toggle}) => {
 
 	const [options, setOption] = useState(null);
 
@@ -37,11 +39,21 @@ export const AdminHeader = ({logout, setNotice, notice, count, sections, changeM
 
 	return (
 		<Container>
+			<MenuContainer>
+				<IconImageHover
+					onClick={() => toggle(`menu`)}
+					height='32px'
+					width='32px'
+					margin='auto'
+					img={BurgerImg}
+					imgHover={BurgerImgHover}
+				/>
+			</MenuContainer>
 			<FindContainer>
 				<IconImage
 					height='14px'
 					width='14px'
-					margin='0 9px 0 27px'
+					margin='0 9px 0 0'
 					img={Find}
 				/>
 				<Select
@@ -50,11 +62,12 @@ export const AdminHeader = ({logout, setNotice, notice, count, sections, changeM
 					options={options}
 					onChange={(e) => {
 						changeMenuSection(e.item);
+						toggle();
 						history.push(e.value);
 					}}
 				/>
 			</FindContainer>
-			<NotificationContainer onClick={() => setNotice(!notice)}>
+			<NotificationContainer onClick={() => toggle(`notice`)}>
 				<IconImageHover
 					height='21px'
 					width='17px'

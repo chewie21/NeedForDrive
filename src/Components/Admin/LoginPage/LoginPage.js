@@ -1,18 +1,18 @@
+import React, {useState} from "react";
+
+import {postRequest} from "../../../Functions/RequestsToApiFactory";
+import {formatDateToToken, formatToken} from "../../../Functions/Format";
+import {AdminLoading} from "../../../Common/AdminLoading/AdminLoading";
+
 import {BackgroundContainer, Container, Content, Input, LogoRow} from "./LoginPage.styled";
 import {IconImage} from "../../../Common/IconImage/IconImage";
 import {Text} from "../../../Common/Text/Text";
-
 import {TextLink} from "../../../Common/Text/TextLink";
 import {AdminButton} from "../../../Common/Button/AdminButton";
+
 import {oauthUrlPages, secret} from "../../../Environments/ApiFactoryUrls";
 
-import React from "react";
-import {useState} from "react";
-import {postRequest} from "../../../Functions/RequestsToApiFactory";
-import {formatDateToToken, formatToken} from "../../../Functions/Format";
-
 import LoginLogo from '../../../img/adminLoginIcon.svg'
-import {AdminLoading} from "../../../Common/AdminLoading/AdminLoading";
 
 export const LoginPage = ({setAuth, history}) => {
 
@@ -60,7 +60,7 @@ export const LoginPage = ({setAuth, history}) => {
                                 weight='normal'
                                 size='17.5px'
                                 textAlign='center'
-                                margin='0 0 36px 0'
+                                margin='0 0 16px 0'
                                 color='#3D5170'
                             >
                                 Вход

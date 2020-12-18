@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {useInterval} from "@restart/hooks";
 import {AdminMenu} from "./AdminMenu/AdminMenu";
@@ -8,12 +8,14 @@ import {useGetRequest} from "../../../Hooks/useGetRequest";
 import {getRequest, logoutRequest} from "../../../Functions/RequestsToApiFactory";
 import {AdminFooter} from "./AdminFooter/AdminFooter";
 import {Notification} from "./Notification/Notification";
+import {AdminMenuMobile} from "./AdminMenu/AdminMenuMobail";
 
 import {
     Container,
     FooterContainer,
     HeaderContainer,
     MenuContainer,
+    MenuMobileContainer,
     NotificationContainer,
     Style,
     SwitchContainer
@@ -24,8 +26,10 @@ import {
     categoriesUrlPages,
     citiesUrlPages,
     logoutUrlPages,
-    orderStatusUrlPages, orderUrlPages,
-    pointsUrlPages, rateTypeUrlPages,
+    orderStatusUrlPages,
+    orderUrlPages,
+    pointsUrlPages,
+    rateTypeUrlPages,
     rateUrlPages
 } from "../../../Environments/ApiFactoryUrls";
 
@@ -43,6 +47,8 @@ export const AdminPage = ({auth, setAuth, history}) => {
     const rate = useGetRequest(rateUrlPages);
     const orderStatus = useGetRequest(orderStatusUrlPages);
     const rateType = useGetRequest(rateTypeUrlPages);
+
+    const [menu, setMenu] = useState(false);
 
     const [notice, setNotice] = useState(false);
     const [noticeConfig, setNoticeConfig] = useState(null);
@@ -65,9 +71,13 @@ export const AdminPage = ({auth, setAuth, history}) => {
         });
     }
 
+    useEffect(() => {
+        getNotifications();
+    }, []);
+
     useInterval(() => {
         getNotifications();
-    }, 10000);
+    }, 60000);
 
     const ordersSec =  {name: 'Заказы', active: true, img: OrdersActive, link: '/admin/orders'};
     const orderStatusSec = {name: 'Статусы заказов', active: false, img: OrdersActive, link: '/admin/orderStatus'};
@@ -106,6 +116,19 @@ export const AdminPage = ({auth, setAuth, history}) => {
             });
     }
 
+    const toggle = (param) => {
+        if (param === `notice`) {
+            setNotice(!notice);
+            if (menu) setMenu(!menu);
+        } else if (param === `menu`) {
+            setMenu(!menu);
+            if (notice) setNotice(!notice);
+        } else {
+            if(menu) setMenu(!menu);
+            if(notice) setNotice(!notice);
+        }
+    }
+
     return (
         <Container>
             <Style/>
@@ -113,17 +136,27 @@ export const AdminPage = ({auth, setAuth, history}) => {
                 <AdminMenu
                     menuSections={menuSections}
                     changeMenuSection={changeMenuSection}
+                    toggle={toggle}
                 />
             </MenuContainer>
+            {menu &&
+                <MenuMobileContainer>
+                    <AdminMenuMobile
+                        menuSections={menuSections}
+                        changeMenuSection={changeMenuSection}
+                        toggle={toggle}
+                        logout={logout}
+                    />
+                </MenuMobileContainer>
+            }
             <HeaderContainer>
                 <AdminHeader
                     logout={logout}
-                    notice={notice}
-                    setNotice={setNotice}
                     count={noticeConfig ? noticeConfig.count : null}
                     sections={menuSections}
                     changeMenuSection={changeMenuSection}
                     history={history}
+                    toggle={toggle}
                 />
             </HeaderContainer>
             <SwitchContainer>
@@ -146,15 +179,13 @@ export const AdminPage = ({auth, setAuth, history}) => {
                 <NotificationContainer>
                     <Notification
                         auth={auth}
-                        history={history}
                         orderStatus={orderStatus}
-                        notice={notice}
-                        setNotice={setNotice}
+                        history={history}
                         config={noticeConfig}
-                        setConfig={setNoticeConfig}
                         loading={noticeLoading}
                         error={noticeError}
                         getNotice={getNotifications}
+                        toggle={toggle}
                     />
                 </NotificationContainer>}
         </Container>

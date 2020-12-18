@@ -93,6 +93,7 @@ export const AdminOrderInfo = ({
 						size='29px'
 						margin='0 0 27px 0'
 						color='#3D5170'
+						smallSize='20px'
 					>
 						Заказ № {config.data.id}
 					</Text>
