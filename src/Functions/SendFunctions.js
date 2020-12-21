@@ -34,7 +34,7 @@ export const sendNewEntity = (url, config, setConfig, auth, redirect) => {
 		postRequest(url, config.data, `Bearer ${auth.access_token}`)
 			.then(res => {
 				setConfig({...config, modalText: `Успех! Запись добавленна!`, modalColor: `#0EC261`});
-				setTimeout(() => redirect(), 2000);
+				setTimeout(() => redirect(), 5000);
 			}, error => {
 				setConfig({...config, modalColor: `#CB3656`, modalText: `Упс... Что-то пошло не так...`});
 				setTimeout(() => closeModal(config, setConfig), 5000)
@@ -50,7 +50,7 @@ export const deleteEntity = (url, auth, config, setConfig, redirect) => {
 	deleteRequest(url, config.data.id, `Bearer ${auth.access_token}`)
 		.then(res => {
 			setConfig({...config, modalText: `Успех! Запись удаленна!`, modalColor: `#0EC261`});
-			setTimeout(() => redirect(), 2000);
+			setTimeout(() => redirect(), 5000);
 		}, error => {
 			setConfig({...config, modalColor: `#CB3656`, modal: `Упс... Что-то пошло не так...`});
 			setTimeout(() => closeModal(config, setConfig), 5000);

@@ -16,33 +16,39 @@ import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 export const AdminCitiesInfo = ({auth, history, match, cities}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
+	const redirect = () => {
+		cities.refreshResponse();
+		history.push('/admin/cities');
+	}
+
+	const deleteCity = () => deleteEntity(citiesUrlPages, auth, config, setConfig, redirect);
+
+	const sendEditCity = () => sendEditEntity(citiesUrlPages, config, setConfig, auth, cities.refreshResponse);
+
 	useEffect(() => {
-		if(!config)
-			getRequest(`${citiesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({ data: res.data }))
-				.catch(error => setError(true));
-
-	});
-
-	const deleteCity = () => deleteEntity(citiesUrlPages, auth, config, setConfig,
-		() => {
-			cities.refreshResponse();
-			history.push('/admin/cities');
-		});
-
-	const sendEditCity = () => sendEditEntity(citiesUrlPages, config, setConfig, auth, () => cities.refreshResponse());
+		getRequest(`${citiesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({ data: res.data });
+				setLoading(false);
+			})
+			.catch(error => {
+				setError(true);
+				setLoading(false);
+			});
+	}, []);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

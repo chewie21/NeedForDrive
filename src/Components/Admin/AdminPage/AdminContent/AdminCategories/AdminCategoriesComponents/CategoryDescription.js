@@ -1,21 +1,12 @@
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
 import React, {useState} from "react";
+import {rusLetValid} from "../../../../../../Validation/Validations";
+import {setValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
 
 export const CategoryDescription = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(config.data.description ? config.data.description : '');
-
-	const setDescription = (e) => {
-		let data = {...config.data};
-		const value = e.target.value;
-		if(value) {
-			data.description = value;
-			setConfig({...config, data: data});
-		} else {
-			setValue(data.description);
-		}
-	}
 
 	return (
 		<React.Fragment>
@@ -31,8 +22,8 @@ export const CategoryDescription = ({config, setConfig}) => {
 				isInvalid={!value}
 				type="text"
 				value={value}
-				onInput={(e) => setValue(e.target.value)}
-				onBlur={setDescription}
+				onInput={event => rusLetValid(event, setValue)}
+				onBlur={event => setValueToConfig(event, config, setConfig, setValue, `description`)}
 			/>
 		</React.Fragment>
 	)

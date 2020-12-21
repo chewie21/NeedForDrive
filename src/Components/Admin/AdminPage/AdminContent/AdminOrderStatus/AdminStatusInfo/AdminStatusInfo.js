@@ -16,33 +16,39 @@ import {orderStatusUrlPages} from "../../../../../../Environments/ApiFactoryUrls
 export const AdminStatusInfo = ({auth, history, match, orderStatus}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
+	const redirect = () => {
+		orderStatus.refreshResponse()
+		history.push('/admin/orderStatus');
+	}
+
+	const sendEditStatus = () => sendEditEntity(orderStatusUrlPages, config, setConfig, auth, orderStatus.refreshResponse);
+
+	const deleteStatus = () => deleteEntity(orderStatusUrlPages, auth, config, setConfig, redirect);
+
 	useEffect(() => {
-		if(!config) {
-			getRequest(`${orderStatusUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({ data: res.data }))
-				.catch(error => setError(true));
-		}
-	});
-
-	const sendEditStatus = () => sendEditEntity(orderStatusUrlPages, config, setConfig, auth, () => orderStatus.refreshResponse());
-
-	const deleteStatus = () => deleteEntity(orderStatusUrlPages, auth, config, setConfig,
-		() => {
-			orderStatus.refreshResponse()
-			history.push('/admin/orderStatus');
-		});
+		getRequest(`${orderStatusUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({ data: res.data });
+				setLoading(false);
+			})
+			.catch(error => {
+				setError(true);
+				setLoading(false);
+			});
+	}, []);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

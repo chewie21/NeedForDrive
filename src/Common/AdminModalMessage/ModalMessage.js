@@ -3,6 +3,7 @@ import {IconImageHover} from "../IconImage/IconImageHover";
 import CloseModal from "../../img/closeModal.svg";
 import React from "react";
 import {Container} from "./ModalMessage.styled";
+import {closeModal} from "../../Functions/SendFunctions";
 
 export const ModalMessage = ({config, setConfig, margin}) =>
 	<Container
@@ -23,11 +24,6 @@ export const ModalMessage = ({config, setConfig, margin}) =>
 			margin='0'
 			img={CloseModal}
 			imgHover={CloseModal}
-			onClick={() => {
-				let obj = {...config};
-				delete obj[`modalText`];
-				delete obj[`modalType`];
-				setConfig(obj);
-			}}
+			onClick={() => closeModal(config, setConfig)}
 		/>
 	</Container>

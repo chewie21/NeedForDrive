@@ -1,29 +1,15 @@
 import React, {useState} from "react";
 import {Text} from "../../../../../../Common/Text/Text";
 import {FormControl} from "react-bootstrap";
+import {setSelectValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
 
 export const PointCities = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(
 		Object.keys(config.data.cityId).length === 0 ?
 			'' :
-			config.data.cityId
+			config.data.cityId.id
 	);
-
-	const editPoint = (e) => {
-		let data = {...config.data};
-		let value = e.target.value;
-		config.cities.forEach(item => {
-			if(item.value === value) {
-				data.cityId = {
-					id: item.value,
-					name: item.label
-				};
-			}
-		});
-		setValue(data.cityId);
-		setConfig({...config, data: data});
-	};
 
 	return (
 		<React.Fragment>
@@ -38,18 +24,17 @@ export const PointCities = ({config, setConfig}) => {
 			<FormControl
 				as="select"
 				isInvalid={!value}
-				onChange={editPoint}
+				onChange={event => setSelectValueToConfig(event, config, setConfig, setValue, `cityId`)}
+				value={value}
 			>
 				{!value &&
 				<option
-					selected={'selected'}
 					value={''}
 				>
 					Выбирите значение
 				</option>}
-				{config.cities.map((item, index) => (
+				{config.cityId.map((item, index) => (
 					<option
-						selected={value ? item.value === value.id ? 'selected' : '' : ''}
 						key={index}
 						name={item.label}
 						value={item.value}

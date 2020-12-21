@@ -1,5 +1,5 @@
 import {Form} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {formatImgPath} from "../../../../../../Functions/Format";
 import {mainUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 import {CarImgContainer, CarTitleImg} from "../AdminCarsInfo/AdminCasrInfo.styled";
@@ -8,10 +8,10 @@ export const CarImg = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(Object.keys(config.data.thumbnail).length !== 0);
 
-	const editCar = (e) => {
-		if(e.target.files) {
+	const setImg = (event) => {
+		if(event.target.files) {
 			const data = {...config.data};
-			const file = e.target.files[0];
+			const file = event.target.files[0];
 			const reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function() {
@@ -22,7 +22,7 @@ export const CarImg = ({config, setConfig}) => {
 					size: file.size
 				}
 				setValue(true);
-				setConfig({...config, data: data});
+				setConfig({...config, data});
 			};
 		}
 	}
@@ -32,7 +32,7 @@ export const CarImg = ({config, setConfig}) => {
 			<CarTitleImg src={formatImgPath(config.data, mainUrlPages)} />
 				<Form.File
 					onFocus={() => setValue(false)}
-					onChange={editCar}
+					onChange={setImg}
 					isInvalid={!value}
 					label="Выбирите фаил..."
 					data-browse="Обзор"

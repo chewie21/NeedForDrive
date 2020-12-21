@@ -1,19 +1,19 @@
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
 import React from "react";
+import {regExpPrice} from "../../../../../../Validation/Validations";
 
 export const CarPrice = ({config, setConfig}) => {
 
-	const validation = (e, priceName) => {
+	const setPrice = (event, priceName) => {
 		let data = {...config.data};
-		const regExp = /[^0-9]/g;
-		const value = e.target.value.replace(regExp, ``);
+		const value = event.target.value.replace(regExpPrice, ``);
 		if(priceName === `priceMin`) {
 			data.priceMin = +value;
 		} else if (priceName === `priceMax`) {
 			data.priceMax = +value;
 		}
-		setConfig({...config, data: data});
+		setConfig({...config, data});
 	}
 
 	return (
@@ -39,7 +39,7 @@ export const CarPrice = ({config, setConfig}) => {
 					type="text"
 					isInvalid={!config.data.priceMin || config.data.priceMin >= config.data.priceMax}
 					value={config.data.priceMin}
-					onInput={(e) => validation(e, `priceMin`)}
+					onInput={event => setPrice(event, `priceMin`)}
 				/>
 				<Text
 					weight='500'
@@ -53,7 +53,7 @@ export const CarPrice = ({config, setConfig}) => {
 					type="text"
 					isInvalid={!config.data.priceMax || config.data.priceMin >= config.data.priceMax}
 					value={config.data.priceMax}
-					onInput={(e) => validation(e, `priceMax`)}
+					onInput={event => setPrice(event, `priceMax`)}
 				/>
 			</div>
 		</React.Fragment>

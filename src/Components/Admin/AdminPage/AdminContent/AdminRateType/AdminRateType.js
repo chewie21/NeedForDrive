@@ -6,6 +6,7 @@ import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
 import {AdminError} from "../../../../../Common/AdminError/AdminError";
+import {formatToTableBody} from "../../../../../Functions/Format";
 
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
@@ -15,27 +16,15 @@ import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
 import {rateTypeUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {rateTypeTableHeaders} from "../EntitiesConstant";
 
 export const AdminRateType = ({auth, history, rateType}) => {
 
-	const [config, setConfig] = useState(null);
 	const [modalShow, setModalShow] = useState(false);
+
+	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-
-	const tableHeaders = [
-		'Название'
-	];
-
-	const formatToTableBody = (data) => {
-		let tableBody = [];
-		data.forEach(item => {
-			let arr = [
-				item.name
-			];
-			tableBody.push(arr);
-		});
-		return tableBody;
-	};
 
 	const getRateType = () => {
 		getRequest(`${rateTypeUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
@@ -45,24 +34,29 @@ export const AdminRateType = ({auth, history, rateType}) => {
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
-					tableHeaders: tableHeaders,
+					tableHeaders: rateTypeTableHeaders,
 				});
-			}).catch(error => setError(true));
-	}
+				setLoading(false);
+			}).catch(error => {
+				setError(true);
+				setLoading(false);
+		});
+	};
 
 	useEffect(() => {
 		getRateType();
 	}, []);
 
+
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					<AdminRateTypeModal
@@ -94,7 +88,7 @@ export const AdminRateType = ({auth, history, rateType}) => {
 						<CustomTable
 							config={config}
 							head={config.tableHeaders}
-							body={formatToTableBody(config.data)}
+							body={formatToTableBody(config.data, `name`)}
 							url={`/admin/rateType/`}
 							history={history}
 						/>
@@ -102,6 +96,8 @@ export const AdminRateType = ({auth, history, rateType}) => {
 							config={config}
 							setConfig={setConfig}
 							auth={auth}
+							setError={setError}
+							setLoading={setLoading}
 						/>
 					</ContentContainer>
 				</Container>

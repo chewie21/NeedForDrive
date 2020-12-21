@@ -3,39 +3,28 @@ import React, {useEffect, useState} from "react";
 import {BootstrapStyle, Container, ContentContainer} from "./AdminCategories.styled";
 import {Text} from "../../../../../Common/Text/Text";
 import {IconImageHover} from "../../../../../Common/IconImage/IconImageHover";
+import {categoriesTableHeaders} from "../EntitiesConstant";
 
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminCategoriesModal} from "./AdminCategoriesModal/AdminCategoriesModal";
+import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
+import {AdminError} from "../../../../../Common/AdminError/AdminError";
+import {formatToTableBody} from "../../../../../Functions/Format";
 
 import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
 import {categoriesUrlPages} from "../../../../../Environments/ApiFactoryUrls";
-import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
-import {AdminError} from "../../../../../Common/AdminError/AdminError";
 
 export const AdminCategories = ({auth, history, categories}) => {
 
-	const [config, setConfig] = useState(null);
 	const [modalShow, setModalShow] = useState(false);
+
+	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-
-	const tableHeaders = [
-		'Категория'
-	];
-
-	const formatToTableBody = (data) => {
-		let tableBody = [];
-		data.forEach(item => {
-			let arr = [
-				item.name
-			]
-			tableBody.push(arr);
-		});
-		return tableBody;
-	}
 
 	const getCategories = () => {
 		getRequest(`${categoriesUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
@@ -45,9 +34,13 @@ export const AdminCategories = ({auth, history, categories}) => {
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
-					tableHeaders: tableHeaders,
+					tableHeaders: categoriesTableHeaders,
 				});
-			}).catch(error => setError(true));
+				setLoading(false);
+			}).catch(error => {
+				setError(true);
+				setLoading(false);
+		});
 	}
 
 	useEffect(() => {
@@ -56,13 +49,13 @@ export const AdminCategories = ({auth, history, categories}) => {
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{error && !loading &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					<AdminCategoriesModal
@@ -94,7 +87,7 @@ export const AdminCategories = ({auth, history, categories}) => {
 						<CustomTable
 							config={config}
 							head={config.tableHeaders}
-							body={formatToTableBody(config.data)}
+							body={formatToTableBody(config.data, `name`)}
 							url={`/admin/categories/`}
 							history={history}
 						/>
@@ -102,6 +95,8 @@ export const AdminCategories = ({auth, history, categories}) => {
 							config={config}
 							setConfig={setConfig}
 							auth={auth}
+							setError={setError}
+							setLoading={setLoading}
 						/>
 					</ContentContainer>
 				</Container>

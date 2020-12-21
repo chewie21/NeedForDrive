@@ -17,32 +17,39 @@ import {AdminError} from "../../../../../../Common/AdminError/AdminError";
 export const AdminCategoriesInfo = ({auth, history, match, categories}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
+	const redirect = () => {
+		categories.refreshResponse();
+		history.push('/admin/categories');
+	}
+
+	const deleteCategory = () => deleteEntity(categoriesUrlPages, auth, config, setConfig, redirect);
+
+	const sendEditCategory = () => sendEditEntity(categoriesUrlPages, config, setConfig, auth, categories.refreshResponse);
+
 	useEffect(() => {
-		if(!config)
-			getRequest(`${categoriesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({ data: res.data }))
-				.catch(error => setError(true));
-	});
-
-	const deleteCategory = () => deleteEntity(categoriesUrlPages, auth, config, setConfig,
-		() => {
-			categories.refreshResponse();
-			history.push('/admin/categories');
-		});
-
-	const sendEditCategory = () => sendEditEntity(categoriesUrlPages, config, setConfig, auth, () => categories.refreshResponse());
+		getRequest(`${categoriesUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({ data: res.data });
+				setLoading(false);
+			})
+			.catch(error => {
+				setError(true);
+				setLoading(false);
+			});
+	}, []);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
-			<AdminLoading/>
+			{loading &&
+				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 			<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

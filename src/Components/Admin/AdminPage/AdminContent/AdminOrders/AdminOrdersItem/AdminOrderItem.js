@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import {CustomCheckLabel} from "../../../../../../Common/Button/CheckBoxLabel";
 import {formatDateToOrderMain, formatImgPath} from "../../../../../../Functions/Format";
@@ -137,9 +137,8 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 			>
 				<ButtonsContainer>
 					<CustomButton
-						radius='4px 0px 0px 4px;'
-						border='0.5px solid #BECAD6'
 						onClick={() => history.push(`/admin/orders/${order.id}`)}
+						radius='4px 0px 0px 4px;'
 						radiusL='4px 4px 0px 0px'
 					>
 						<IconImage
@@ -161,11 +160,8 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 						order.orderStatusId.name === 'new' ?
 							<CustomButton
 								onClick={() => setStatus(orderStatus.response.data[3])}
-								radius='0'
-								border='none'
-								borderTop='0.5px solid #BECAD6'
-								borderBottom='0.5px solid #BECAD6'
-								borderL='0.5px solid #BECAD6'
+								borderLeft='none'
+								borderRight='none'
 								borderBottomL='none'
 								borderTopL='none'
 							>
@@ -186,11 +182,8 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 							</CustomButton> :
 							<CustomButton
 								onClick={() => setStatus(orderStatus.response.data[0])}
-								radius='0'
-								border='none'
-								borderTop='0.5px solid #BECAD6'
-								borderBottom='0.5px solid #BECAD6'
-								borderL='0.5px solid #BECAD6'
+								borderLeft='none'
+								borderRight='none'
 								borderBottomL='none'
 								borderTopL='none'
 							>
@@ -211,10 +204,9 @@ export const AdminOrderItem = ({order, auth, orderStatus, config, setConfig, his
 							</CustomButton>)
 					}
 					<CustomButton
-						radius='0px 4px 4px 0px'
-						border='0.5px solid #BECAD6'
-						radiusL='0px 0px 4px 4px'
 						onClick={() => deleteOrder(order)}
+						radius='0px 4px 4px 0px'
+						radiusL='0px 0px 4px 4px'
 					>
 						<IconImage
 							height='12px'

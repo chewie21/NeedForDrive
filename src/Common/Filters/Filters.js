@@ -1,15 +1,17 @@
 import {
 	AccordionContainer,
-	ButtonsContainer, ButtonsMobileContainer,
+	ButtonsContainer,
+	ButtonsMobileContainer,
 	Container,
 	customStyles,
 	FiltersContainer,
-	FiltersMobileContainer, LoadingMobileContainer,
+	FiltersMobileContainer,
+	LoadingMobileContainer,
 	MobileContainer
 } from "./Filters.styled";
 import {AdminButton} from "../Button/AdminButton";
 import Select from "react-select";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {removeFilters, setFilters} from "../../Functions/FiltersFunctions";
 import {Text} from "../Text/Text";
 import {AdminLoading} from "../AdminLoading/AdminLoading";
@@ -32,18 +34,22 @@ export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {
 		<React.Fragment>
 			<Container>
 				<FiltersContainer>
-					{loading ?
-						<AdminLoading/> :
-						error ?
-							<Text
-								size='20px'
-								weight='normal'
-								margin='0'
-								color='#3D5170'
-							>
-								Ошибка при поиске... Повторите попытку!
-							</Text> :
-							(config.data.length ?
+					{loading &&
+						<AdminLoading/>
+					}
+					{error &&
+						<Text
+							size='20px'
+							weight='normal'
+							margin='0'
+							color='#3D5170'
+						>
+							Ошибка при поиске... Повторите попытку!
+						</Text>
+					}
+					{config && !loading && !error &&
+						(
+							config.data.length ?
 								filtersConfig.map((item, index) => (
 									<Select
 										key={index}
@@ -60,7 +66,8 @@ export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {
 									color='#3D5170'
 								>
 									Ничего не найденно...
-								</Text>)
+								</Text>
+						)
 					}
 				</FiltersContainer>
 				{
@@ -98,21 +105,24 @@ export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {
 					<Accordion.Collapse eventKey="0" children={AccordionContainer}>
 						<AccordionContainer>
 							<FiltersMobileContainer>
-								{loading ?
+								{loading &&
 									<LoadingMobileContainer>
 										<AdminLoading/>
 									</LoadingMobileContainer>
-									 :
-									error ?
-										<Text
-											size='20px'
-											weight='normal'
-											margin='15px 0 0 0'
-											color='#3D5170'
-										>
-											Ошибка при поиске... Повторите попытку!
-										</Text> :
-										(config.data.length ?
+								}
+								{error &&
+									<Text
+										size='20px'
+										weight='normal'
+										margin='15px 0 0 0'
+										color='#3D5170'
+									>
+										Ошибка при поиске... Повторите попытку!
+									</Text>
+								}
+								{config &&
+									(
+										config.data.length ?
 											filtersConfig.map((item, index) => (
 												<Select
 													key={index}
@@ -121,7 +131,8 @@ export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {
 													styles={customStyles}
 													options={item.options}
 													onChange={addFilters}
-												/>)) :
+												/>
+											)) :
 											<Text
 												size='20px'
 												weight='normal'
@@ -129,7 +140,8 @@ export const Filters = ({config, setConfig, filtersConfig, auth, url}) => {
 												color='#3D5170'
 											>
 												Ничего не найденно...
-											</Text>)
+											</Text>
+									)
 								}
 							</FiltersMobileContainer>
 							{

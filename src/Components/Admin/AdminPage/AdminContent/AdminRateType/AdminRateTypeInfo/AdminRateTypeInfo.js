@@ -17,32 +17,39 @@ import {rateTypeUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 export const AdminRateTypeInfo = ({auth, history, match, rateType}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
+	const redirect = () => {
+		rateType.refreshResponse();
+		history.push('/admin/rateType');
+	};
+
+	const sendEditRateType = () => sendEditEntity(rateTypeUrlPages, config, setConfig, auth, rateType.refreshResponse);
+
+	const deleteRateType = () => deleteEntity(rateTypeUrlPages, auth, config, setConfig, redirect);
+
 	useEffect(() => {
-		if(!config)
-			getRequest(`${rateTypeUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({data: res.data}))
-				.catch(error => setError(true));
-	});
-
-	const sendEditRateType = () => sendEditEntity(rateTypeUrlPages, config, setConfig, auth, () => rateType.refreshResponse());
-
-	const deleteRateType = () => deleteEntity(rateTypeUrlPages, auth, config, setConfig,
-		() => {
-			rateType.refreshResponse();
-			history.push('/admin/rateType');
-		});
+		getRequest(`${rateTypeUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
+			.then(res => {
+				setConfig({data: res.data});
+				setLoading(false);
+			})
+			.catch(error => {
+				setError(true);
+				setLoading(false);
+			});
+	}, []);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

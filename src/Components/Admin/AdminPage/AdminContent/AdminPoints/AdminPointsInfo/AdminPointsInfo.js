@@ -19,33 +19,40 @@ import {pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
 export const AdminPointsInfo = ({auth, history, match, cities, points}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
+	const redirect = () => {
+		points.refreshResponse()
+		history.push('/admin/points');
+	}
+
+	const deletePoint = () => deleteEntity(pointsUrlPages, auth, config, setConfig, redirect);
+
+	const sendEditPoint = () => sendEditEntity(pointsUrlPages, config, setConfig, auth, points.refreshResponse);
+
 	useEffect(() => {
-		if(!config && cities.response) {
+		if(cities.response)
 			getRequest(`${pointsUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({ data: res.data, cities: formatToOrderInfo(cities.response.data) }))
-				.catch(error => setError(true));
-		}
-	});
-
-	const deletePoint = () => deleteEntity(pointsUrlPages, auth, config, setConfig,
-		() => {
-			points.refreshResponse()
-			history.push('/admin/points');
-		});
-
-	const sendEditPoint = () => sendEditEntity(pointsUrlPages, config, setConfig, auth, () => points.refreshResponse());
+				.then(res => {
+					setConfig({ data: res.data, cityId: formatToOrderInfo(cities.response.data) });
+					setLoading(false);
+				})
+				.catch(error => {
+					setError(true);
+					setLoading(false);
+				});
+	}, [cities.response]);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

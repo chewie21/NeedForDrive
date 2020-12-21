@@ -11,27 +11,26 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import {InfoSection} from "../AdminCategories.styled";
 
 import {categoriesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyCategory} from "../../EntitiesConstant";
 
 export const AdminCategoriesModal = ({onHide, show, auth, getCategories, categories}) => {
 
-	const category = { name : '', description: '' };
-
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: category });
+	const refreshConfig = () => setConfig({ data: emptyCategory });
+
+	const redirect = () => {
+		onHide();
+		categories.refreshResponse();
+		refreshConfig();
+		getCategories();
+	}
+
+	const sendNewCategory = () => sendNewEntity(categoriesUrlPages, config, setConfig, auth, redirect);
 
 	useEffect(() => {
-		if(!config) refreshConfig();
-	});
-
-	const sendNewCategory = () => sendNewEntity(categoriesUrlPages, config, setConfig, auth,
-		() => {
-				onHide();
-				categories.refreshResponse();
-				refreshConfig();
-				getCategories();
-			}
-		)
+		refreshConfig();
+	}, []);
 
 	return (
 		config &&

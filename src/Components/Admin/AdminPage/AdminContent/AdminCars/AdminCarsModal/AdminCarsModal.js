@@ -17,41 +17,30 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import {ModalBodyContainer, ModalBodyLeft, ModalBodyRight, ModalBodySection} from "./AdminCarsModal.styled";
 
 import {carsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyCar} from "../../EntitiesConstant";
 
 export const AdminCarsModal = ({onHide, categories, show, auth, getCars, cars}) => {
-
-	const car = {
-		categoryId: {},
-		colors: [],
-		name: '',
-		description: '',
-		number: '',
-		priceMax: '',
-		priceMin: '',
-		thumbnail: {}
-	}
 
 	const [config, setConfig] = useState(null);
 
 	const refreshConfig = () =>
 		setConfig({
-			data: car,
-			categories: formatToOrderInfo(categories.response.data)
+			data: emptyCar,
+			categoryId: formatToOrderInfo(categories.response.data)
 		});
 
+	const redirect = () => {
+		onHide();
+		cars.refreshResponse();
+		refreshConfig();
+		getCars();
+	};
+
+	const sendNewCar = () => sendNewEntity(carsUrlPages, config, setConfig, auth, redirect);
 
 	useEffect(() => {
-		if(categories.response && !config) refreshConfig();
-	});
-
-	const sendNewCar = () => sendNewEntity(carsUrlPages, config, setConfig, auth,
-		() => {
-				onHide();
-				cars.refreshResponse();
-				refreshConfig();
-				getCars();
-			}
-		);
+		if(categories.response) refreshConfig();
+	}, [categories.response]);
 
 	return (
 		config &&

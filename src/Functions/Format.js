@@ -127,3 +127,16 @@ export const formatFindEntityErrors = (obj) => {
 
     return true;
 }
+
+export const formatToTableBody = (data, param) => {
+    if(param === `cars`) {
+        return data.map(item =>
+            [item.name, item.categoryId.name, item.number ? item.number : `Отсутствует`, item.tank ? `${item.tank}%` : 'Неизвестно']);
+    } else if (param === `name`) {
+        return data.map(item => [item.name]);
+    } else if (param === `point`) {
+        return data.map(item => [item.address, item.cityId.name, item.name]);
+    } else if (param === `rate`) {
+        return data.map(item => [`${item.price} (P/${item.rateTypeId.unit})`, item.rateTypeId.name,]);
+    }
+}

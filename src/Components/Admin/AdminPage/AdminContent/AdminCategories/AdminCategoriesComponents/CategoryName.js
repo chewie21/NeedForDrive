@@ -1,27 +1,12 @@
 import React, {useState} from "react";
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
+import {rusLetValid} from "../../../../../../Validation/Validations";
+import {setValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
 
 export const CategoryName = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(config.data.name ? config.data.name : '');
-
-	const validation = (e) => {
-		const regExp = /[^А-Яа-я0-9- ]/g;
-		const value = e.target.value.replace(regExp, ``);
-		setValue(value);
-	}
-
-	const setCategory = (e) => {
-		let data = {...config.data};
-		const value = e.target.value;
-		if(value) {
-			data.name = value;
-			setConfig({...config, data: data});
-		} else {
-			setValue(data.name);
-		}
-	}
 
 	return (
 		<React.Fragment>
@@ -37,8 +22,8 @@ export const CategoryName = ({config, setConfig}) => {
 				isInvalid={!value}
 				type="text"
 				value={value}
-				onInput={validation}
-				onBlur={setCategory}
+				onInput={event => rusLetValid(event, setValue)}
+				onBlur={event => setValueToConfig(event, config, setConfig, setValue, `name`)}
 			/>
 		</React.Fragment>
 	)

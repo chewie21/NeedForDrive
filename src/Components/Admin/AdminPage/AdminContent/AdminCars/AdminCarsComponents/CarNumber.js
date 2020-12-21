@@ -1,20 +1,19 @@
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
 import React, {useState} from "react";
+import {regExpNumber} from "../../../../../../Validation/Validations";
 
 export const CarNumber = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(config.data.number ? config.data.number : '');
 
-	const regExp = /^[АВЕКМНОРСТУХ]\d{3}(?<!000)[АВЕКМНОРСТУХ]{2}\d{2,3}$/ui;
-
-	const editOrder = (e) => {
+	const setNumber = (event) => {
 		let data = {...config.data};
-		const value = e.target.value;
+		const value = event.target.value;
 		if(value) {
-			if(regExp.test(value)) {
+			if(regExpNumber.test(value)) {
 				data.number = value
-				setConfig({...config, data: data});
+				setConfig({...config, data});
 			} else {
 				setValue(data.number);
 			}
@@ -34,11 +33,11 @@ export const CarNumber = ({config, setConfig}) => {
 				Номер
 			</Text>
 			<Form.Control
-				isInvalid={!value || !regExp.test(value)}
+				isInvalid={!value || !regExpNumber.test(value)}
 				type="text"
 				value={value}
-				onInput={(e) => setValue(e.target.value)}
-				onBlur={editOrder}
+				onInput={event => setValue(event.target.value)}
+				onBlur={setNumber}
 			/>
 			<Form.Control.Feedback type="invalid">
 				Вид номера - А163АА63

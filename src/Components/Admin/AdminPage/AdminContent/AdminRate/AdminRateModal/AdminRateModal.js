@@ -12,34 +12,30 @@ import {InfoSection} from "../../AdminPoints/AdminPoints.styled";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
 import {rateUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyRate} from "../../EntitiesConstant";
 
 export const AdminRateModal = ({onHide, rateTypeId, show, auth, getRate, rate}) => {
-
-	const newRate = {
-		rateTypeId: {},
-		price: ''
-	};
 
 	const [config, setConfig] = useState(null);
 
 	const refreshConfig = () =>
 		setConfig({
-			data: newRate,
+			data: emptyRate,
 			rateTypeId: formatToOrderInfo(rateTypeId.response.data)
 		});
 
-	useEffect(() => {
-		if(!config && rateTypeId.response) refreshConfig();
-	});
+	const redirect = () => {
+		onHide();
+		refreshConfig();
+		rate.refreshResponse();
+		getRate();
+	}
 
-	const sendNewRate = () => sendNewEntity(rateUrlPages, config, setConfig, auth,
-		() => {
-			onHide();
-			refreshConfig();
-			rate.refreshResponse();
-			getRate();
-		}
-	);
+	const sendNewRate = () => sendNewEntity(rateUrlPages, config, setConfig, auth, redirect);
+
+	useEffect(() => {
+		if(rateTypeId.response) refreshConfig();
+	}, [rateTypeId.response]);
 
 	return (
 		config &&

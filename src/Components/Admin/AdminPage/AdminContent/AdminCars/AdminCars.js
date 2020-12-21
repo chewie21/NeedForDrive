@@ -5,7 +5,7 @@ import {Text} from "../../../../../Common/Text/Text";
 import {Container, ContentContainer, BootstrapStyle} from "./AdminCars.styled";
 
 import {getRequest} from "../../../../../Functions/RequestsToApiFactory";
-import {formatToFilter} from "../../../../../Functions/Format";
+import {formatToFilter, formatToTableBody} from "../../../../../Functions/Format";
 import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {Filters} from "../../../../../Common/Filters/Filters";
 import {CustomTable} from "../../../../../Common/CustomTable/CustomTable";
@@ -17,32 +17,17 @@ import AddCarButton from '../../../../../img/adminAddEntity.svg';
 import AddCarButtonHover from '../../../../../img/adminAddEntityHover.svg';
 
 import {carsUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {carsTableHeaders} from "../EntitiesConstant";
 
 export const AdminCars = ({auth, categories, history, cars}) => {
 
 	const [modalShow, setModalShow] = useState(false);
 
-	const [config, setConfig] = useState(null);
 	const [filtersConfig, setFiltersConfig] = useState(null);
+
+	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-
-	const tableHeaders = [
-		'Модель', 'Категория', 'Номер', 'Бензин'
-	];
-
-	const formatToTableBody = (data) => {
-		let tableBody = [];
-		data.forEach(item => {
-			let arr = [
-				item.name,
-				item.categoryId.name,
-				item.number ? item.number : `Отсутствует`,
-				item.tank ? `${item.tank}%` : 'Неизвестно'
-			]
-			tableBody.push(arr);
-		});
-		return tableBody;
-	};
 
 	const getCars = () => {
 		getRequest(`${carsUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
@@ -52,9 +37,13 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
-					tableHeaders: tableHeaders,
+					tableHeaders: carsTableHeaders,
 				});
-			}).catch(error => setError(true));
+				setLoading(false);
+			}).catch(error => {
+				setError(true);
+				setLoading(false);
+		});
 	};
 
 	useEffect(() => {
@@ -62,26 +51,22 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 	}, []);
 
 	useEffect(() => {
-		if(!filtersConfig && categories.response) {
-			const obj = [
-				{
-					placeholder: 'Категория',
-					options: formatToFilter(categories.response.data, 'categoryId')
-				}
-			]
-			setFiltersConfig(obj);
-		}
-	});
+		if(categories.response)
+			setFiltersConfig([{
+				placeholder: 'Категория',
+				options: formatToFilter(categories.response.data, 'categoryId')
+			}]);
+	}, [categories.response]);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{error && !loading &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					<AdminCarsModal
@@ -125,13 +110,15 @@ export const AdminCars = ({auth, categories, history, cars}) => {
 						<CustomTable
 							config={config}
 							head={config.tableHeaders}
-							body={formatToTableBody(config.data)}
+							body={formatToTableBody(config.data, `cars`)}
 							url={`/admin/cars/`}
 							history={history}
 						/>
 						<CustomPagination
 							config={config}
 							setConfig={setConfig}
+							setError={setError}
+							setLoading={setLoading}
 							auth={auth}
 						/>
 					</ContentContainer>

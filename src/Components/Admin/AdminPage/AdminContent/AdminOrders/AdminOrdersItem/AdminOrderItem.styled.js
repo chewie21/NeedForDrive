@@ -55,10 +55,12 @@ export const CustomButton = styled.button`
     
     padding: 8px 6px;
 
-  	border: ${props => props.border};
+  	border: 0.5px solid #BECAD6;
   	border-top: ${props => props.borderTop};
   	border-bottom: ${props => props.borderBottom};
-    border-radius: ${props => props.radius};
+  	border-left: ${props => props.borderLeft};
+  	border-right: ${props => props.borderRight};
+    border-radius: ${props => props.radius ? props.radius : 0};
     
     background: #FFFFFF;
 
@@ -70,7 +72,7 @@ export const CustomButton = styled.button`
 		width: 100%;
 	  	height: fit-content;
 
-      	border: ${props => props.borderL};
+      	border: 0.5px solid #BECAD6;
       	border-top: ${props => props.borderTopL};
       	border-bottom: ${props => props.borderBottomL};
       	border-radius: ${props => props.radiusL};

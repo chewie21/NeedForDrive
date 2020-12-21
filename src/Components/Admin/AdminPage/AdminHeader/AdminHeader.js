@@ -25,17 +25,16 @@ export const AdminHeader = ({logout, count, sections, changeMenuSection, history
 	const [options, setOption] = useState(null);
 
 	useEffect(() => {
-		let arr = [];
-		sections.forEach(item => {
-			let obj = {
-				label: item.name,
-				value: item.link,
-				item: item
-			}
-			arr.push(obj);
-		});
-		setOption(arr);
-	}, [])
+		setOption(
+			sections.map(item => (
+				{
+					label: item.name,
+					value: item.link,
+					item: item
+				}
+			))
+		)
+	}, []);
 
 	return (
 		<Container>

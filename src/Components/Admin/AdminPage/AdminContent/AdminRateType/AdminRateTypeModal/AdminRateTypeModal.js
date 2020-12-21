@@ -11,27 +11,26 @@ import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 import {InfoSection} from "../AdminRateType.styled";
 
 import {rateTypeUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyRateType} from "../../EntitiesConstant";
 
 export const AdminRateTypeModal = ({onHide, show, auth, getRateType, rateType}) => {
 
-	const newRateType = { unit: '', name: ''};
-
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: newRateType });
+	const refreshConfig = () => setConfig({ data: emptyRateType });
+
+	const redirect = () => {
+		onHide();
+		rateType.refreshResponse();
+		refreshConfig();
+		getRateType();
+	};
+
+	const sendNewRateType = () => sendNewEntity(rateTypeUrlPages, config, setConfig, auth, redirect);
 
 	useEffect(() => {
-		if(!config) refreshConfig();
-	});
-
-	const sendNewRateType = () => sendNewEntity(rateTypeUrlPages, config, setConfig, auth,
-			() => {
-				onHide();
-				rateType.refreshResponse();
-				refreshConfig();
-				getRateType();
-			}
-		);
+		refreshConfig();
+	}, []);
 
 	return (
 		config &&

@@ -1,5 +1,6 @@
 import styled, {createGlobalStyle} from "styled-components";
 
+//override bootstrap styles
 export const Style = createGlobalStyle`
 	tbody > tr {
 	  cursor: pointer;

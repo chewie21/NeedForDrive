@@ -9,28 +9,26 @@ import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
 import {orderStatusUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyOrderStatus} from "../../EntitiesConstant";
 
 export const AdminStatusModal = ({onHide, show, auth, getStatus, orderStatus}) => {
 
-	const status = { name : '' };
-
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: status });
+	const refreshConfig = () => setConfig({ data: emptyOrderStatus });
+
+	const redirect = () => {
+		onHide();
+		orderStatus.refreshResponse();
+		refreshConfig();
+		getStatus();
+	}
+
+	const sendNewStatus = () => sendNewEntity(orderStatusUrlPages, config, setConfig, auth, redirect);
 
 	useEffect(() => {
-		if(!config) refreshConfig();
-	});
-
-	const sendNewStatus = () =>
-		sendNewEntity(orderStatusUrlPages, config, setConfig, auth,
-			() => {
-				onHide();
-				orderStatus.refreshResponse();
-				refreshConfig();
-				getStatus();
-			}
-		);
+		refreshConfig();
+	}, []);
 
 	return (
 		config &&

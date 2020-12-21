@@ -25,7 +25,7 @@ export const useGetRequest = (url, token = secret) => {
 
     useEffect(() => {
         refreshResponse();
-    },[url]);
+    },[]);
 
     return {response, error, loading, refreshResponse}
 }

@@ -34,21 +34,31 @@ export const AdminOrderInfo = ({
 	}) => {
 
 	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		if(!config && cities.response && cars.response && rate.response && orderStatus.response && points.response) {
+		if(cities.response && cars.response && rate.response && orderStatus.response && points.response) {
 			getRequest(`${orderUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
-				.then(res => setConfig({
-					data: res.data,
-					cars: formatToOrderInfo(cars.response.data),
-					cities: formatToOrderInfo(cities.response.data),
-					rate: rate.response.data,
-					orderStatus: formatToOrderInfo(orderStatus.response.data),
-					points: formatToOrderInfo(points.response.data),
-				})).catch(error => setError(true));
+				.then(res => {
+					setConfig({
+						data: res.data,
+						cars: formatToOrderInfo(cars.response.data),
+						cities: formatToOrderInfo(cities.response.data),
+						rate: rate.response.data,
+						orderStatus: formatToOrderInfo(orderStatus.response.data),
+						points: formatToOrderInfo(points.response.data),
+					});
+					setLoading(false);
+				}).catch(error => {
+				setError(true);
+				setLoading(false);
+			});
 		}
-		if(config) {
+	}, [cities.response, cars.response, rate.response, orderStatus.response, points.response]);
+
+	useEffect(() => {
+		if(config && config.data.rateId) {
 			let price;
 			if(config.data.rateId.rateTypeId.name === `Поминутно`) {
 				price =
@@ -76,13 +86,13 @@ export const AdminOrderInfo = ({
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					{config.modalText &&
 					<ModalMessage config={config} setConfig={setConfig}/>

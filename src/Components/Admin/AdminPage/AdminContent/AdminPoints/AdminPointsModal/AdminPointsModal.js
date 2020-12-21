@@ -13,35 +13,30 @@ import {PointDescription} from "../AdminPointsComponents/PointDescription";
 import {PointCities} from "../AdminPointsComponents/PointCities";
 
 import {pointsUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyPoints} from "../../EntitiesConstant";
 
 export const AdminPointsModal = ({onHide, cities, show, auth, getPoints, points}) => {
-
-	const newPoints = {
-		address: '',
-		name: '',
-		cityId: {}
-	}
 
 	const [config, setConfig] = useState(null);
 
 	const refreshConfig = () =>
 		setConfig({
-			data: newPoints,
-			cities: formatToOrderInfo(cities.response.data)
+			data: emptyPoints,
+			cityId: formatToOrderInfo(cities.response.data)
 		});
 
-	useEffect(() => {
-		if(!config && cities.response) refreshConfig();
-	});
+	const redirect = () => {
+		onHide();
+		refreshConfig();
+		points.refreshResponse();
+		getPoints();
+	}
 
-	const sendNewPoint = () => sendNewEntity(pointsUrlPages, config, setConfig, auth,
-		() => {
-			onHide();
-			refreshConfig();
-			points.refreshResponse();
-			getPoints();
-		}
-	);
+	const sendNewPoint = () => sendNewEntity(pointsUrlPages, config, setConfig, auth, redirect);
+
+	useEffect(() => {
+		if(cities.response) refreshConfig();
+	}, [cities.response]);
 
 	return (
 		config &&

@@ -1,20 +1,12 @@
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
 import React, {useState} from "react";
+import {setValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
+import {rusLetValid} from "../../../../../../Validation/Validations";
 
 export const CarDescription = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(config.data.description ? config.data.description : '');
-
-	const setCar = (e) => {
-		let data = {...config.data};
-		if(e.target.value) {
-			data.description = e.target.value;
-			setConfig({...config, data: data});
-		} else {
-			setValue(data.description);
-		}
-	}
 
 	return (
 		<React.Fragment>
@@ -30,8 +22,8 @@ export const CarDescription = ({config, setConfig}) => {
 				isInvalid={!value}
 				type="text"
 				value={value}
-				onInput={(e) => setValue(e.target.value)}
-				onBlur={setCar}
+				onInput={event => rusLetValid(event, setValue)}
+				onBlur={event => setValueToConfig(event, config, setConfig, setValue, `description`)}
 			/>
 		</React.Fragment>
 	)

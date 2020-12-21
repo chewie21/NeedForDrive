@@ -12,30 +12,15 @@ import {Container, ContentContainer, OrdersContainer} from "./AdminOrders.styled
 import {Text} from "../../../../../Common/Text/Text";
 
 import {orderUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {timeOptions} from "../EntitiesConstant";
 
 export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 
-	const [config, setConfig] = useState(null);
 	const [filtersConfig, setFiltersConfig] = useState(null);
-	const [error, setError] = useState(false);
 
-	const timeOptions = [
-		{
-			label: 'За сутки',
-			value: 86400000,
-			name: 'createdAt'
-		},
-		{
-			label: 'За неделю',
-			value: 604800000,
-			name: 'createdAt'
-		},
-		{
-			label: 'За месяц',
-			value: 2628002880,
-			name: 'createdAt'
-		},
-	];
+	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		getRequest(`${orderUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
@@ -46,12 +31,16 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 					count: Math.floor(res.count / 10),
 					page: 1,
 				});
-			}).catch(error => setError(true));
+				setLoading(false);
+			}).catch(error => {
+				setError(true);
+				setLoading(false);
+		});
 	}, [])
 
 	useEffect(() => {
-		if(cars.response && cities.response && orderStatus.response && !filtersConfig) {
-			const obj = [
+		if(cars.response && cities.response && orderStatus.response) {
+			setFiltersConfig([
 				{
 					placeholder: 'Время',
 					options: timeOptions
@@ -68,20 +57,19 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 					placeholder: 'Статус',
 					options: formatToFilter(orderStatus.response.data, 'orderStatusId')
 				},
-			]
-			setFiltersConfig(obj);
+			]);
 		}
-	});
+	}, [cars.response, cities.response, orderStatus.response]);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<Text
 						weight='normal'
@@ -119,6 +107,8 @@ export const AdminOrders = ({auth, history, cars, cities, orderStatus}) => {
 							config={config}
 							setConfig={setConfig}
 							auth={auth}
+							setError={setError}
+							setLoading={setLoading}
 						/>
 					</ContentContainer>
 				</Container>

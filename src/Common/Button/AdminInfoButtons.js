@@ -23,7 +23,7 @@ export const AdminInfoButtons = ({config, history, sendFunction, deleteFunction,
 				padding='8px'
 				color='#CB3656'
 				width='45%'
-				onClick={() => deleteFunction()}
+				onClick={deleteFunction}
 			>
 				Удалить
 			</AdminButton>
@@ -33,7 +33,7 @@ export const AdminInfoButtons = ({config, history, sendFunction, deleteFunction,
 				padding='8px'
 				color='#007BFF'
 				width='45%'
-				onClick={() => sendFunction()}
+				onClick={sendFunction}
 			>
 				Сохранить
 			</AdminButton>

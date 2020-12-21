@@ -9,27 +9,26 @@ import {Text} from "../../../../../../Common/Text/Text";
 import {AdminButton} from "../../../../../../Common/Button/AdminButton";
 
 import {citiesUrlPages} from "../../../../../../Environments/ApiFactoryUrls";
+import {emptyCity} from "../../EntitiesConstant";
 
 export const AdminCitiesModal = ({onHide, show, auth, getCities, cities}) => {
 
-	const city = { name: '' };
-
 	const [config, setConfig] = useState(null);
 
-	const refreshConfig = () => setConfig({ data: city });
+	const refreshConfig = () => setConfig({ data: emptyCity });
+
+	const redirect = () => {
+		onHide();
+		cities.refreshResponse();
+		refreshConfig();
+		getCities();
+	}
+
+	const sendNewCity = () => sendNewEntity(citiesUrlPages, config, setConfig, auth, redirect);
 
 	useEffect(() => {
-		if(!config) refreshConfig();
-	});
-
-	const sendNewCity = () => sendNewEntity(citiesUrlPages, config, setConfig, auth,
-			() => {
-				onHide();
-				cities.refreshResponse();
-				refreshConfig();
-				getCities();
-			}
-		);
+		refreshConfig();
+	}, []);
 
 	return (
 		config &&

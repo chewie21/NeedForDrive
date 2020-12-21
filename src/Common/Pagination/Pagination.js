@@ -2,13 +2,18 @@ import {Pagination} from "@material-ui/lab";
 import {Container, Style} from "./Pagination.styled";
 import {getRequest} from "../../Functions/RequestsToApiFactory";
 
-export const CustomPagination = ({config, setConfig, auth}) => {
+export const CustomPagination = ({config, setConfig, auth, setError, setLoading}) => {
 
 	const setNewPage = (event, value) => {
-		let obj = {...config};
-		setConfig(null);
+		setLoading(true);
 		getRequest(`${config.url}&page=${value-1}&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
-			.then(res => setConfig({...obj, page: value, data: res.data}));
+			.then(res => {
+				setConfig({...config, page: value, data: res.data});
+				setLoading(false);
+			}, error => {
+				setError(true);
+				setLoading(false);
+			});
 	}
 
 	return (

@@ -1,29 +1,15 @@
 import {Text} from "../../../../../../Common/Text/Text";
 import React, {useState} from "react";
 import {FormControl} from "react-bootstrap";
+import {setSelectValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
 
 export const CarCategory = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(
 		Object.keys(config.data.categoryId).length === 0 ?
 			'' :
-			config.data.categoryId
+			config.data.categoryId.id
 	);
-
-	const editCar = (e) => {
-		let data = {...config.data};
-		let value = e.target.value;
-		config.categories.forEach(item => {
-			if(item.value === value) {
-				data.categoryId = {
-					id: item.value,
-					name: item.label
-				};
-			}
-		});
-		setValue(data.categoryId);
-		setConfig({...config, data: data});
-	};
 
 	return (
 		<React.Fragment>
@@ -38,18 +24,18 @@ export const CarCategory = ({config, setConfig}) => {
 			<FormControl
 				as="select"
 				isInvalid={!value}
-				onChange={editCar}
+				onChange={event => setSelectValueToConfig(event, config, setConfig, setValue, `categoryId`)}
+				value={value}
 			>
 				{!value &&
-				<option
-					selected={'selected'}
-					value={''}
-				>
-					Выбирите значение
-				</option>}
-				{config.categories.map((item, index) => (
 					<option
-						selected={value ? item.value === value.id ? 'selected' : '' : ''}
+						value={''}
+					>
+						Выбирите значение
+					</option>
+				}
+				{config.categoryId.map((item, index) => (
+					<option
 						key={index}
 						name={item.label}
 						value={item.value}

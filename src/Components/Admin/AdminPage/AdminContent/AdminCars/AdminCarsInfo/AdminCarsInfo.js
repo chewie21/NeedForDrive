@@ -34,36 +34,41 @@ export const AdminCarsInfo = ({auth, categories, history, match, cars}) => {
 
 	const [config, setConfig] = useState(null);
 	const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(true);
+
+	const redirect = () => {
+		cars.refreshResponse();
+		history.push('/admin/cars');
+	}
+
+	const sendEditCar = () => sendEditEntity(carsUrlPages, config, setConfig, auth, cars.refreshResponse);
+
+	const deleteCar = () => deleteEntity(carsUrlPages, auth, config, setConfig, redirect);
 
 	useEffect(() => {
-		if(!config && categories.response)
+		if(categories.response)
 			getRequest(`${carsUrlPages}/${match.params.id}`, `Bearer ${auth.access_token}`)
 				.then(res => {
-						setConfig({
-							data: res.data,
-							categories: formatToOrderInfo(categories.response.data),
-						});
-					}
-				).catch(error => setError(true));
-	});
-
-	const sendEditCar = () => sendEditEntity(carsUrlPages, config, setConfig, auth, () => cars.refreshResponse());
-
-	const deleteCar = () => deleteEntity(carsUrlPages, auth, config, setConfig,
-		() => {
-			cars.refreshResponse();
-			history.push('/admin/cars');
-		});
+					setConfig({
+						data: res.data,
+						categoryId: formatToOrderInfo(categories.response.data),
+					});
+					setLoading(false);
+				}).catch(error => {
+					setError(true);
+					setLoading(false);
+			});
+	}, [categories.response]);
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{error && !loading &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					{config.modalText &&

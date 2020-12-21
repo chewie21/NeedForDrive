@@ -1,21 +1,12 @@
 import React, {useState} from "react";
 import {Text} from "../../../../../../Common/Text/Text";
 import {Form} from "react-bootstrap";
+import {setValueToConfig} from "../../../../../../Functions/SetConfigFunctions";
+import {rusLetValid} from "../../../../../../Validation/Validations";
 
 export const PointDescription = ({config, setConfig}) => {
 
 	const [value, setValue] = useState(config.data.name ? config.data.name : '');
-
-	const setPoint = (e) => {
-		let data = {...config.data};
-		const value = e.target.value;
-		if(value) {
-			data.name = value;
-			setConfig({...config, data: data});
-		} else {
-			setValue(data.name);
-		}
-	}
 
 	return (
 		<React.Fragment>
@@ -31,8 +22,8 @@ export const PointDescription = ({config, setConfig}) => {
 				isInvalid={!value}
 				type="text"
 				value={value}
-				onInput={(e) => setValue(e.target.value)}
-				onBlur={setPoint}
+				onInput={event => rusLetValid(event, setValue)}
+				onBlur={event => setValueToConfig(event, config, setConfig, setValue, `name`)}
 			/>
 		</React.Fragment>
 	)

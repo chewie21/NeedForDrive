@@ -10,32 +10,21 @@ import {CustomPagination} from "../../../../../Common/Pagination/Pagination";
 import {AdminStatusModal} from "./AdminStatusModal/AdminStatusModal";
 import {AdminLoading} from "../../../../../Common/AdminLoading/AdminLoading";
 import {AdminError} from "../../../../../Common/AdminError/AdminError";
+import {formatToTableBody} from "../../../../../Functions/Format";
 
 import AddCarButton from "../../../../../img/adminAddEntity.svg";
 import AddCarButtonHover from "../../../../../img/adminAddEntityHover.svg";
 
 import {orderStatusUrlPages} from "../../../../../Environments/ApiFactoryUrls";
+import {orderStatusTableHeaders} from "../EntitiesConstant";
 
 export const AdminOrderStatus = ({auth, history, orderStatus}) => {
 
-	const [config, setConfig] = useState(null);
 	const [modalShow, setModalShow] = useState(false);
+
+	const [config, setConfig] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-
-	const tableHeaders = [
-		'Статус'
-	];
-
-	const formatToTableBody = (data) => {
-		let tableBody = [];
-		data.forEach(item => {
-			let arr = [
-				item.name
-			];
-			tableBody.push(arr);
-		});
-		return tableBody;
-	}
 
 	const getStatus = () => {
 		getRequest(`${orderStatusUrlPages}?page=0&limit=10&sort[createdAt]=-1`, `Bearer ${auth.access_token}`)
@@ -45,9 +34,13 @@ export const AdminOrderStatus = ({auth, history, orderStatus}) => {
 					data: res.data,
 					count: Math.ceil(res.count / 10),
 					page: 1,
-					tableHeaders: tableHeaders,
+					tableHeaders: orderStatusTableHeaders,
 				});
-			}).catch(error => setError(true));
+				setLoading(false);
+			}).catch(error => {
+				setError(true);
+				setLoading(false);
+		});
 	}
 
 	useEffect(() => {
@@ -56,13 +49,13 @@ export const AdminOrderStatus = ({auth, history, orderStatus}) => {
 
 	return (
 		<React.Fragment>
-			{!config && !error &&
+			{loading &&
 				<AdminLoading/>
 			}
-			{!config && error &&
+			{!loading && error &&
 				<AdminError history={history}/>
 			}
-			{config && !error &&
+			{config && !error && !loading &&
 				<Container>
 					<BootstrapStyle/>
 					<AdminStatusModal
@@ -94,7 +87,7 @@ export const AdminOrderStatus = ({auth, history, orderStatus}) => {
 						<CustomTable
 							config={config}
 							head={config.tableHeaders}
-							body={formatToTableBody(config.data)}
+							body={formatToTableBody(config.data, `name`)}
 							url={`/admin/orderStatus/`}
 							history={history}
 						/>
@@ -102,6 +95,8 @@ export const AdminOrderStatus = ({auth, history, orderStatus}) => {
 							config={config}
 							setConfig={setConfig}
 							auth={auth}
+							setLoading={setLoading}
+							setError={setError}
 						/>
 					</ContentContainer>
 				</Container>
