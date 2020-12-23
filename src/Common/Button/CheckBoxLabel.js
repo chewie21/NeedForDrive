@@ -5,7 +5,6 @@ import React from "react";
 export const CustomCheckLabel = (props) => {
 
 	const styleProps = {
-		display: `block !important`,
 		width: 'fit-content',
 		color: `#999999`,
 		cursor: props.cursor ? props.cursor : 'pointer',

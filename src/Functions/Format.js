@@ -2,7 +2,7 @@ import DefaultImg from "../img/defaulImg.png";
 
 export const formatNumber = (number) =>
     (number.slice(0, 1) + ' ' + number.slice(1,4) +
-        ' ' + number.slice(4, 7) + ' ' + number.slice(7)).toUpperCase();
+        ' ' + number.slice(4, 6) + ' ' + number.slice(6)).toUpperCase();
 
 export const formatDateToOrderMain = (milliseconds) => {
     const date = new Date(milliseconds);
@@ -32,11 +32,12 @@ export const formatDateToOrderList = (milliseconds) => {
 };
 
 export const formatImgPath = (item, url) =>
-    item.thumbnail.path ?
-        item.thumbnail.path.charAt(0) === '/' ?
-            `${url}${item.thumbnail.path}` :
-            item.thumbnail.path :
-        DefaultImg;
+    Object.keys(item.thumbnail).length !== 0 ?
+        item.thumbnail.path ?
+            item.thumbnail.path.charAt(0) === '/' ?
+                `${url}${item.thumbnail.path}` :
+                item.thumbnail.path :
+            DefaultImg : DefaultImg;
 
 export const formatToken = (token) => {
     let range = (start, end) => [...Array(end - start).keys(), end - start].map(n => start + n);
@@ -96,4 +97,46 @@ export const formatToOrderInfo = (data) => {
         arr.push(obj);
     });
     return arr;
+}
+
+export const formatColor = (str) =>
+    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+export const formatFindEntityErrors = (obj) => {
+
+    if(obj.priceMax && obj.priceMin && (obj.priceMax < obj.priceMin)) return false;
+
+    const isEmpty = (obj) => {
+        for(let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    for(const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            if (typeof obj[key] === "string" || typeof obj[key] === "number") {
+                if (!obj[key]) return false;
+            } else if (typeof obj[key] !== "boolean") {
+                if (isEmpty(obj[key])) return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+export const formatToTableBody = (data, param) => {
+    if(param === `cars`) {
+        return data.map(item =>
+            [item.name, item.categoryId.name, item.number ? item.number : `Отсутствует`, item.tank ? `${item.tank}%` : 'Неизвестно']);
+    } else if (param === `name`) {
+        return data.map(item => [item.name]);
+    } else if (param === `point`) {
+        return data.map(item => [item.address, item.cityId.name, item.name]);
+    } else if (param === `rate`) {
+        return data.map(item => [`${item.price} (P/${item.rateTypeId.unit})`, item.rateTypeId.name,]);
+    }
 }

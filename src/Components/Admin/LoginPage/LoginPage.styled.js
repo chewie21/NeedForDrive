@@ -8,7 +8,7 @@ export const BackgroundContainer = styled.div`
 `;
 
 export const Container = styled.div`
-    width: 30%;
+    width: 375px;
     height: fit-content;
     position: absolute;
     top: 0;
@@ -16,6 +16,10 @@ export const Container = styled.div`
     bottom: 0;
     left: 0;
     margin: auto;
+  
+  	@media(max-width: 540px) {
+	  	width: 90%;
+	}
 `;
 
 export const Content = styled.div`

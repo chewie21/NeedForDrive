@@ -27,8 +27,6 @@ export const logoutRequest = (url, token) =>
             'X-Api-Factory-Application-Id': applicationID,
             'Authorization': token,
         }
-    }).then(res => {
-        console.log(res);
     });
 
 export const putRequest = (url, path, body, token = secret) =>

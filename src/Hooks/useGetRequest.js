@@ -8,7 +8,7 @@ export const useGetRequest = (url, token = secret) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+    const refreshResponse = () => {
         setLoading(true);
         getRequest(url, token)
             .then(
@@ -21,7 +21,11 @@ export const useGetRequest = (url, token = secret) => {
                     setLoading(false);
                 }
             )
-    },[url]);
+    }
 
-    return {response, error, loading}
+    useEffect(() => {
+        refreshResponse();
+    },[]);
+
+    return {response, error, loading, refreshResponse}
 }

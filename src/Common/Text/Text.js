@@ -7,5 +7,9 @@ export const Text = styled.p`
     font-size: ${props => props.size};
     color: ${props => props.color};
     width: ${props => props.width};
-    text-align: ${props => props.textAlign}
+    text-align: ${props => props.textAlign};
+
+	@media(max-width: 720px) {
+		font-size: ${props => props.smallSize};
+	}
 `;
