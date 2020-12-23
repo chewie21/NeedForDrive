@@ -5,10 +5,10 @@ import React from "react";
 import {Container} from "./ModalMessage.styled";
 import {closeModal} from "../../Functions/SendFunctions";
 
-export const ModalMessage = ({config, setConfig, margin}) =>
+export const ModalMessage = ({config, setConfig, margin = '0'}) =>
 	<Container
 		color={config.modalColor}
-		margin={margin ? margin : '0'}
+		margin={margin}
 	>
 		<Text
 			weight='normal'
